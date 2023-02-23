@@ -17,5 +17,12 @@
 	<p>회식합시다</p>
 	<p>이화정_테스트입니다</p>
 	<p>안진배 테스트 한번 더</p>
+	<hr>
+	<a href="/meen/meen.jsp">이민호</a> <br> <br>
+	<a href="/hj/test.jsp">이화정</a> <br> <br>
+	<a href="/keon/test.jsp">김건형</a> <br> <br>
+	<a href="/hb/hb_test.jsp">신혜빈</a> <br> <br>
+	<a href="/jb/test.jsp">안진배</a>
+	<hr>
 </body>
 </html>
