@@ -12,5 +12,6 @@
 	<p>수고하셨습니다</p>
 	<a href="/test.do">SERVLET TEST LINK1</a>
 	<p>조장 푸시테스트입니다~~</p>
+	<p>푸시테스트2입니다-건형</p>
 </body>
 </html>
