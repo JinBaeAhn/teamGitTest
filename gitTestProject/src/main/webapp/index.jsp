@@ -13,5 +13,6 @@
 	<a href="/test.do">SERVLET TEST LINK1</a>
 	<p>조장 푸시테스트입니다~~</p>
 	<p>푸시테스트2입니다-건형</p>
+	<p>신혜빈 테스트입니다^^</p>
 </body>
 </html>
