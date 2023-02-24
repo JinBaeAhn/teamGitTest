@@ -10,5 +10,6 @@
 	<h1>I made this</h1>
 	<hr>
 	<h3>Slack / Git hub  connection test</h3>
+	<p>test new Setting</p>
 </body>
 </html>
