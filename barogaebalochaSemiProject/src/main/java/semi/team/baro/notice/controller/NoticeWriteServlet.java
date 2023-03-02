@@ -1,11 +1,15 @@
-package semi.team.baro.mercenary.controller;
+package semi.team.baro.notice.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import semi.team.baro.notice.model.service.NoticeService;
+import semi.team.baro.notice.model.vo.Notice;
 
 /**
  * Servlet implementation class NoticeWriteServlet
@@ -26,7 +30,16 @@ public class NoticeWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+		String noticeCategory = request.getParameter("noticeCategory");
+		String noticeTitle = request.getParameter("noticeTitle");
+		String noticeContent = request.getParameter("noticeContent");
+		Notice notice = new Notice(memberNo, noticeCategory, noticeTitle, noticeContent);
+		NoticeService noticeService = new NoticeService();
+		
+		int result = noticeService.insertNotice(notice);
 	}
 
 	/**
