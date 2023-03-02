@@ -59,7 +59,7 @@
         </div>
         <div class="mercenary-wrap">
         <% for(Mercenary mc : list) {%>
-        <a href="/mercenaryView.do?mercenaryNo="<%=mc.getMemberNo() %>>
+        <a href="/mercenaryView.do?mercenaryNo=<%=mc.getMercenaryNo() %>">
         	<div class="mercenary-list">
                 <div class="mercenary-list-left">
                     <div class="mercenary-date">
