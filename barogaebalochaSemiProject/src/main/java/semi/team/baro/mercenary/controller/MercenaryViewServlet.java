@@ -2,6 +2,7 @@ package semi.team.baro.mercenary.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,10 +35,13 @@ public class MercenaryViewServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		//2.값추출
 		int mercenaryNo = Integer.parseInt(request.getParameter("mercenaryNo"));
-		MercenaryService service = new MercenaryService();
-		Mercenary mc = service.mercenaryView(mercenaryNo);
 		//3.비즈니스로직
+		MercenaryService service = new MercenaryService();
+		Mercenary mc = service.mercenaryView(mercenaryNo);		
 		//4.결과처리
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/mercenary/mercenaryView.jsp");
+		request.setAttribute("mc", mc);
+		view.forward(request, response);
 	}
 
 	/**

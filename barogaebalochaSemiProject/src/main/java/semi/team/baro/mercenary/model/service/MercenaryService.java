@@ -37,6 +37,7 @@ public class MercenaryService {
 	public Mercenary mercenaryView(int mercenaryNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		Mercenary mc = dao.mercenaryView(conn, mercenaryNo);
+		JDBCTemplate.close(conn);
 		return mc;
 	}
 	
