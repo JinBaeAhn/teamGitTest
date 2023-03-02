@@ -1,6 +1,7 @@
 package semi.team.baro.mercenary.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import semi.team.baro.mercenary.model.dao.MercenaryDao;
@@ -22,7 +23,21 @@ public class MercenaryService {
 		}else {
 			JDBCTemplate.rollback(conn);
 		}
+		JDBCTemplate.close(conn);
 		return result;
+	}
+
+	public ArrayList<Mercenary> mercenarySelectAll() {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Mercenary> list = dao.mercenarySelectAll(conn);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
+	public Mercenary mercenaryView(int mercenaryNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Mercenary mc = dao.mercenaryView(conn, mercenaryNo);
+		return mc;
 	}
 	
 }
