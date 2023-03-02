@@ -1,4 +1,4 @@
-package semi.team.baro.mercenary.controller;
+package semi.team.baro.notice.controller;
 
 import java.io.IOException;
 
