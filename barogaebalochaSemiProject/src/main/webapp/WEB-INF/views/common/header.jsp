@@ -26,7 +26,7 @@
                 <div class="nav">
                     <ul class="navi">
                         <li><a href="#">MATCHING</a></li>
-                        <li><a href="#">용병모집</a></li>
+                        <li><a href="/mercenaryList.do">용병모집</a></li>
                         <li><a href="#">구장</a></li>
                         <li><a href="#">공지사항</a></li>
                         <li><a href="#">게시판</a></li>
