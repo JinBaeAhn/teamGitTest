@@ -11,15 +11,15 @@ public class Mercenary {
 	private int readCount; //조회수
 	private String regDate; //작성일
 	private int mercenaryWhether; //용병모집상태(0:모집중 / 1:모집완료)
-	private int pay; //참가비
+	private int mercenaryPay; //참가비
 	private int level; //실력
 	public Mercenary() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Mercenary(int mercenaryNo, int memberNo, String location, String groundName, String gameDate,
-			String gameTime, String mercenaryContent, int readCount, String regDate, int mercenaryWhether, int pay,
-			int level) {
+			String gameTime, String mercenaryContent, int readCount, String regDate, int mercenaryWhether,
+			int mercenaryPay, int level) {
 		super();
 		this.mercenaryNo = mercenaryNo;
 		this.memberNo = memberNo;
@@ -31,7 +31,7 @@ public class Mercenary {
 		this.readCount = readCount;
 		this.regDate = regDate;
 		this.mercenaryWhether = mercenaryWhether;
-		this.pay = pay;
+		this.mercenaryPay = mercenaryPay;
 		this.level = level;
 	}
 	public int getMercenaryNo() {
@@ -94,11 +94,11 @@ public class Mercenary {
 	public void setMercenaryWhether(int mercenaryWhether) {
 		this.mercenaryWhether = mercenaryWhether;
 	}
-	public int getPay() {
-		return pay;
+	public int getMercenaryPay() {
+		return mercenaryPay;
 	}
-	public void setPay(int pay) {
-		this.pay = pay;
+	public void setMercenaryPay(int mercenaryPay) {
+		this.mercenaryPay = mercenaryPay;
 	}
 	public int getLevel() {
 		return level;

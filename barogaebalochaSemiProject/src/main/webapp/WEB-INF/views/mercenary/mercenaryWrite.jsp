@@ -94,7 +94,7 @@
                         <tr>
                             <th>경기시간</th>
                             <td>
-                                <select class="input-form" name="gateTime">
+                                <select class="input-form" name="gameTime">
                                     <option value="1">24 : 00 ~ 02 : 00</option>
                                     <option value="2">02 : 00 ~ 04 : 00</option>
                                     <option value="3">04 : 00 ~ 06 : 00</option>
@@ -128,7 +128,7 @@
                         <tr>
                             <th>참가비</th>
                             <td>
-                                <input type="text" class="input-form" placeholder="금액입력" name="pay">
+                                <input type="text" class="input-form" placeholder="금액입력" name="mercenaryPay">
                             </td>
                         </tr>
                         <tr>
