@@ -1,4 +1,4 @@
-package semi.team.baro.mercenary.controller;
+package semi.team.baro.notice.controller;
 
 import java.io.IOException;
 
@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class NoticeListServlet
+ * Servlet implementation class NoticeWriteFormServlet
  */
-@WebServlet(name = "NoticeList", urlPatterns = { "/noticeList.do" })
-public class NoticeListServlet extends HttpServlet {
+@WebServlet(name = "NoticeWriteForm", urlPatterns = { "/noticeWriteForm.do" })
+public class NoticeWriteFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeListServlet() {
+    public NoticeWriteFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,12 +28,9 @@ public class NoticeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/notice/noticeList.jsp");
-		requestDispatcher.forward(request, response); 
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/notice/noticeWriteForm.jsp");
+		requestDispatcher.forward(request, response);
 		
-		
-
 	}
 
 	/**

@@ -1,25 +1,27 @@
-package semi.team.baro.mercenary.controller;
+package semi.team.baro.notice.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semi.team.baro.notice.model.service.NoticeService;
+import semi.team.baro.notice.model.vo.Notice;
+
 /**
- * Servlet implementation class NoticeWriteFormServlet
+ * Servlet implementation class NoticeWriteServlet
  */
-@WebServlet(name = "NoticeWriteForm", urlPatterns = { "/noticeWriteForm.do" })
-public class NoticeWriteFormServlet extends HttpServlet {
+@WebServlet(name = "NoticeWrite", urlPatterns = { "/noticeWrite.do" })
+public class NoticeWriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeWriteFormServlet() {
+    public NoticeWriteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,9 +30,16 @@ public class NoticeWriteFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/notice/noticeWriteForm.jsp");
-		requestDispatcher.forward(request, response);
+		request.setCharacterEncoding("utf-8");
 		
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+		String noticeCategory = request.getParameter("noticeCategory");
+		String noticeTitle = request.getParameter("noticeTitle");
+		String noticeContent = request.getParameter("noticeContent");
+		Notice notice = new Notice(memberNo, noticeCategory, noticeTitle, noticeContent);
+		NoticeService noticeService = new NoticeService();
+		
+		int result = noticeService.insertNotice(notice);
 	}
 
 	/**
