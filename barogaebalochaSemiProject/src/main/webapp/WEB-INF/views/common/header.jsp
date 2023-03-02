@@ -29,7 +29,7 @@
                     <ul class="navi">
                         <li><a href="#">MATCHING</a></li>
                         <li><a href="/mercenaryList.do">용병모집</a></li>
-                        <li><a href="#">구장</a></li>
+                        <li><a href="/locationList.do">구장</a></li>
                         <li><a href="/noticeList.do">공지사항</a></li>
                         <li><a href="#">게시판</a></li>
                     </ul>
