@@ -3,10 +3,11 @@ package semi.team.baro.mercenary.model.vo;
 public class Mercenary {
 	private int mercenaryNo; //게시글번호
 	private int memberNo; //회원번호(작성자)
+	private String memberId; //회원아이디
 	private String location; //지역
 	private String groundName; //구장이름
 	private String gameDate; //게임날짜
-	private String gameTime; //게임시간
+	private int gameTime; //게임시간
 	private String mercenaryContent; //게시글내용
 	private int readCount; //조회수
 	private String regDate; //작성일
@@ -18,11 +19,12 @@ public class Mercenary {
 		// TODO Auto-generated constructor stub
 	}
 	public Mercenary(int mercenaryNo, int memberNo, String location, String groundName, String gameDate,
-			String gameTime, String mercenaryContent, int readCount, String regDate, int mercenaryWhether,
-			int mercenaryPay, int level) {
+			int gameTime, String mercenaryContent, int readCount, String regDate, int mercenaryWhether,
+			int mercenaryPay, int level, String memberId) {
 		super();
 		this.mercenaryNo = mercenaryNo;
 		this.memberNo = memberNo;
+		this.memberId = memberId;
 		this.location = location;
 		this.groundName = groundName;
 		this.gameDate = gameDate;
@@ -46,6 +48,12 @@ public class Mercenary {
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
 	public String getLocation() {
 		return location;
 	}
@@ -64,10 +72,13 @@ public class Mercenary {
 	public void setGameDate(String gameDate) {
 		this.gameDate = gameDate;
 	}
-	public String getGameTime() {
+	public int getGameTime() {
 		return gameTime;
 	}
-	public void setGameTime(String gameTime) {
+	public String getGameShowTime() {
+		return gameTime+" : 00 ~ "+(gameTime+2)+" : 00";
+	}
+	public void setGameTime(int gameTime) {
 		this.gameTime = gameTime;
 	}
 	public String getMercenaryContent() {
