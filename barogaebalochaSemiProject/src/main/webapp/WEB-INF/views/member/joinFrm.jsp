@@ -11,7 +11,7 @@
 		margin: 0 auto;
 	}
 	.page-title{
-		font-size: 20px;
+		font-size: 40px;
 	}
 	.input-wrap>img{
 		width: 100px;
@@ -50,6 +50,7 @@
     }
     #imgFile{
     	display : none;
+<<<<<<< Updated upstream
     }
     .agree-content{
         width: 100%;
@@ -57,6 +58,8 @@
         overflow: scroll;
         border: 1px solid #ccc;
         font-size: 12px;
+=======
+>>>>>>> Stashed changes
     }
 </style>
 </head>
@@ -85,7 +88,11 @@
                     <div class="input-wrap">
                         <label for="memberPw">비밀번호</label>
                         <div>
+<<<<<<< Updated upstream
                             <input type="text" name="memberPw" id="memberPw" class="id-input" placeholder="비밀번호를 입력해주세요(8~16글자)" required>
+=======
+                            <input type="text" name="memberPw" id="memberPw" class="id-input" placeholder="비밀번호를 입력해주세요">
+>>>>>>> Stashed changes
                         </div>
                         <span id="msg1"></span>
                     </div>
@@ -430,10 +437,26 @@
             </div>
         </div>
         <script>
+<<<<<<< Updated upstream
         $("#memberPw").on("focus",function(){
     		const inputType = $(this).attr("type");
             if(inputType === "text"){
                 $(this).attr("type","password");
+=======
+        	$("#memberPw").on("click",function(){
+        		$(this).type("password");
+        	});
+            function loadImg(f){
+                if(f.files.length !=0 && f.files[0] !=0){
+                    const reader = new FileReader();
+                    reader.readAsDataURL(f.files[0]);
+                    reader.onload = function(e){
+                        $("#img-view").attr("src",e.target.result);
+                    }
+                }else{
+                    $("#img-view").attr("src","img/profile.png");
+                }
+>>>>>>> Stashed changes
             }
     	});
         $("#memberPwRe").on("focus",function(){

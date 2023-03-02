@@ -2,27 +2,29 @@ package semi.team.baro.mercenary.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import semi.team.baro.mercenary.model.vo.Mercenary;
 
 public class MercenaryDao {
 
-	public int mercenaryInsert(Connection conn, Mercenary m) {
+	public int mercenaryInsert(Connection conn, Mercenary mc) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String query = "insert into mercenary values(mercenary_seq.nextval, 0, ?, ?, ?, ?, ?, ?, 0, to_char(sysdate, 'yyyy-mm-dd'), 0, ?)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, m.getGroundName());
-			pstmt.setString(2, m.getGameDate());
-			pstmt.setString(3, m.getLocation());
-			pstmt.setString(4, m.getGameTime());
-			pstmt.setString(5, m.getMercenaryContent());
-			pstmt.setInt(6, m.getMercenaryPay());
-			pstmt.setInt(7, m.getLevel());
+			pstmt.setString(1, mc.getLocation());
+			pstmt.setString(2, mc.getGroundName());
+			pstmt.setString(3, mc.getGameDate());
+			pstmt.setInt(4, mc.getGameTime());
+			pstmt.setString(5, mc.getMercenaryContent());
+			pstmt.setInt(6, mc.getMercenaryPay());
+			pstmt.setInt(7, mc.getLevel());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -32,6 +34,76 @@ public class MercenaryDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<Mercenary> mercenarySelectAll(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Mercenary> list = new ArrayList<Mercenary>();
+		String query = "select * from mercenary";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Mercenary mc = new Mercenary();
+				mc.setGameDate(rset.getString("game_date"));
+				mc.setGameTime(rset.getInt("game_time"));
+				mc.setGroundName(rset.getString("ground_name"));
+				mc.setLevel(rset.getInt("skill"));
+				mc.setLocation(rset.getString("game_location"));
+				mc.setMemberNo(rset.getInt("member_no"));
+				mc.setMercenaryContent(rset.getString("mercenary_content"));
+				mc.setMercenaryNo(rset.getInt("mercenary_no"));
+				mc.setMercenaryPay(rset.getInt("mercenary_pay"));
+				mc.setMercenaryWhether(rset.getInt("mercenary_whether"));
+				mc.setReadCount(rset.getInt("read_count"));
+				mc.setRegDate(rset.getString("reg_date"));
+				list.add(mc);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rset);
+		}
+		return list;
+	}
+
+	public Mercenary mercenaryView(Connection conn, int mercenaryNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Mercenary mc = null;
+		String query = "select game_location, ground_name, game_date, game_time, mercenary_content, mercenary_pay, read_count, reg_date, mercenary_whether, skill, member_id from mercenary join member_tbl using(member_no) where mercenary_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mercenaryNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				mc = new Mercenary();
+				mc.setGameDate(rset.getString("game_date"));
+				mc.setGameTime(rset.getInt("game_time"));
+				mc.setGroundName(rset.getString("ground_name"));
+				mc.setLevel(rset.getInt("skill"));
+				mc.setLocation(rset.getString("game_location"));
+				mc.setMemberId(rset.getString("member_id"));
+				mc.setMercenaryContent(rset.getString("mercenary_content"));
+				mc.setMercenaryPay(rset.getInt("mercenary_pay"));
+				mc.setMercenaryWhether(rset.getInt("mercenary_whether"));
+				mc.setReadCount(rset.getInt("read_count"));
+				mc.setRegDate(rset.getString("reg_date"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rset);
+		}
+		
+		return mc;
 	}
 
 }
