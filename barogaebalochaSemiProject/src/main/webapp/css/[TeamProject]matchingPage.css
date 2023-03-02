@@ -1,0 +1,50 @@
+
+.matchingPage-match-table{
+    margin: 0 auto;
+    width: 800px;
+    border-spacing: 0;
+}
+.matchingPage-title{
+    text-align: center;
+}
+.matchingPage-match-table>tbody>tr>td{
+    text-align: center;
+    height: 80px;
+   
+}
+.matchingPage-match-table>tbody>tr:not(:nth-child(-n+2))>td{
+border-top: 1px solid #181818;
+}
+.matchingPage-match-table>tbody>tr{
+    overflow: hidden;
+}
+.matchingPage-match-content{
+    width: 500px;
+}
+.matchingPage-location-btn{
+    width: 80px;
+    height: 40px;
+    float: left;
+    background-color: rgba(37, 42, 52, 1);
+    cursor: pointer;
+    color: #fff;
+    border: 2px solid rgba(57, 62, 70, 1);
+    outline: none;
+    border: none;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 20px;
+    font-size: 13px;
+}
+.matchingPage-apply-btn{
+    width: 100px;
+    height: 40px;
+    float: right;
+    background-color: rgba(37, 42, 52, 1);
+    cursor: pointer;
+    color: #fff;
+    border: 2px solid rgba(57, 62, 70, 1);
+    outline: none;
+    border: none;
+    font-size: 13px;
+}

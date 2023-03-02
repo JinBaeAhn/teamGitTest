@@ -1,0 +1,86 @@
+.page-content{
+   
+}
+.memberInfo-modal-wrap{
+    width: 750px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.memberInfo-page-title{
+    width: 700px;
+    height: 70px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.memberInfo-page-title>p{
+    text-align: center;
+    font-size: 30px;
+    line-height: 70px;
+    margin-top: 0px;
+}
+.memberInfo-info-wrap{
+    overflow: hidden;
+}
+.memberInfo-photo{
+    width: 300px;
+    height: 300px;
+    margin-left: 50px;
+    float: left;
+}
+.memberInfo-photo>img{
+    width: 300px;
+    height: 300px;
+}
+.memberInfo-info{
+    width: 350px;
+    float: left;
+    margin-left: 50px;
+}
+.memberInfo-info>div{
+    width: 350px;
+    height: 30px;
+    margin-bottom: 18px;
+}
+.memberInfo-info>div>textarea{
+    width: 300px;
+    height: 100px;
+    resize: none;
+    text-align: left;
+    border: 1px solid #ccc;
+}
+.memberInfo-btn-wrap{
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.memberInfo-okay{
+    width: 200px;
+    height: 60px;
+    float: left;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    background-color: rgba(37, 42, 52, 1);
+    cursor: pointer;
+    color: #fff;
+    border: 2px solid rgba(57, 62, 70, 1);
+    outline: none;
+    font-size: 20px;
+}
+.memberInfo-cancel{
+    width: 200px;
+    height: 60px;
+    float: left;
+    margin-left: 100px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    background-color: rgba(37, 42, 52, 1);
+    cursor: pointer;
+    color: #fff;
+    border: 2px solid rgba(57, 62, 70, 1);
+    outline: none;
+    font-size: 20px;
+}
