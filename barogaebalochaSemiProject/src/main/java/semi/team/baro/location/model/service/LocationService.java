@@ -54,7 +54,7 @@ public class LocationService {
 		//이전버튼
 		if(pageNo != 1) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item active-page' href='locationList.do?requestPage="+(pageNo)+"'>";
+			pageNavi += "<a class='page-item' href='/locationList.do?requestPage="+(pageNo-1)+"'>";
 			pageNavi += "<span class='material-icons'>chevron_left</span>";
 			pageNavi += "</a></li>";
 		}
@@ -62,7 +62,12 @@ public class LocationService {
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
 				pageNavi += "<li>";
-				pageNavi += "<a class='page-item active-page' href='/locationList.do?requestPage"+(pageNo)+"'>";
+				pageNavi += "<a class='page-item active-page' href='/locationList.do?requestPage="+(pageNo)+"'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			}else {
+				pageNavi += "<li>";
+				pageNavi += "<a class='page-item' href='/locationList.do?requestPage="+(pageNo)+"'>";
 				pageNavi += pageNo;
 				pageNavi += "</a></li>";
 			}
@@ -74,7 +79,7 @@ public class LocationService {
 		//다음버튼
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/locationList.do?requestPage"+(pageNo)+"'>";
+			pageNavi += "<a class='page-item' href='/locationList.do?requestPage="+(pageNo)+"'>";
 			pageNavi += "<span class='material-icons'>chevron_right</span>";
 			pageNavi += "</a></li>";
 		}
