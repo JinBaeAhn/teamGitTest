@@ -267,6 +267,35 @@ textarea.input-form {
     background-color: #252a34;
     color: #fff;
 }
+/*댓글*/
+.comment-wrap{
+    overflow: hidden;
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+}
+.posting-comment{
+    float: left;
+    margin-right: 15px;
+    padding-top: 15px;
+}
+.posting-comment>span{
+    color: #ccc;
+    font-size: 55px;
+}
+.posting-info>span{
+    font-family: ns-bold;
+    font-size: 18x;
+}
+.posting-info>p:last-child{
+    color: #ccc;
+}
+.posting-link{
+    float: right;
+}
+.posting-link>a{
+    color: #ccc;
+}
 
 /*푸터*/
 a {

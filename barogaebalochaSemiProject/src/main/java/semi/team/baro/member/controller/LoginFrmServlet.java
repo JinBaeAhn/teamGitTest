@@ -1,4 +1,4 @@
-package semi.team.baro.mercenary.controller;
+package semi.team.baro.member.controller;
 
 import java.io.IOException;
 
@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class NoticeWriteFormServlet
+ * Servlet implementation class LoginFrmServlet
  */
-@WebServlet(name = "NoticeWriteForm", urlPatterns = { "/noticeWriteForm.do" })
-public class NoticeWriteFormServlet extends HttpServlet {
+@WebServlet("/loginFrm.do")
+public class LoginFrmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeWriteFormServlet() {
+    public LoginFrmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,9 +28,13 @@ public class NoticeWriteFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/notice/noticeWriteForm.jsp");
-		requestDispatcher.forward(request, response);
-		
+		//1.인코딩
+		request.setCharacterEncoding("utf-8");
+		//2.값추출
+		//3.비즈니스로직
+		//4.결과처리
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/member/loginFrm.jsp");
+		view.forward(request, response);
 	}
 
 	/**
