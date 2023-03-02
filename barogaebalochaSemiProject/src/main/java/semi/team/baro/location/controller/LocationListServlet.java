@@ -1,6 +1,8 @@
 package semi.team.baro.location.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,14 +15,14 @@ import semi.team.baro.location.model.vo.LocationPageData;
 /**
  * Servlet implementation class LocationLIstServlet
  */
-@WebServlet(name = "LocationLIst", urlPatterns = { "/locationLIst.do" })
-public class LocationLIstServlet extends HttpServlet {
+@WebServlet(name = "LocationList", urlPatterns = { "/locationList.do" })
+public class LocationListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LocationLIstServlet() {
+    public LocationListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,6 +39,11 @@ public class LocationLIstServlet extends HttpServlet {
 		LocationService service = new LocationService();
 		LocationPageData lpd = service.selectLocationList(reqPage);
 		//4.결과처리
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/location/locationList.jsp");
+		request.setAttribute("list", lpd.getList());
+		request.setAttribute("pageNavi", lpd.getPageNavi());
+		request.setAttribute("start",lpd.getStart());
+		view.forward(request, response);
 	}
 
 	/**
