@@ -23,7 +23,7 @@
             <div class="header-content">
                 <div class="header-link">
                     <a href="/joinFrm.do">JOIN</a>
-                    <a href="#">LOGIN</a>
+                    <a href="/loginFrm.do">LOGIN</a>
                 </div>                
                 <div class="nav">
                     <ul class="navi">
