@@ -20,7 +20,7 @@
             </div>
             <div class="header-content">
                 <div class="header-link">
-                    <a href="#">JOIN</a>
+                    <a href="/joinFrm.do">JOIN</a>
                     <a href="#">LOGIN</a>
                 </div>                
                 <div class="nav">
