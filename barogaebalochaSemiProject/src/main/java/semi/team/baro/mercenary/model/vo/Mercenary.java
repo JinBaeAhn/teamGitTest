@@ -84,6 +84,9 @@ public class Mercenary {
 	public String getMercenaryContent() {
 		return mercenaryContent;
 	}
+	public String getMercenaryContentBr() {
+		return mercenaryContent.replaceAll("\r\n", "<br>");
+	}
 	public void setMercenaryContent(String mercenaryContent) {
 		this.mercenaryContent = mercenaryContent;
 	}
