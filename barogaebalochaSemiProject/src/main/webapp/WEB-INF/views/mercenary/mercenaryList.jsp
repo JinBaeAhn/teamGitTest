@@ -94,7 +94,7 @@
                 </div>
             </div>
         </div>
-        <div class="button"><a href="#" class="btn1 bc2 bs2">작성하기</a></div>
+        <div class="button"><a href="/mercenaryWrite.do" class="btn1 bc2 bs2">작성하기</a></div>
 	</div>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
