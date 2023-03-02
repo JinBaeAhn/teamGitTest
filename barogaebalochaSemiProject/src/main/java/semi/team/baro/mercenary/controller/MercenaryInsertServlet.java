@@ -38,11 +38,10 @@ public class MercenaryInsertServlet extends HttpServlet {
 		m.setLocation(request.getParameter("location"));
 		m.setGroundName(request.getParameter("groundName"));
 		m.setGameDate(request.getParameter("gameDate"));
-		m.setGameTime(request.getParameter("gameTime"));
+		m.setGameTime(Integer.parseInt(request.getParameter("gameTime")));
 		m.setLevel(Integer.parseInt(request.getParameter("level")));
 		m.setMercenaryPay(Integer.parseInt(request.getParameter("mercenaryPay")));
 		m.setMercenaryContent(request.getParameter("mercenaryContent"));
-		System.out.println(m.getLocation()+m.getGroundName()+m.getGameDate()+m.getGameTime()+m.getLevel()+m.getMercenaryPay()+m.getMercenaryContent());
 		//3. 비즈니스로직
 		MercenaryService service = new MercenaryService();
 		int result = service.mercenaryInsert(m);
@@ -55,7 +54,7 @@ public class MercenaryInsertServlet extends HttpServlet {
 			request.setAttribute("loc", "/mercenaryList.do");
 		}else {
 			request.setAttribute("icon", "error");
-			request.setAttribute("title", "작성완료");
+			request.setAttribute("title", "작성실패");
 			request.setAttribute("msg", "오류가 발생했습니다.");
 			request.setAttribute("loc", "/mercenaryList.do");
 		}

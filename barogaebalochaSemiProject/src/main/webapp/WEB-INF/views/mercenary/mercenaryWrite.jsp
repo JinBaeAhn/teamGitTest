@@ -95,18 +95,18 @@
                             <th>경기시간</th>
                             <td>
                                 <select class="input-form" name="gameTime">
-                                    <option value="1">24 : 00 ~ 02 : 00</option>
-                                    <option value="2">02 : 00 ~ 04 : 00</option>
-                                    <option value="3">04 : 00 ~ 06 : 00</option>
-                                    <option value="4">06 : 00 ~ 08 : 00</option>
-                                    <option value="5">08 : 00 ~ 10 : 00</option>
-                                    <option value="6">10 : 00 ~ 12 : 00</option>
-                                    <option value="7">12 : 00 ~ 14 : 00</option>
-                                    <option value="8">14 : 00 ~ 16 : 00</option>
-                                    <option value="9">16 : 00 ~ 18 : 00</option>
-                                    <option value="10">18 : 00 ~ 20 : 00</option>
-                                    <option value="11">20 : 00 ~ 22 : 00</option>
-                                    <option value="12">22 : 00 ~ 24 : 00</option>
+                                    <option value="24">24 : 00 ~ 02 : 00</option>
+                                    <option value="02">02 : 00 ~ 04 : 00</option>
+                                    <option value="04">04 : 00 ~ 06 : 00</option>
+                                    <option value="06">06 : 00 ~ 08 : 00</option>
+                                    <option value="08">08 : 00 ~ 10 : 00</option>
+                                    <option value="10">10 : 00 ~ 12 : 00</option>
+                                    <option value="12">12 : 00 ~ 14 : 00</option>
+                                    <option value="14">14 : 00 ~ 16 : 00</option>
+                                    <option value="16">16 : 00 ~ 18 : 00</option>
+                                    <option value="18">18 : 00 ~ 20 : 00</option>
+                                    <option value="20">20 : 00 ~ 22 : 00</option>
+                                    <option value="22">22 : 00 ~ 24 : 00</option>
                                 </select>
                             </td>
                         </tr>
@@ -148,11 +148,20 @@
         </div> 
 	</div>
 	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-	<script>
-            $( function() {
-                $( "#datepicker" ).datepicker();
-            } );
+    <script>
+	    $( function() {
+	      $( "#datepicker" ).datepicker({
+	        changeMonth: true,
+	        dayNames: ['월요일','화요일','수요일','목요일','금요일','토요일','일요일'],
+	        dayNamesMin: ['월','화','수','목','금','토','일'],
+	        monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	        minDate: 0,
+	        maxDate: "+6M"
+	      });
+	    });
     </script>
+
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

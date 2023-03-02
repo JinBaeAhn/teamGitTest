@@ -1,5 +1,10 @@
+<%@page import="semi.team.baro.mercenary.model.vo.Mercenary"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+    	ArrayList<Mercenary> list = (ArrayList<Mercenary>)request.getAttribute("list");
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,46 +58,30 @@
             <hr>
         </div>
         <div class="mercenary-wrap">
-            <div class="mercenary-list">
+        <% for(Mercenary mc : list) {%>
+        <a href="/mercenaryView.do?mercenaryNo=<%=mc.getMercenaryNo() %>">
+        	<div class="mercenary-list">
                 <div class="mercenary-list-left">
                     <div class="mercenary-date">
                         <ul>
-                            <li style="font-size: 15px;">서울</li>
-                            <li>2023.02.28</li>
-                            <li>16:00 ~ 18:00</li>
+                            <li style="font-size: 15px;"><%=mc.getLocation() %></li>
+                            <li><%=mc.getGameDate() %></li>
+                            <li><%=mc.getGameShowTime() %></li>
                         </ul>
                     </div>
                     <div class="mercenary-info">
                         <ul>
                             <li style="font-size: 20px;">구장이름</li>
-                            <li>실력 : 상</li>
+                            <li>실력 : <%=mc.getLevel() %></li>
                         </ul>
                     </div>
                 </div>
                 <div class="mercenary-result">
                     <a class="btn1" style="background-color: #AACB73; color:#fff">모집중</a>
                 </div>
-            </div>
-            <div class="mercenary-list">
-                <div class="mercenary-list-left">
-                    <div class="mercenary-date">
-                        <ul>
-                            <li style="font-size: 15px;">서울</li>
-                            <li>2023.02.28</li>
-                            <li>16:00 ~ 18:00</li>
-                        </ul>
-                    </div>
-                    <div class="mercenary-info">
-                        <ul>
-                            <li style="font-size: 20px;">구장이름</li>
-                            <li>실력 : 상</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="mercenary-result">
-                    <a class="btn1" style="background-color: #AACB73; color:#fff">모집중</a>
-                </div>
-            </div>
+            </div>	
+           </a>	
+        <%} %>                     
         </div>
         <div class="button"><a href="/mercenaryWrite.do" class="btn1 bc2 bs2">작성하기</a></div>
 	</div>
