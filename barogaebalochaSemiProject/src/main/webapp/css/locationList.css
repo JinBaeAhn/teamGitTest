@@ -62,9 +62,31 @@
     margin-left: 20px;
     float: left;
 }
+.locationList-location-name{
+    width: 330px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
 .loactionList-info{
     width: 330px;
-    height: 150px;
+    height: 100px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.loactionList-info::-webkit-scrollbar {
+    width: 5px;
+    
+}
+.loactionList-info::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+
+}
+.loactionList-info::-webkit-scrollbar-track {
+    background-color: grey;
 }
 .loactionList-sub-img>img{
     width: 50px;

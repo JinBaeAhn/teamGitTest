@@ -1,26 +1,25 @@
-package semi.team.baro.location.controller;
+package semi.team.baro.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.team.baro.location.model.service.LocationService;
-import semi.team.baro.location.model.vo.LocationPageData;
-
 /**
- * Servlet implementation class LocationLIstServlet
+ * Servlet implementation class SendMailServlet
  */
-@WebServlet(name = "LocationLIst", urlPatterns = { "/locationLIst.do" })
-public class LocationLIstServlet extends HttpServlet {
+@WebServlet(name = "SendMail", description = "SendMail", urlPatterns = { "/sendMail.do" })
+public class SendMailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LocationLIstServlet() {
+    public SendMailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,11 +31,13 @@ public class LocationLIstServlet extends HttpServlet {
 		//1.인코딩
 		request.setCharacterEncoding("utf-8");
 		//2.값추출
-		int reqPage = Integer.parseInt(request.getParameter("requestPage"));
+		String email = request.getParameter("email");
 		//3.비즈니스로직
-		LocationService service = new LocationService();
-		LocationPageData lpd = service.selectLocationList(reqPage);
+		MailSender sender = new MailSender();
+		String randomCode = sender.sendMail(email);
 		//4.결과처리
+		PrintWriter out = response.getWriter();
+		out.print(randomCode);
 	}
 
 	/**

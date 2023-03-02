@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <style>
     .wrap{
-		width: 1200px;
+		width: 100%;
 		margin: 0 auto;
 	}
 	.page-title{
@@ -47,6 +47,7 @@
     }
     #img-view{
         width: 200px;
+        border-radius: 50%;
     }
     #imgFile{
     	display : none;
@@ -73,27 +74,25 @@
                         <label for="imgFile">
                             <img src="img/profile.png" id="img-view">
                         </label>
-                        <input type="file" name="imgFile" id="imgFile" onchange="loadImg(this);">
+                        <input type="file" name="imgFile" id="imgFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this);">
                     </div>
                     <div class="input-wrap">
                         <label for="memberId">아이디<span id="ajaxCheckId"></span></label>
                         <div class="id-wrap">
-                            <input type="text" name="memberId" id="memberId" class="id-input" placeholder="아이디를 입력해주세요" required>
-                            <button type="button" id="idChkBtn" class="btn2 bc1 bs1">중복체크</button>
+                            <input type="text" name="memberId" id="memberId" class="input-form" placeholder="아이디를 입력해주세요" required>
                         </div>
                     </div>
                     <div class="input-wrap">
                         <label for="memberPw">비밀번호</label>
                         <div>
-                            <input type="text" name="memberPw" id="memberPw" class="id-input" placeholder="비밀번호를 입력해주세요(8~16글자)" required>
-                            <input type="text" name="memberPw" id="memberPw" class="id-input" placeholder="비밀번호를 입력해주세요">
+                            <input type="text" name="memberPw" id="memberPw" class="input-form" placeholder="비밀번호를 입력해주세요(8~16글자)" required>
                         </div>
                         <span id="msg1"></span>
                     </div>
                     <div class="input-wrap">
                         <label for="memberPwRe">비밀번호 확인</label>
                         <div>
-                            <input type="text" name="memberPwRe" id="memberPwRe" class="id-input" placeholder="비밀번호를 한번 더 입력해주세요" required>
+                            <input type="text" name="memberPwRe" id="memberPwRe" class="input-form" placeholder="비밀번호를 한번 더 입력해주세요" required>
                         </div>
                         <span id="msg2"></span>
                     </div>
@@ -114,7 +113,7 @@
                                 <option value="019">019</option>
                             </select>
                             <input type="text" name="memberPhone2" id="memberPhone2" class="input-form-short" placeholder="'-'없이 입력해주세요" required>
-                            <input type="text" name="memberPhone3" id="memberPhone3" class="input-form-short"placeholder="'-'없이 입력해주세요" required>
+                            <input type="text" name="memberPhone3" id="memberPhone3" class="input-form-short" placeholder="'-'없이 입력해주세요" required>
                         </div>
                     </div>
                     <div class="input-wrap">
@@ -159,8 +158,13 @@
                     <div class="input-wrap">
                         <label for="mailChk">이메일 인증</label>
                         <div>
-                            <input type="text" name="mailChk" id="mailChk" class="input-form-short" placeholder="인증문자를 입력해주세요.">
-                            <button type="button" id="mailChkBtn" class="btn2 bc1 bs1">인증메일발송</button>
+                            <input type="text" name="mailChk" id="authCode" class="input-form-short" placeholder="인증번호를 입력해주세요.">
+                            <button type="button" id="sendBtn" class="btn2 bc1 bs1">인증메일발송</button>
+                            <div id="auth" style="display : none;">
+                            	<button class="btn bc1" id="authBtn">인증하기</button>
+                            	<span id="timeZone"></span>
+                            	<span id="authMsg"></span>
+                            </div>
                         </div>
                     </div>
                     <div class="input-wrap">
@@ -431,25 +435,24 @@
             </div>
         </div>
         <script>
+        function loadImg(f){
+           if(f.files.length !=0 && f.files[0] !=0){
+                const reader = new FileReader();
+                reader.readAsDataURL(f.files[0]);
+                reader.onload = function(e){
+                    $("#img-view").attr("src",e.target.result);
+                }
+           }else{
+                $("#img-view").attr("src","img/profile.png");
+                }
+           }
+    	
         $("#memberPw").on("focus",function(){
     		const inputType = $(this).attr("type");
             if(inputType === "text"){
                 $(this).attr("type","password");
-        	$("#memberPw").on("click",function(){
-        		$(this).type("password");
-        	});
-            function loadImg(f){
-                if(f.files.length !=0 && f.files[0] !=0){
-                    const reader = new FileReader();
-                    reader.readAsDataURL(f.files[0]);
-                    reader.onload = function(e){
-                        $("#img-view").attr("src",e.target.result);
-                    }
-                }else{
-                    $("#img-view").attr("src","img/profile.png");
-                }
             }
-    	});
+        });
         $("#memberPwRe").on("focus",function(){
     		const inputType = $(this).attr("type");
             if(inputType === "text"){
@@ -482,6 +485,7 @@
                 $(this).css("border","1px solid red");
             }
         });
+        
         function loadImg(f){
             if(f.files.length !=0 && f.files[0] !=0){
                 const reader = new FileReader();
@@ -493,18 +497,6 @@
                 $("#img-view").attr("src","img/profile.png");
             }
         }
-        $("#idChkBtn").on("click",function(){
-            const memberId = $("#memberId").val();
-            if(memberId == ""){
-                alert("아이디를 입력하세요");
-                return;
-            }
-                
-            $("[name=checkId]").val(memberId);
-            window.open("","checkId","left=700px,top=300px,width=300px,height=200px,menubar=no,status=no,scrollbars=yes");
-            $("[name=chackIdFrm]").attr("target","checkId");
-            $("[name=checkIdFrm]").submit();
-        });
 
         $("#memberId").on("keyup",function(){
             const memberId = $(this).val();
@@ -532,6 +524,86 @@
         $("#all-agree").on("change",function(){
             $(".checkbox").prop("checked",$(this).prop("checked"));
         });
+        
+        let mailCode;
+		$("#sendBtn").on("click",function(){
+			const email1 = $("#memberMail1").val();
+			const email2 = $("#memberMail2").val();
+			const email = email1+"@"+email2;
+			
+			$.ajax({
+				url : "/sendMail.do",
+				data : {email : email},
+				type : "post",
+				success : function(data){
+					
+					if(data == "null"){
+						alert("이메일 주소를 올바르지 않습니다.")
+					}else{
+						mailCode = data;
+						$("#auth").slideDown();
+						authTime();
+					}
+				},
+				error : function(){
+					console.log("에러발생");
+				}
+			});
+			
+		});
+		let intervalId;
+		function authTime(){
+			$("#timeZone").html("<span id='min'>3</span> : <span id='sec'>00</span>");
+			
+			intervalId = window.setInterval(function(){
+				timeCount();
+			},1000);
+		}
+		
+		function timeCount(){
+			const min = $("#min").text();
+			const sec = $("#sec").text();
+			
+			if(sec == "00"){
+				if(min != "0"){
+					const newMin = Number(min)-1;
+					$("#min").text(newMin);
+					$("#sec").text(59);		
+				}else{
+					window.clearInterval(intervalId);
+					mailCode = null;
+					$("#authMsg").text("인증시간 만료");
+					$("#authMsg").css("color","red");
+				}
+			}else{
+				const newSec = Number(sec)-1;
+				if(newSec <10){
+					$("#sec").text("0"+newSec);
+				}else{
+					$("#sec").text(newSec);
+				}
+			}
+		}
+		
+		$("#authBtn").on("click",function(){
+			if(mailCode == null){
+				$("#authMsg").text("인증시간 만료");
+				$("#authMsg").css("color","red");
+			}else{
+				
+				const authCode = $("#authCode").val();
+				
+				if(authCode == mailCode){
+					$("#authCode").prop("readonly",true);
+					$("#authMsg").text("인증완료");
+					$("#authMsg").css("color","blue");
+					clearInterval(intervalId);
+				}else{
+					$("#authMsg").text("인증실패");
+					$("#authMsg").css("color","red");
+				}
+			}
+		});
         </script>
         <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	   </body>
