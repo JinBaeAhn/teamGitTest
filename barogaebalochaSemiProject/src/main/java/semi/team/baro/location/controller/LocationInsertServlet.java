@@ -1,4 +1,4 @@
-package semi.team.baro.mercenary.controller;
+package semi.team.baro.location.controller;
 
 import java.io.IOException;
 
@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class NoticeListServlet
+ * Servlet implementation class LocationInsertServlet
  */
-@WebServlet(name = "NoticeList", urlPatterns = { "/noticeList.do" })
-public class NoticeListServlet extends HttpServlet {
+@WebServlet(name = "LocationInsert", urlPatterns = { "/locationInsert.do" })
+public class LocationInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeListServlet() {
+    public LocationInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,12 +28,13 @@ public class NoticeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//1. 인코딩
 		request.setCharacterEncoding("utf-8");
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/notice/noticeList.jsp");
-		requestDispatcher.forward(request, response); 
-		
-		
-
+		//2. 값추출
+		//3. 비즈니스로직
+		//4. 결과처리
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/location/locationInsertFrm.jsp");
+		view.forward(request, response);
 	}
 
 	/**
