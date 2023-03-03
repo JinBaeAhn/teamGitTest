@@ -5,32 +5,24 @@
     <%
     	ArrayList<Notice> noticeList = (ArrayList<Notice>)request.getAttribute("noticeList");
     %>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
-<body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
 	<div class="page-content">
-		<h1>Notice List</h1>
-		<table class="notice-tbl col-md-12 table">
+		<h1>공지사항</h1>
+		<%//col-md-12%>
+		<table class="notice-list-tbl table table-hover">
 			<tr>
 				<th class="col-md-1">No</th>
-				<th class="col-md-5">Title</th>
+				<th class="col-md-1">Category</th>
+				<th class="col-md-4">Title</th>
 				<th class="col-md-3">Writer</th>
 				<th class="col-md-2">WriteDate</th>
 				<th class="col-md-1">Read</th>
 			</tr>
-			
-		<a href="/noticeWriteForm.do">공지사항</a>
 		<%for(Notice notice : noticeList) { %>
 			<tr>
 				<td><%=notice.getNoticeNo() %></td>
-				<td><%=notice.getNoticeTitle() %></td>
+				<td><%=notice.getNoticeCategory() %></td>
+				<td class="notice-list-title"><a href="/noticeView.do?noticeNo=<%=notice.getNoticeNo()%>"><%=notice.getNoticeTitle() %></a></td>
 				<td><%=notice.getMemberId() %></td>
 				<td><%=notice.getRegDate() %></td>
 				<td><%=notice.getReadCount() %></td>
@@ -38,7 +30,11 @@
 		<%} %>
 			
 		</table>
+		<div class="notice-btn-box">
+			<a href="/noticeWriteForm.do" class="btn btn-outline-secondary btn-lg">공지사항 작성하기</a>
+		</div>
 	</div>
+	<script type="text/javascript">
+	
+	</script>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
-</body>
-</html>

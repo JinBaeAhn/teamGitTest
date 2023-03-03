@@ -1,23 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
-
-<body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
 	<script src="/summernote/summernote-lite.js"></script>
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
 	<div class="page-content">
-		<h1>Notice Write  Form</h1>
+		<h1>공지사항 작성</h1>
 		<form action="/noticeWrite.do" method="post" class="row g-3">
+		
+		
+		<!-- 수정필요부분 1 -->
 			<input type="hidden" name="memberNo" value="0">
+			
+			
   			<div class="col-md-8">
 				<input type="text" name="noticeTitle" class="form-control" placeholder="제목을 입력해주세요." required>
 			</div>
@@ -25,7 +20,7 @@
 				<select class="form-select" name="noticeCategory" aria-label="Default select example">
 					<option value="notice" selected>공지사항</option>
 					<option value="event">이벤트</option>
-					<option value="Test">Test</option>
+					<option value="Test">TEST</option>
 				</select>
 			</div>
 			<div class="form-group"><textarea class="form-control" name="noticeContent" id="noticeContent" rows="20"placeholder="내용을 입력해주세요" required></textarea></div>
@@ -64,5 +59,3 @@
 		}
 		</script>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
-</body>
-</html>
