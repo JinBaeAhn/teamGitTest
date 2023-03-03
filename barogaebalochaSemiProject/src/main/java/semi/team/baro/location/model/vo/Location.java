@@ -8,6 +8,7 @@ public class Location {
 	private String groundLng;
 	private String groundContent;
 	private String filePath;
+	private String groundLocation;
 	
 	public Location() {
 		super();
@@ -15,7 +16,7 @@ public class Location {
 	}
 
 	public Location(int groundNo, String groundName, int groundPrice, String groundLat, String groundLng,
-			String goroundContent, String filePath) {
+			String groundContent, String filePath, String groundLocation) {
 		super();
 		this.groundNo = groundNo;
 		this.groundName = groundName;
@@ -24,6 +25,7 @@ public class Location {
 		this.groundLng = groundLng;
 		this.groundContent = groundContent;
 		this.filePath = filePath;
+		this.groundLocation = groundLocation;
 	}
 
 	public int getGroundNo() {
@@ -69,12 +71,9 @@ public class Location {
 	public String getGroundContent() {
 		return groundContent;
 	}
-	public String getGroundContentBr() {
-		return groundContent.replaceAll("\r\n", "<br>");
-	}
 
-	public void setGroundContent(String goroundContent) {
-		this.groundContent = goroundContent;
+	public void setGroundContent(String groundContent) {
+		this.groundContent = groundContent;
 	}
 
 	public String getFilePath() {
@@ -84,6 +83,15 @@ public class Location {
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
+
+	public String getGroundLocation() {
+		return groundLocation;
+	}
+
+	public void setGroundLocation(String groundLocation) {
+		this.groundLocation = groundLocation;
+	}
+
 	
 	
 }

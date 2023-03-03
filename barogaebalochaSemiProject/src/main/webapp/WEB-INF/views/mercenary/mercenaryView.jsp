@@ -95,6 +95,7 @@
 	.view-link>a{
 		padding-left: 15px;
 		color: #181818;
+		cursor:pointer;
 	}
 </style>
 </head>
@@ -165,8 +166,10 @@
 			</tr>	
 		</table>
 		<div class="view-link">
-			<a href="#">수정</a>
-			<a onclick="mercenaryDelete(<%=mc.getMercenaryNo()%>);">삭제</a>
+			<%if(m.getMemberNo() == mc.getMemberNo()) {%>
+				<a href="/mercenaryUpdateFrm.do?mercenaryNo=<%=mc.getMercenaryNo()%>">수정</a>
+				<a onclick="mercenaryDelete(<%=mc.getMercenaryNo()%>);">삭제</a>
+			<%} %>
 		</div>
 		<div class="back-link">
 			<a href="/mercenaryList.do?reqPage=1" class="btn2 bc1">목록으로</a>
