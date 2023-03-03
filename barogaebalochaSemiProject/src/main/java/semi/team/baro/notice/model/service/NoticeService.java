@@ -31,12 +31,19 @@ public class NoticeService {
 		JDBCTemplate.close(connection);
 		return noticeList;
 	}
+	public Notice getNotice(int noticeNo) {
+		Connection connection = JDBCTemplate.getConnection();
+		Notice notice = noticeDao.selectOneNotice(connection,noticeNo);
+		notice.setMemberId(noticeDao.getNoticeWriter(connection, noticeNo));
+		JDBCTemplate.close(connection);
+		return notice;
+	}
 	public Notice selectOneNotice(int noticeNo) {
 		Connection connection = JDBCTemplate.getConnection();
 		int result = noticeDao.updateReadCount(connection,noticeNo);
 		if(result > 0) {
 			JDBCTemplate.commit(connection);
-			Notice notice = noticeDao.selectOneNoticeList(connection, noticeNo);
+			Notice notice = noticeDao.selectOneNotice(connection, noticeNo);
 			notice.setMemberId(noticeDao.getNoticeWriter(connection, noticeNo));
 			JDBCTemplate.close(connection);
 			return notice;
@@ -51,5 +58,27 @@ public class NoticeService {
 		String memberId = noticeDao.getNoticeWriter(connection, noticeNo);
 		JDBCTemplate.close(connection);
 		return memberId;
+	}
+	public int removeNotice(int noticeNo) {
+		Connection connection = JDBCTemplate.getConnection();
+		int result = noticeDao.removeNotice(connection,noticeNo);
+		if(result > 0) {
+			JDBCTemplate.commit(connection);
+		} else {
+			JDBCTemplate.rollback(connection);
+		}
+		JDBCTemplate.close(connection);
+		return result;
+	}
+	public int noticeUpdate(Notice notice) {
+		Connection connection = JDBCTemplate.getConnection();
+		int result = noticeDao.noticeUpdate(connection, notice);
+		if(result > 0) {
+			JDBCTemplate.commit(connection);
+		} else {
+			JDBCTemplate.rollback(connection);
+		}
+		JDBCTemplate.close(connection);
+		return result;
 	}
 }

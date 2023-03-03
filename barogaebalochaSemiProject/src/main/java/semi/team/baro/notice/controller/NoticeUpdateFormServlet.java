@@ -1,7 +1,6 @@
 package semi.team.baro.notice.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,16 +13,16 @@ import semi.team.baro.notice.model.service.NoticeService;
 import semi.team.baro.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class NoticeListServlet
+ * Servlet implementation class NoticeUpdateFormServlet
  */
-@WebServlet(name = "NoticeList", urlPatterns = { "/noticeList.do" })
-public class NoticeListServlet extends HttpServlet {
+@WebServlet(name = "NoticeUpdateForm", urlPatterns = { "/noticeUpdateForm.do" })
+public class NoticeUpdateFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeListServlet() {
+    public NoticeUpdateFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,11 +32,11 @@ public class NoticeListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
 		NoticeService noticeService = new NoticeService();
-		ArrayList<Notice> noticeList = noticeService.selectAllNoticeList();
-		request.setAttribute("noticeList", noticeList);
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/notice/noticeList.jsp");
+		Notice notice = noticeService.getNotice(noticeNo);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/notice/noticeUpdateForm.jsp");
+		request.setAttribute("notice", notice);
 		requestDispatcher.forward(request, response);
 	}
 

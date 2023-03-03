@@ -11,12 +11,12 @@
 		<%//col-md-12%>
 		<table class="notice-list-tbl table table-hover">
 			<tr>
-				<th class="col-md-1">No</th>
-				<th class="col-md-1">Category</th>
-				<th class="col-md-4">Title</th>
-				<th class="col-md-3">Writer</th>
-				<th class="col-md-2">WriteDate</th>
-				<th class="col-md-1">Read</th>
+				<th class="col-md-1">번호</th>
+				<th class="col-md-1">카테고리</th>
+				<th class="col-md-4">제목</th>
+				<th class="col-md-3">작성자</th>
+				<th class="col-md-2">작성일</th>
+				<th class="col-md-1">조회수</th>
 			</tr>
 		<%for(Notice notice : noticeList) { %>
 			<tr>
