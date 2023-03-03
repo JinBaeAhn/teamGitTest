@@ -37,7 +37,7 @@ public class MercenaryViewServlet extends HttpServlet {
 		int mercenaryNo = Integer.parseInt(request.getParameter("mercenaryNo"));
 		//3.비즈니스로직
 		MercenaryService service = new MercenaryService();
-		Mercenary mc = service.mercenaryView(mercenaryNo);		
+		Mercenary mc = service.mercenaryView(mercenaryNo);
 		//4.결과처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/mercenary/mercenaryView.jsp");
 		request.setAttribute("mc", mc);

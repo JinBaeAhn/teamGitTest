@@ -101,7 +101,15 @@ public class MercenaryService {
 
 	public Mercenary mercenaryView(int mercenaryNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		Mercenary mc = dao.mercenaryView(conn, mercenaryNo);
+		int result = dao.readCountUpdate(conn, mercenaryNo);
+		Mercenary mc = null;
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+			mc = dao.mercenaryView(conn, mercenaryNo);
+		}else {
+			JDBCTemplate.rollback(conn);
+			mc = null;
+		}
 		JDBCTemplate.close(conn);
 		return mc;
 	}

@@ -73,7 +73,7 @@ public class Mercenary {
 		this.gameDate = gameDate;
 	}
 	public int getGameTime() {
-		return gameTime;
+		return gameTime; 
 	}
 	public String getGameShowTime() {
 		return gameTime+" : 00 ~ "+(gameTime+2)+" : 00";

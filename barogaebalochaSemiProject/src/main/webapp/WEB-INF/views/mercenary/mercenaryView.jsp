@@ -35,7 +35,7 @@
     	padding: 20px;
     }
     .back-link>.bs4{
-    	padding: 5px;
+    	padding: 10px;
     	font-size: 15px;
     	font-family: ns-bold;
     }
@@ -166,11 +166,11 @@
 			</tr>	
 		</table>
 		<div class="view-link">
-			<%if(m.getMemberNo() == mc.getMemberNo()) {%>
+			<%if( m!=null && m.getMemberNo() == mc.getMemberNo()) {%>
 				<a href="/mercenaryUpdateFrm.do?mercenaryNo=<%=mc.getMercenaryNo()%>">수정</a>
 				<a onclick="mercenaryDelete(<%=mc.getMercenaryNo()%>);">삭제</a>
 			<%} %>
-		</div>
+		</div>		
 		<div class="back-link">
 			<a href="/mercenaryList.do?reqPage=1" class="btn2 bc1">목록으로</a>
 		</div>
@@ -209,7 +209,6 @@
 	            }
 	        })
 	    }
-
 	</script>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

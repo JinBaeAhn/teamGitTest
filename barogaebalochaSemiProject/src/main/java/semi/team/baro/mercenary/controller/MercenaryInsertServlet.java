@@ -51,13 +51,12 @@ public class MercenaryInsertServlet extends HttpServlet {
 			request.setAttribute("icon", "success");
 			request.setAttribute("title", "작성완료");
 			request.setAttribute("msg", "게시글이 작성되었습니다.");
-			request.setAttribute("loc", "/mercenaryList.do");
 		}else {
 			request.setAttribute("icon", "error");
 			request.setAttribute("title", "작성실패");
 			request.setAttribute("msg", "오류가 발생했습니다.");
-			request.setAttribute("loc", "/mercenaryList.do");
 		}
+		request.setAttribute("loc", "/mercenaryList.do?reqPage=1");
 		view.forward(request, response);
 	}
 

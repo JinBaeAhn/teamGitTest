@@ -149,6 +149,23 @@ public class MercenaryDao {
 		return result;
 	}
 
+	public int readCountUpdate(Connection conn, int mercenaryNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "update mercenary set read_count = read_count + 1 where mercenary_no = ?";		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mercenaryNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
 }
 
 
