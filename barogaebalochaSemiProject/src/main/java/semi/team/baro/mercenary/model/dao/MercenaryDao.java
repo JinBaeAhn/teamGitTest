@@ -77,7 +77,7 @@ public class MercenaryDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Mercenary mc = null;
-		String query = "select game_location, ground_name, game_date, game_time, mercenary_content, mercenary_pay, read_count, reg_date, mercenary_whether, skill, member_id from mercenary join member_tbl using(member_no) where mercenary_no = ?";
+		String query = "select mercenary_no, game_location, ground_name, game_date, game_time, mercenary_content, mercenary_pay, read_count, reg_date, mercenary_whether, skill, member_id from mercenary join member_tbl using(member_no) where mercenary_no = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -85,6 +85,7 @@ public class MercenaryDao {
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				mc = new Mercenary();
+				mc.setMercenaryNo(rset.getInt("mercenary_no"));
 				mc.setGameDate(rset.getString("game_date"));
 				mc.setGameTime(rset.getInt("game_time"));
 				mc.setGroundName(rset.getString("ground_name"));
@@ -128,6 +129,24 @@ public class MercenaryDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return totalCount;
+	}
+
+	public int mercenaryDelete(Connection conn, int mercenaryNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "delete from mercenary where mercenary_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mercenaryNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
 	}
 
 }

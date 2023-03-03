@@ -14,7 +14,6 @@ public class NoticeService {
 		super();
 		noticeDao = new NoticeDao();
 	}
-
 	public int insertNotice(Notice notice) {
 		Connection connection = JDBCTemplate.getConnection();
 		int result = noticeDao.insertNotice(connection, notice);
@@ -26,12 +25,31 @@ public class NoticeService {
 		JDBCTemplate.close(connection);
 		return result;
 	}
-
 	public ArrayList<Notice> selectAllNoticeList() {
 		Connection connection = JDBCTemplate.getConnection();
-		ArrayList<Notice> noticeList = NoticeDao.selectAllNoticeList(connection);
+		ArrayList<Notice> noticeList = noticeDao.selectAllNoticeList(connection);
 		JDBCTemplate.close(connection);
 		return noticeList;
 	}
-	
+	public Notice selectOneNotice(int noticeNo) {
+		Connection connection = JDBCTemplate.getConnection();
+		int result = noticeDao.updateReadCount(connection,noticeNo);
+		if(result > 0) {
+			JDBCTemplate.commit(connection);
+			Notice notice = noticeDao.selectOneNoticeList(connection, noticeNo);
+			notice.setMemberId(noticeDao.getNoticeWriter(connection, noticeNo));
+			JDBCTemplate.close(connection);
+			return notice;
+		} else {
+			JDBCTemplate.rollback(connection);
+			JDBCTemplate.close(connection);
+			return null;
+		}
+	}
+	public String getNoticeWriter(int noticeNo) {
+		Connection connection = JDBCTemplate.getConnection();
+		String memberId = noticeDao.getNoticeWriter(connection, noticeNo);
+		JDBCTemplate.close(connection);
+		return memberId;
+	}
 }

@@ -34,8 +34,13 @@
             </div>
             <div class="header-content">
                 <div class="header-link">
+                <%if(m == null) {%>
                     <a href="/joinFrm.do">JOIN</a>
                     <a href="/loginFrm.do">LOGIN</a>
+                <%} else {%>
+                    <a href="/logout.do">LOGOUT</a>
+                	<a href="/mypage.do?memberId=<%=m.getMemberId() %>"><%=m.getMemberName() %>의 라커룸</a>
+                <%} %>
                 </div>                
                 <div class="nav">
                     <ul class="navi">
