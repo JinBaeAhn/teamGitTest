@@ -30,7 +30,7 @@ public class NoticeDao {
 		}
 		return result;
 	}
-	public static ArrayList<Notice> selectAllNoticeList(Connection connection) {
+	public ArrayList<Notice> selectAllNoticeList(Connection connection) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		String query = "select notice_no, member_id, notice_category, notice_title, notice_content, read_count, reg_date from notice join member_tbl using(member_no) order by 1 desc";
@@ -59,6 +59,69 @@ public class NoticeDao {
 			JDBCTemplate.close(resultSet);
 		}
 		return noticeList;
+	}
+	public Notice selectOneNoticeList(Connection connection, int noticeNo) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		String query = "select * from notice where notice_no = ?";
+		Notice notice = new Notice();
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, noticeNo);
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				notice.setNoticeCategory(resultSet.getString("notice_category"));
+				notice.setNoticeContent(resultSet.getString("notice_content"));
+				notice.setNoticeNo(resultSet.getInt("notice_no"));
+				notice.setNoticeTitle(resultSet.getString("notice_title"));
+				notice.setReadCount(resultSet.getInt("read_count"));
+				notice.setRegDate(resultSet.getString("reg_date"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(preparedStatement);
+			JDBCTemplate.close(resultSet);
+		}
+		return notice;
+	}
+	public String getNoticeWriter(Connection connection, int noticeNo) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		String query = "select member_id from notice join member_tbl using(member_no) where notice_no = ?";
+		String memberId = "";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, noticeNo);
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				memberId = resultSet.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(preparedStatement);
+			JDBCTemplate.close(resultSet);
+		}
+		return memberId;
+	}
+	public int updateReadCount(Connection connection, int noticeNo) {
+		PreparedStatement preparedStatement = null;
+		String query = "update notice set read_count = (read_count+ 1) where notice_no = ?";
+		int result = 0;
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, noticeNo);
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(preparedStatement);
+		}
+		return result;
 	}
 
 }
