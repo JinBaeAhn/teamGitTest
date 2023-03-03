@@ -13,6 +13,7 @@ public class MatchingService {
 
 	public MatchingService() {
 		super();
+		dao = new MatchingDao();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -50,6 +51,7 @@ public class MatchingService {
 		//페이지 네비게이션 제작 시작
 		String pageNavi = "<ul class='pagination circle-style'>";
 		//이전버튼
+	for(int i=0;i<pageNaviSize;i++) {
 		if(pageNo != 1) {
 			pageNavi += "<li>";
 			pageNavi += "<a class='page-item' href='/matchingList.do?requestPage="+(pageNo-1)+"'>";
@@ -61,6 +63,11 @@ public class MatchingService {
 			pageNavi += pageNo;
 			pageNavi += "</a></li>";
 		}
+		pageNo++;
+		if(pageNo>totalPage) {
+			break;
+		}
+	}
 		//다음버튼
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
