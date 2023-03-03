@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="/css/matchingPage.css">
     <link rel="stylesheet" href="/css/matchingWriteFrm.css">
     <link rel="stylesheet" href="/css/memberInfo.css">
+    <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/notice.css">
     <script src="js/jquery-3.6.0.js"></script>
@@ -41,7 +42,27 @@
                     <a href="/logout.do">LOGOUT</a>
                 	<a href="/mypage.do?memberId=<%=m.getMemberId() %>"><%=m.getMemberName() %>의 라커룸</a>
                 <%} %>
-                </div>                
+                </div>
+                <%if( m!=null && m.getMemberLevel()==1){%>
+                <div class="nav">
+	                    <ul class="navi">
+	                        <li><a href="#">정보수정</a></li>
+	                        <li><a href="#">회원관리</a></li>
+	                        <li><a href="#">구장등록</a></li>
+	                        <li><a href="#">신고관리</a></li>
+	                        <li>
+	                            <a href="#" name="search">메뉴</a>
+	                            <ul class="menu">
+	                                <li><a href="#" class="searchBox">MATCHING</a></li>
+	                                <li><a href="#" class="searchBox">용병모집</a></li>
+	                                <li><a href="#" class="searchBox">구장</a></li>
+	                                <li><a href="#" class="searchBox">공지사항</a></li>
+	                                <li><a href="#" class="searchBox">게시판</a></li>
+	                            </ul>
+	                        </li>
+	                    </ul>
+	                </div>
+                <%}else {%>                
                 <div class="nav">
                     <ul class="navi">
                         <li><a href="#">MATCHING</a></li>
@@ -51,6 +72,18 @@
                         <li><a href="#">게시판</a></li>
                     </ul>
                 </div>
+                <%} %>
             </div>
         </div>
+         <script>
+			$(".menu").prev().append("<span class='more'></span>");
+			$(".more").on("click",function(event){
+			    $(this).parent().next().slideToggle();
+			    $(this).toggleClass("active");
+			    event.stopPropagation();
+			});
+			$(".more").parent().on("click",function(){
+			    $(this).children().last().click();
+			});
+		</script>
     </header>

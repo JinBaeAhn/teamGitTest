@@ -1,0 +1,100 @@
+@font-face {
+    font-family: ns-thin;
+    src: url(../font/NotoSansKR-Thin.otf);
+}
+@font-face {
+    font-family: ns-light;
+    src: url(../font/NotoSansKR-Light.otf);
+}
+@font-face {
+    font-family: ns-m;
+    src: url(../font/NotoSansKR-Medium.otf);
+}
+@font-face {
+    font-family: ns-bold;
+    src: url(../font/NotoSansKR-Bold.otf);
+}
+@font-face {
+    font-family: ns-black;
+    src: url(../font/NotoSansKR-Black.otf);
+}
+* {
+    margin: 0;
+    padding: 0;
+    font-family: ns-m;
+    color: #181818;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+a {
+    text-decoration: none;
+}
+
+header{
+    border-bottom: 1px solid #ccc;
+}
+
+.header-wrap{
+    width: 1200px;
+    overflow: hidden;
+    padding: 20px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+.site-logo{
+    float: left;
+}
+.site-logo>a>img{
+    width: 300px;
+    height: 70px;
+}
+.header-content{
+    float: right;
+}
+.header-link{
+    overflow: hidden;
+    padding-top: 18px;
+}
+.header-link>a{
+    float: right;
+    padding-left: 10px;
+    font-size: 13px;
+}
+.header-link>a:hover{
+    color: #AACB73;
+    transition-duration: 0.5s;
+}
+.header-content>.nav>.navi{
+    list-style-type: none;
+    margin-top: 10px;
+}
+.header-content>.nav>.navi>li{
+    float: left;
+    padding-left: 25px;
+}
+.header-content>.nav>.navi>li>a{
+    font-size: 20px;
+    font-family: ns-bold;
+    border-radius: 5px;
+}
+/*REF*/
+.page-content{
+    width: 1200px;
+    margin: 30px auto;
+    margin-bottom: 10px;
+    flex-grow: 1;
+}
+.menu{
+    position: absolute;
+    display: none;
+    list-style: none;
+    background-color: #c7e793;
+    padding: 15px;
+    border-radius: 5px;
+}
+a {
+    text-decoration: none;
+}
