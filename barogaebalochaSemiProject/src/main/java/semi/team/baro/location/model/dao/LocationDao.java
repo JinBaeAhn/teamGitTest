@@ -96,4 +96,25 @@ public class LocationDao {
 		return l;
 	}
 
+	public int insertLocation(Connection conn, Location l) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "insert into Location values(ground_seq.nextval,?,?,?,?,?,?)";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, l.getGroundName());
+			pstmt.setInt(2, l.getGroundPrice());
+			pstmt.setString(3, l.getGroundLat());
+			pstmt.setString(4, l.getGroundLng());
+			pstmt.setString(5, l.getGroundContent());
+			pstmt.setString(6, l.getFilePath());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
 }
