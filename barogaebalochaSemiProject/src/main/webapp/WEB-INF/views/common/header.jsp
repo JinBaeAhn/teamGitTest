@@ -12,12 +12,12 @@
     <!-- 구글 아이콘 -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/css/default.css">
-    <link rel="stylesheet" href="/css/[TeamProject]locationInfo.css">
-    <link rel="stylesheet" href="/css/[TeamProject]locationList.css">
-    <link rel="stylesheet" href="/css/[TeamProject]matchInfo.css">
-    <link rel="stylesheet" href="/css/[TeamProject]matchingPage.css">
-    <link rel="stylesheet" href="/css/[TeamProject]matchingWriteFrm.css">
-    <link rel="stylesheet" href="/css/[TeamProject]memberInfo.css">
+    <link rel="stylesheet" href="/css/locationInfo.css">
+    <link rel="stylesheet" href="/css/locationList.css">
+    <link rel="stylesheet" href="/css/matchInfo.css">
+    <link rel="stylesheet" href="/css/matchingPage.css">
+    <link rel="stylesheet" href="/css/matchingWriteFrm.css">
+    <link rel="stylesheet" href="/css/memberInfo.css">
     
     <script src="js/jquery-3.6.0.js"></script>
 </head>

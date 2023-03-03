@@ -40,12 +40,28 @@
 }
 .loactionList-content{
     width: 550px;
-    height: 200px;
+    height: 250px;
     margin-left: 25px;
     margin-right: 25px;
     margin-top: 50px;
     overflow: hidden;
     float: left;
+}
+.locationList-footer-wrap{
+    width: 550px;
+    overflow: hidden;
+}
+.locationList-Info-btn{
+    width: 200px;
+    height: 50px;
+    margin-right: 20px;
+    float: left;
+    background-color: rgba(37, 42, 52, 1);
+    cursor: pointer;
+    color: #fff;
+    border: 2px solid rgba(57, 62, 70, 1);
+    outline: none;
+    font-size: 16px;
 }
 .loactionList-main-img{
     width: 200px;
@@ -70,7 +86,7 @@
 }
 .loactionList-info{
     width: 330px;
-    height: 100px;
+    height: 148px;
     overflow: scroll;
     overflow-x: hidden;
 }
