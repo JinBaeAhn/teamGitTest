@@ -99,7 +99,7 @@ public class LocationDao {
 	public int insertLocation(Connection conn, Location l) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into Location values(ground_seq.nextval,?,?,?,?,?,?)";
+		String query = "insert into ground_tbl values(ground_seq.nextval,?,?,?,?,?,?)";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, l.getGroundName());

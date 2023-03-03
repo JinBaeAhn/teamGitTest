@@ -4,7 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title><script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<title>Insert title here</title>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=lfdl00llsq&submodules=geocoder"></script>
 <style>
 .tbl {
     width: 100%;
@@ -83,6 +85,8 @@ input[name="f"]{
             <input type="text" name="postcod" id="postcode"
             class="input-form" readonly style="width:90%; display:inline-block;" placeholder="구장찾기">
             <button  type="button" class="btn11 bc33" onclick="searchAddr();">주소찾기</button>
+            <div id="map" style="width:100%; height:500px;"></div>
+            <button type="button" onclick="loadMap();" class="btn bc1">조회한 곳으로 지도 이동</button>
             <input type="text" name="address" id="address"
 			class="input-form" readonly>
 			<input type="text" name="detailAddress" id="detailAddress"
@@ -92,7 +96,7 @@ input[name="f"]{
 				<tr class="tr-1">
 					<th class="td-1">구장이름</th>
 					<td colspan="3">
-						<input type="text" name="noticeTitle" class="input-form">
+						<input type="text" name="groundName" class="input-form">
 					</td>
                     </tr>
                 <tr>
@@ -129,6 +133,74 @@ input[name="f"]{
 		</form>
 	</div>
 	<script>
+	const map = new naver.maps.Map("map",{
+		center : new naver.maps.LatLng(37.533837,126.896836),
+		zoom : 17,
+		zoomControl : true,
+		zoomControlOptions : {
+			position : naver.maps.Position.TOP_RIGHT,
+			style : naver.maps.ZoomControlStyle.SMALL
+		}
+	});
+
+	const marker = new naver.maps.Marker({
+		position : new naver.maps.LatLng(37.533837,126.896836),
+		map : map
+	});
+	let contentString = [
+
+	].join("");
+	let infoWindow = new naver.maps.InfoWindow();
+	
+	//marker에 클릭이벤트 추가
+	naver.maps.Event.addListener(marker,"click",function(e){
+		infoWindow = new naver.maps.InfoWindow({
+			content : contentString
+		});
+		//생성된 infoWindow를 map의 marker위치에 생성
+		infoWindow.open(map,marker);
+	});
+	//map에 클릭이벤트 추가
+	naver.maps.Event.addListener(map,"click",function(e){
+		marker.setPosition(e.coord);//클릭한 위치로 마커 이동
+		map.setCenter(e.coord);//클릭한 위치로 지도 중심 이동
+		if(infoWindow.getMap()){//정보창이 지도위에 올라가 있으면 사라짐
+			infoWindow.close();
+		}
+		//위경도를 통해서 해당 위치의 주소를 알아내기(reverseGecode)
+		naver.maps.Service.reverseGeocode({
+			location : new naver.maps.LatLng(e.coord.lat(),e.coord.lng())
+		},function(status,response){
+			if(status != naver.maps.Service.Status.OK){
+				return alert("주소를 찾을 수 없습니다.");
+			}
+			console.log(response);
+			const address = response.result.items[1].address;
+			contentString = [
+				"<div class='iw_inner'>",
+				"    <p>"+address+"</p>",
+				"</div>"
+			].join("");
+		});
+	});
+	
+	function loadMap(){
+		const addr = $("#address").val();
+		naver.maps.Service.geocode({
+			address : addr
+		},function(status, response){
+			if(status === naver.maps.Service.Status.ERROR){//자바스크립트 타입비교 ===
+				return alert("조회 에러");
+			}
+			console.log(response);
+			const lng = response.result.items[1].point.x;//경도
+			const lat = response.result.items[1].point.y;//위도
+			//위경도 객체
+			const latlng = new naver.maps.LatLng(lat,lng);
+			map.setCenter(latlng);
+			marker.setPosition(latlng);
+		});
+	}
 	function searchAddr(){
 		 new daum.Postcode({
 		        oncomplete: function(data) {
@@ -136,10 +208,14 @@ input[name="f"]{
 		        	$("#postcode").val(data.zonecode);
 		        	$("#address").val(data.address);
 		        	$("#detailAddress").focus();
+		        	const lng = response.result.items[1].point.x;//경도
+					const lat = response.result.items[1].point.y;//위도
+		        	console.log(); 
 		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
 		            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
 		        }
 		    }).open();
+		 
 	}
 	</script>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>

@@ -46,6 +46,7 @@ public class LocationInsertWriteServlet extends HttpServlet {
 		String groundLng = mRequest.getParameter("groundLng");
 		String groundContent = mRequest.getParameter("groundContent");
 		String filename = mRequest.getOriginalFileName("upfile");
+		System.out.println(groundName+groundLat+groundLng+groundContent+filename);
 		Location l = new Location();
 		l.setGroundName(groundName);
 		l.setGroundLat(groundLat);
