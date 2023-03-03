@@ -17,6 +17,11 @@ public class NoticeService {
 	public int insertNotice(Notice notice) {
 		Connection connection = JDBCTemplate.getConnection();
 		int result = noticeDao.insertNotice(connection, notice);
+		if(result > 0) {
+			JDBCTemplate.commit(connection);
+		} else {
+			JDBCTemplate.close(connection);
+		}
 		JDBCTemplate.close(connection);
 		return result;
 	}

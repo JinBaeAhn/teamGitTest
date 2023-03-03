@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import semi.team.baro.mercenary.model.service.MercenaryService;
 import semi.team.baro.mercenary.model.vo.Mercenary;
+import semi.team.baro.mercenary.model.vo.MercenaryPageData;
 
 /**
  * Servlet implementation class MercenaryListServlet
@@ -35,12 +36,17 @@ public class MercenaryListServlet extends HttpServlet {
 		//1. 인코딩
 		request.setCharacterEncoding("utf-8");
 		//2. 값추출
+		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
 		//3. 비즈니스로직
 		MercenaryService service = new MercenaryService();
-		ArrayList<Mercenary> list = service.mercenarySelectAll();
+		MercenaryPageData mcpd = service.mercenarySelectAll(reqPage);
+		System.out.println(mcpd.getList().size());
+		//ArrayList<Mercenary> list = service.mercenarySelectAll();
 		//4. 결과처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/mercenary/mercenaryList.jsp");
-		request.setAttribute("list", list);
+		request.setAttribute("list", mcpd.getList());
+		request.setAttribute("pageNavi", mcpd.getPageNavi());
+		request.setAttribute("start", mcpd.getStart());
 		view.forward(request, response);
 	}
 

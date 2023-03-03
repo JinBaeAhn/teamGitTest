@@ -91,6 +91,8 @@ header{
 }
 .page-title>h2{
     margin: 20px;
+    padding-bottom: 20px;
+	border-bottom: 2px solid #181818;
 }
 /*버튼*/
 /* 버튼 디자인 */

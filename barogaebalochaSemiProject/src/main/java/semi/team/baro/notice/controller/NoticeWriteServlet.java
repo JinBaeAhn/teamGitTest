@@ -2,6 +2,7 @@ package semi.team.baro.notice.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,6 +41,14 @@ public class NoticeWriteServlet extends HttpServlet {
 		NoticeService noticeService = new NoticeService();
 		
 		int result = noticeService.insertNotice(notice);
+		if(result > 0) {
+			System.out.println("NoticeWrite Success");
+		} else {
+			System.out.println("NoticeWrite Failed");
+		}
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/notice/noticeList.jsp");
+		requestDispatcher.forward(request, response);
+		
 	}
 
 	/**

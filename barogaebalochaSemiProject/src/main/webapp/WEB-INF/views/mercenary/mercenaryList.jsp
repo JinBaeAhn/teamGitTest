@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
     <%
     	ArrayList<Mercenary> list = (ArrayList<Mercenary>)request.getAttribute("list");
+    	String pageNavi = (String)request.getAttribute("pageNavi");
     %>
 <!DOCTYPE html>
 <html>
@@ -44,10 +45,13 @@
     }
     .button{
         width: 100%;
-        padding-left: 550px;
+        padding-left: 970px;
         margin-top: 30px;
         box-sizing: border-box;
     }
+    #pageNavi{
+   		margin-top: 50px;
+   	}
 </style>
 </head>
 <body>
@@ -72,18 +76,34 @@
                     <div class="mercenary-info">
                         <ul>
                             <li style="font-size: 20px;">구장이름</li>
-                            <li>실력 : <%=mc.getLevel() %></li>
+                            <%if(mc.getLevel() == 1){ %>
+								<li>실력 : 최상 </li>
+							<%}else if(mc.getLevel() == 2) {%>
+								<li>실력 : 상 </li>
+							<%}else if(mc.getLevel() == 3) {%>
+								<li>실력 : 중 </li>
+							<%}else if(mc.getLevel() == 4) {%>
+								<li>실력 : 하 </li>
+							<%}else if(mc.getLevel() == 5) {%>
+								<li>실력 : 최하 </li>
+							<%} %>
+                            
                         </ul>
                     </div>
                 </div>
                 <div class="mercenary-result">
-                    <a class="btn1" style="background-color: #AACB73; color:#fff">모집중</a>
+                	<%if(mc.getMercenaryWhether() == 0) {%>
+	                    <div class="btn1" style="background-color: #AACB73; color:#fff">모집중</div>            	
+                	<%}else if(mc.getMercenaryWhether() == 1) {%>
+                		<div class="btn1" style="background-color: #ccc; color:#fff">모집완료</div> 
+                	<%} %>
                 </div>
             </div>	
            </a>	
         <%} %>                     
         </div>
         <div class="button"><a href="/mercenaryWrite.do" class="btn1 bc2 bs2">작성하기</a></div>
+        <div id="pageNavi"><%=pageNavi %></div>
 	</div>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

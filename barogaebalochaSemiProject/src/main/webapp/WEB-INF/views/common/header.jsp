@@ -11,7 +11,14 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- 구글 아이콘 -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="/css/default.css">
+    <link rel="stylesheet" href="/css/locationInfo.css">
+    <link rel="stylesheet" href="/css/locationList.css">
+    <link rel="stylesheet" href="/css/matchInfo.css">
+    <link rel="stylesheet" href="/css/matchingPage.css">
+    <link rel="stylesheet" href="/css/matchingWriteFrm.css">
+    <link rel="stylesheet" href="/css/memberInfo.css">
+    
     <script src="js/jquery-3.6.0.js"></script>
 </head>
 <body>
@@ -28,8 +35,8 @@
                 <div class="nav">
                     <ul class="navi">
                         <li><a href="#">MATCHING</a></li>
-                        <li><a href="/mercenaryList.do">용병모집</a></li>
-                        <li><a href="/locationList.do">구장</a></li>
+                        <li><a href="/mercenaryList.do?reqPage=1">용병모집</a></li>
+                        <li><a href="/locationList.do?requestPage=1">구장</a></li>
                         <li><a href="/noticeList.do">공지사항</a></li>
                         <li><a href="#">게시판</a></li>
                     </ul>

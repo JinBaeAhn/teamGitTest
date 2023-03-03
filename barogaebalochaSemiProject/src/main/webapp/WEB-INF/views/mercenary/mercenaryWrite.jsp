@@ -88,18 +88,13 @@
                         <tr>
                             <th>경기날짜</th>
                             <td>
-                                <input type="text" class="input-form" id="datepicker" name="gameDate">
+                                <input type="text" class="input-form" id="datepicker" name="gameDate" required>
                             </td>
                         </tr>
                         <tr>
                             <th>경기시간</th>
                             <td>
                                 <select class="input-form" name="gameTime">
-                                    <option value="24">24 : 00 ~ 02 : 00</option>
-                                    <option value="02">02 : 00 ~ 04 : 00</option>
-                                    <option value="04">04 : 00 ~ 06 : 00</option>
-                                    <option value="06">06 : 00 ~ 08 : 00</option>
-                                    <option value="08">08 : 00 ~ 10 : 00</option>
                                     <option value="10">10 : 00 ~ 12 : 00</option>
                                     <option value="12">12 : 00 ~ 14 : 00</option>
                                     <option value="14">14 : 00 ~ 16 : 00</option>
@@ -107,13 +102,14 @@
                                     <option value="18">18 : 00 ~ 20 : 00</option>
                                     <option value="20">20 : 00 ~ 22 : 00</option>
                                     <option value="22">22 : 00 ~ 24 : 00</option>
+                                    <option value="24">24 : 00 ~ 02 : 00</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <th>실력</th>
                             <td>
-                                <input type="radio" name="level" class="btn1" id="1" value="1">
+                                <input type="radio" name="level" class="btn1" id="1" value="1" checked>
                                 <label for="1">최상</label>
                                 <input type="radio" name="level" class="btn1" id="2" value="2">
                                 <label for="2">상</label>
@@ -128,12 +124,12 @@
                         <tr>
                             <th>참가비</th>
                             <td>
-                                <input type="text" class="input-form" placeholder="금액입력" name="mercenaryPay">
+                                <input type="text" class="input-form" placeholder="금액입력" name="mercenaryPay" required>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <textarea class="input-form content" name="mercenaryContent"></textarea>
+                                <textarea class="input-form content" name="mercenaryContent" required></textarea>
                             </td>
                         </tr>
                         <tr>
