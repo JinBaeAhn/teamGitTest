@@ -40,6 +40,14 @@ public class MemberService {
 		return list;
 
 	}
+
+
+	public Member selectOneMember(Member m) {
+		Connection conn = JDBCTemplate.getConnection();
+		Member member = dao.selectOneMember(conn, m);
+		JDBCTemplate.close(conn);
+		return member;
+	}
 	
 
 }

@@ -1,5 +1,9 @@
+<%@ page import="semi.team.baro.member.model.vo.Member" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+    	Member m = (Member)session.getAttribute("m");
+    %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,7 +22,8 @@
     <link rel="stylesheet" href="/css/matchingPage.css">
     <link rel="stylesheet" href="/css/matchingWriteFrm.css">
     <link rel="stylesheet" href="/css/memberInfo.css">
-    
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/notice.css">
     <script src="js/jquery-3.6.0.js"></script>
 </head>
 <body>

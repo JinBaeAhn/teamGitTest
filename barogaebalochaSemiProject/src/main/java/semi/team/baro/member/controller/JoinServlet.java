@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import semi.team.baro.member.model.service.MemberService;
 import semi.team.baro.member.model.vo.Member;
 
@@ -34,15 +37,21 @@ public class JoinServlet extends HttpServlet {
 		//1.인코딩
 		request.setCharacterEncoding("utf-8");
 		//2.값추출
+		String root = getServletContext().getRealPath("/");
+		String saveDirectory = root+"upload/photo";
+		int maxSize = 10*1024*1024;
+		MultipartRequest mRequest = new MultipartRequest(request, saveDirectory, maxSize, "utf-8", new DefaultFileRenamePolicy());
+		
+		
 		Member m = new Member();
-		m.setMemberId(request.getParameter("memberId"));
-		m.setMemberPw(request.getParameter("memberPw"));
-		m.setMemberName(request.getParameter("memberName"));
-		m.setMemberMail(request.getParameter("memberMail1")+"@"+request.getParameter("memberMail2"));
-		m.setMemberPhone(request.getParameter("memberPhone1")+"-"+request.getParameter("memberPhone2")+"-"+request.getParameter("memberPhone3"));
-		m.setMemberContent(request.getParameter("memberContent"));
-		m.setMemberAddr(request.getParameter("memberAddr"));
-		m.setFilepath(request.getParameter("filepath"));
+		m.setMemberId(mRequest.getParameter("memberId"));
+		m.setMemberPw(mRequest.getParameter("memberPw"));
+		m.setMemberName(mRequest.getParameter("memberName"));
+		m.setMemberMail(mRequest.getParameter("memberMail1")+"@"+mRequest.getParameter("memberMail2"));
+		m.setMemberPhone(mRequest.getParameter("memberPhone1")+"-"+mRequest.getParameter("memberPhone2")+"-"+mRequest.getParameter("memberPhone3"));
+		m.setMemberContent(mRequest.getParameter("memberContent"));
+		m.setMemberAddr(mRequest.getParameter("memberAddr"));
+		m.setFilepath(mRequest.getFilesystemName("imgFile"));
 		//3.비즈니스로직
 		
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/common/msg.jsp");
