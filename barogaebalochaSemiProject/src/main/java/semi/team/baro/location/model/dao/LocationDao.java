@@ -66,4 +66,34 @@ public class LocationDao {
 		return totalCount;
 	}
 
+	public Location selectOneLocation(Connection conn, int groundNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset =  null;
+		Location l = null;
+		String query = "select * from ground_tbl where ground_no=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, groundNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				l = new Location();
+				l.setGroundName(rset.getString("ground_name"));
+				l.setGroundPrice(rset.getInt("ground_price"));
+				l.setGroundLat(rset.getString("ground_lat"));
+				l.setGroundLng(rset.getString("ground_lng"));
+				l.setGroundContent(rset.getString("ground_content"));
+				l.setFilePath(rset.getString("file_path"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return l;
+	}
+
 }

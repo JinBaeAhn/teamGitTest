@@ -7,6 +7,7 @@ import common.JDBCTemplate;
 import semi.team.baro.location.model.dao.LocationDao;
 import semi.team.baro.location.model.vo.Location;
 import semi.team.baro.location.model.vo.LocationPageData;
+import semi.team.baro.location.model.vo.LocationViewData;
 
 public class LocationService {
 	private LocationDao dao;
@@ -89,6 +90,14 @@ public class LocationService {
 		LocationPageData lpd = new LocationPageData(list, pageNavi, start);
 		
 		return lpd;
+	}
+
+	public LocationViewData selectOneLocation(int groundNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Location l = dao.selectOneLocation(conn, groundNo);
+		LocationViewData lvd = new LocationViewData(l);
+		JDBCTemplate.close(conn);
+		return lvd;
 	}
 	
 }
