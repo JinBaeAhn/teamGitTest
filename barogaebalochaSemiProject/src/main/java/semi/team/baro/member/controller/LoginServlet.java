@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute("title", "로그인실패");
 			request.setAttribute("msg", "로그인에 실패하셨습니다.");
 			request.setAttribute("icon", "error");
-			request.setAttribute("loc", "/");
+			request.setAttribute("loc", "/loginFrm.do");
 		}else {
 			HttpSession session = request.getSession();
 			session.setAttribute("m", member);
