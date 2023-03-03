@@ -13,7 +13,7 @@
 <style>
     .tbl {
     	margin: 60px auto;
-	    width: 80%;
+	    width: 90%;
 	    border-spacing: 0px;
 	    border-collapse: collapse;
     }
@@ -30,7 +30,8 @@
     }
     .mercenary-content{
     	text-align: left;
-    	min-height: 300px;
+    	min-height: 400px;
+    	padding: 20px;
     }
     .back-link>.bs4{
     	padding: 5px;
@@ -92,7 +93,6 @@
 	<div class="page-content">
 		<div class="page-title">
 			<h2>용병모집</h2>
-			<hr>
 		</div>
 		<table class="tbl" id="mercenaryView">
 			<tr>
@@ -110,8 +110,7 @@
 			</tr>
 			<tr>
 				<th>경기일</th>
-				<td colspan="3"><%=mc.getGameDate() %> [ <%=mc.getGameShowTime() %> ]</td>
-				 
+				<td colspan="3"><%=mc.getGameDate() %> [ <%=mc.getGameShowTime() %> ]</td>				 
 			</tr>
 			<tr>
 				<th>참가비</th>
