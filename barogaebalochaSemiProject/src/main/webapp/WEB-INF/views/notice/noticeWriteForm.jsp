@@ -17,8 +17,7 @@
 	<div class="page-content">
 		<h1>Notice Write  Form</h1>
 		<form action="/noticeWrite.do" method="post" class="row g-3">
-			<input type="hidden" name="noticeNo" value="공지사항번호">
-			<input type="hidden" name="memberNo" value="로그인회원번호">
+			<input type="hidden" name="memberNo" value="0">
   			<div class="col-md-8">
 				<input type="text" name="noticeTitle" class="form-control" placeholder="제목을 입력해주세요." required>
 			</div>
@@ -26,6 +25,7 @@
 				<select class="form-select" name="noticeCategory" aria-label="Default select example">
 					<option value="notice" selected>공지사항</option>
 					<option value="event">이벤트</option>
+					<option value="Test">Test</option>
 				</select>
 			</div>
 			<div class="form-group"><textarea class="form-control" name="noticeContent" id="noticeContent" rows="20"placeholder="내용을 입력해주세요" required></textarea></div>
