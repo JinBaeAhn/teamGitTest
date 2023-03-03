@@ -1,6 +1,7 @@
 package semi.team.baro.notice.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import semi.team.baro.notice.model.dao.NoticeDao;
@@ -24,6 +25,13 @@ public class NoticeService {
 		}
 		JDBCTemplate.close(connection);
 		return result;
+	}
+
+	public ArrayList<Notice> selectAllNoticeList() {
+		Connection connection = JDBCTemplate.getConnection();
+		ArrayList<Notice> noticeList = NoticeDao.selectAllNoticeList(connection);
+		JDBCTemplate.close(connection);
+		return noticeList;
 	}
 	
 }
