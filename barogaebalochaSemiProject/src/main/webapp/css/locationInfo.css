@@ -11,7 +11,7 @@
 }
 .locationInfo-img-wrap{
     width: 800px;
-    height: 500px;
+    height: 400px;
     margin: 0 auto;
 }
 .locationInfo-img-wrap>.locationInfo-main-img>img{
@@ -67,12 +67,16 @@ hr{
     margin-top: 40px;
     margin-bottom: 40px;
 }
+.locationInfo-text-content>.title{
+	font-size: 24px;
+	font-family: ns-bold;
+}
 .locationInfo-btn-wrap{
     width: 500px;
     margin: 0 auto;
     margin-bottom: 40px;
 }
-.locationInfo-btn-wrap>button{
+.locationInfo-btn-wrap button{
     width: 500px;
     height: 50px;
     background-color: rgba(37, 42, 52, 1);

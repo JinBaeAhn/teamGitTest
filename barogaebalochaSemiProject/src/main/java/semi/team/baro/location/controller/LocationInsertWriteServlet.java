@@ -1,6 +1,8 @@
 package semi.team.baro.location.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import semi.team.baro.location.model.service.LocationService;
 import semi.team.baro.location.model.vo.Location;
 
 /**
@@ -43,8 +46,29 @@ public class LocationInsertWriteServlet extends HttpServlet {
 		String groundLng = mRequest.getParameter("groundLng");
 		String groundContent = mRequest.getParameter("groundContent");
 		String filename = mRequest.getOriginalFileName("upfile");
+		System.out.println(groundName+groundLat+groundLng+groundContent+filename);
 		Location l = new Location();
-		
+		l.setGroundName(groundName);
+		l.setGroundLat(groundLat);
+		l.setGroundLng(groundLng);
+		l.setGroundContent(groundContent);
+		l.setFilePath(filename);
+		//3. 비즈니스로직
+		LocationService service = new LocationService();
+		int result = service.insertLocation(l);
+		//4. 결과처리
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+		if(result>0) {
+			request.setAttribute("title", "게시글 작성 성공");
+			request.setAttribute("msg", "게시글이 작성되었습니다.");
+			request.setAttribute("icon", "success");
+		}else {
+			request.setAttribute("title", "게시글 작성 실패");
+			request.setAttribute("msg", "오류가 발생했습니다.");
+			request.setAttribute("icon", "error");
+		}
+		request.setAttribute("loc", "/locationList.do?reqPage=1");
+		view.forward(request, response);
 	}
 
 	/**
