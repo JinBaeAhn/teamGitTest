@@ -14,6 +14,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.loactionList-info, .locationList-location-name{
+margin-bottom: 0;
+}
+
+</style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
@@ -23,7 +29,7 @@
             <div class="loactionList-content-header">
                 <div>
                 <input type="text" class="loactionList-search">
-                <img src="/magnifying-glass.png">
+                <img src="/testImage/magnifying-glass.png">
                 </div>
                 <div>
                     <p>구장리스트</p>
@@ -34,7 +40,7 @@
  				<%Location l = list.get(i); %>
                 <div class="loactionList-content">
                     <div class="loactionList-main-img">
-                        <img class="loactionList-pic" src="/79e7330368d49cceeaabdcf7ef7513eb (1).jpg">
+                        <img class="loactionList-pic" src="/testImage/79e7330368d49cceeaabdcf7ef7513eb (1).jpg">
                     </div>
                     <div class="loactionList-text-wrap">
                         <p class="locationList-location-name">
@@ -43,17 +49,26 @@
                         <p class="loactionList-info">
                            <%=l.getGroundContentBr() %>
                         </p>
-                        <div class="loactionList-sub-img">
-                            <img src="/soccer-shoe.png">
-                            <img src="/football-uniform.png">
-                            <img src="/shower.png">
-                        </div>
                     </div>
+                    <div class="locationList-footer-wrap">
+                        <a href="/locationInfo.do?groundNo=<%=l.getGroundNo() %>">
+                        	<button class="locationList-Info-btn">상세보기</button>
+                        </a>
+                        <div class="loactionList-sub-img">
+                            <img src="/testImage/soccer-shoe.png">
+                            <img src="/testImage/football-uniform.png">
+                            <img src="/testImage/shower.png">
+                            <img src="/testImage/soccer-shoe.png">
+                            <img src="/testImage/football-uniform.png">
+                            <img src="/testImage/shower.png">
+                        </div>
+                     </div>
                 </div>
                 <%} %>
             </div>
-            <div id="pageNavi"><%=pageNavi %></div>
+            
             <div class="locationList-btn-wrap">
+            <div id="pageNavi"><%=pageNavi %></div>
                 <button>홈으로</button>
             </div>
         </div>
