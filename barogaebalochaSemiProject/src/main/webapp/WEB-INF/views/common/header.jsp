@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="/css/matchingPage.css">
     <link rel="stylesheet" href="/css/matchingWriteFrm.css">
     <link rel="stylesheet" href="/css/memberInfo.css">
-    
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/notice.css">
     <script src="js/jquery-3.6.0.js"></script>
 </head>
 <body>
@@ -33,8 +34,13 @@
             </div>
             <div class="header-content">
                 <div class="header-link">
+                <%if(m == null) {%>
                     <a href="/joinFrm.do">JOIN</a>
                     <a href="/loginFrm.do">LOGIN</a>
+                <%} else {%>
+                    <a href="/logout.do">LOGOUT</a>
+                	<a href="/mypage.do?memberId=<%=m.getMemberId() %>"><%=m.getMemberName() %>의 라커룸</a>
+                <%} %>
                 </div>                
                 <div class="nav">
                     <ul class="navi">
