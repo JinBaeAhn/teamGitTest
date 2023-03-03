@@ -118,3 +118,7 @@ public class MercenaryService {
 		return result;
 	}	
 }
+
+
+
+
