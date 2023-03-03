@@ -69,7 +69,7 @@ margin-bottom: 0;
             
             <div class="locationList-btn-wrap">
             <div id="pageNavi"><%=pageNavi %></div>
-                <button>홈으로</button>
+                <a href="/"><button>홈으로</button></a>
             </div>
         </div>
     </div>
