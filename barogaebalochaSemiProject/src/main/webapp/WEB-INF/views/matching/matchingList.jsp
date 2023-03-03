@@ -1,5 +1,10 @@
+<%@page import="semi.team.baro.matching.model.vo.Matching"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+    	ArrayList<Matching> list = (ArrayList<Matching>)request.getAttribute("list");
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +19,8 @@
             <hr>
         </div>
         <div class="mercenary-wrap">
-        <% for(Mercenary mc : list) {%>
-        <a href="/mercenaryView.do?mercenaryNo=<%=mc.getMercenaryNo() %>">
+        <% for(Matching mc : list) {%>
+        <a href="/matchingView.do?matchingNo=<%=mc.getMatchingNo() %>">
         	<div class="mercenary-list">
                 <div class="mercenary-list-left">
                     <div class="mercenary-date">

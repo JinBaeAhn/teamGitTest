@@ -42,7 +42,10 @@ public class MatchingListServlet extends HttpServlet {
 		MatchingPageData mpd = service.selectMatchingList(reqPage);
 		//4.화면처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/matching/matchingList.jsp");
-		
+		request.setAttribute("list", mpd.getList());
+		request.setAttribute("pageNavi", mpd.getPageNavi());
+		request.setAttribute("start", mpd.getStart());
+		view.forward(request, response);
 	}
 
 	/**
