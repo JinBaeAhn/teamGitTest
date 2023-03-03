@@ -102,7 +102,9 @@
            </a>	
         <%} %>                     
         </div>
-        <div class="button"><a href="/mercenaryWrite.do" class="btn1 bc2 bs2">작성하기</a></div>
+        <%if(m != null) {%>
+        	<div class="button"><a href="/mercenaryWrite.do" class="btn1 bc2 bs2">작성하기</a></div>
+        <%} %>
         <div id="pageNavi"><%=pageNavi %></div>
 	</div>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>

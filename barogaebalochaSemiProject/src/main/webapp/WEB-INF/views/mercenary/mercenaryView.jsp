@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <title>용병모집 상세보기</title>
 <style>
     .tbl {
@@ -165,7 +166,7 @@
 		</table>
 		<div class="view-link">
 			<a href="#">수정</a>
-			<a href="#">삭제</a>
+			<a onclick="mercenaryDelete(<%=mc.getMercenaryNo()%>);">삭제</a>
 		</div>
 		<div class="back-link">
 			<a href="/mercenaryList.do?reqPage=1" class="btn2 bc1">목록으로</a>
@@ -188,6 +189,25 @@
 			</form>
 		</div>	
 	</div>
+	<script>
+	    function mercenaryDelete(mercenaryNo) {
+	        Swal.fire({
+	            title: '게시글 삭제',
+	            text: "게시글을 삭제하시겠습니까?",
+	            icon: 'question',
+	            showCancelButton: true,
+	            confirmButtonColor: '#AACB73',
+	            cancelButtonColor: '#ccc',
+	            confirmButtonText: '확인',
+	            cancelButtonText: '취소'
+	        }).then((result) => {
+	            if (result.isConfirmed) {
+	                location.href="/mercenaryDelete.do?mercenaryNo="+mercenaryNo;
+	            }
+	        })
+	    }
+
+	</script>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

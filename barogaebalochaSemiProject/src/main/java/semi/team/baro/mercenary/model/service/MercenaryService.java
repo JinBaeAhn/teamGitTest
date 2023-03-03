@@ -105,5 +105,16 @@ public class MercenaryService {
 		JDBCTemplate.close(conn);
 		return mc;
 	}
-	
+
+	public int mercenaryDelete(int mercenaryNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.mercenaryDelete(conn, mercenaryNo);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}	
 }
