@@ -31,7 +31,7 @@ public class MemberDao {
 			if(rset.next()) {
 				m = new Member();
 				m.setEnrollDate(rset.getString("enroll_date"));
-				m.setFilepath(rset.getString("filepath"));
+				m.setFilepath(rset.getString("imgFile"));
 				m.setMemberAddr(rset.getString("member_addr"));
 				m.setMemberContent(rset.getString("member_content"));
 				m.setMemberCredit(rset.getInt("member_credit"));
@@ -110,6 +110,45 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+
+	public Member selectOneMember(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member member = null;
+		
+		String query = "select * from member_tbl where member_id=? and member_pw=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, m.getMemberId());
+			pstmt.setString(2, m.getMemberPw());
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				member = new Member();
+				member.setEnrollDate(rset.getString("enroll_date"));
+				member.setFilepath(rset.getString("filepath"));
+				member.setMemberAddr(rset.getString("member_addr"));
+				member.setMemberContent(rset.getString("member_content"));
+				member.setMemberCredit(rset.getInt("member_credit"));
+				member.setMemberId(rset.getString("member_id"));
+				member.setMemberLevel(rset.getInt("member_level"));
+				member.setMemberMail(rset.getString("member_mail"));
+				member.setMemberName(rset.getString("member_name"));
+				member.setMemberNo(rset.getInt("member_no"));
+				member.setMemberPhone(rset.getString("member_phone"));
+				member.setMemberPw(rset.getString("member_pw"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return member;
 	}
 }
 

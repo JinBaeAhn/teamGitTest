@@ -66,20 +66,18 @@
     <div class="wrap">
         <div class="page-content">
             <div class="page-title">회원가입</div>
-                <form name="checkIdFrm" action="/checkId.do" >
-                    <input type="hidden" name="checkId">
-                </form>
-                <form action="/join.do" method="post">
+                <form action="/join.do" method="post"  enctype="multipart/form-data">
                     <div class="input-wrap img-input">
                         <label for="imgFile">
                             <img src="img/profile.png" id="img-view">
                         </label>
-                        <input type="file" name="imgFile" id="imgFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this);">
+                        <input type="file" name="imgFile" id="imgFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this);" >
                     </div>
                     <div class="input-wrap">
-                        <label for="memberId">아이디<span id="ajaxCheckId"></span></label>
+                        <label for="memberId">아이디</label>
                         <div class="id-wrap">
                             <input type="text" name="memberId" id="memberId" class="input-form" placeholder="아이디를 입력해주세요" required>
+                            <span id="ajaxCheckId"></span>
                         </div>
                     </div>
                     <div class="input-wrap">
