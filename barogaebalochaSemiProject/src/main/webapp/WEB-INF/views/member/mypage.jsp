@@ -47,6 +47,7 @@
     	margin: 0 auto;
     }
     .btn-box{
+    	margin-top: 20px;
     	width: 600px;
     	text-align : center;
     }
@@ -109,7 +110,7 @@
 				<input type="text" name="enrollDate" id="enrollDate" class="input-form" value="<%=m.getEnrollDate()%>" disabled>
 			</div>
 			<div class="btn-box">
-				<button type="submit" class="btn1 bc4 bs5">정보수정</button>
+				<a class="btn1 bc4 bs5" href="/updateMemberFrm.do">정보수정</a>
 				<a class="btn1 bc4 bs5" href="/deleteMember.do">회원탈퇴</a>
 			</div>
         </div>

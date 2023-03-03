@@ -1,29 +1,23 @@
-package semi.team.baro.notice.controller;
+package semi.team.baro.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.team.baro.notice.model.service.NoticeService;
-import semi.team.baro.notice.model.vo.Notice;
-
 /**
- * Servlet implementation class NoticeListServlet
+ * Servlet implementation class ChangeLevelServlet
  */
-@WebServlet(name = "NoticeList", urlPatterns = { "/noticeList.do" })
-public class NoticeListServlet extends HttpServlet {
+@WebServlet(name = "ChangeLevel", urlPatterns = { "/changeLevel.do" })
+public class ChangeLevelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeListServlet() {
+    public ChangeLevelServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +26,10 @@ public class NoticeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//1. 인코딩
 		request.setCharacterEncoding("utf-8");
-		
-		NoticeService noticeService = new NoticeService();
-		ArrayList<Notice> noticeList = noticeService.selectAllNoticeList();
-		request.setAttribute("noticeList", noticeList);
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/notice/noticeList.jsp");
-		requestDispatcher.forward(request, response);
+		//2.값추출
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 	}
 
 	/**

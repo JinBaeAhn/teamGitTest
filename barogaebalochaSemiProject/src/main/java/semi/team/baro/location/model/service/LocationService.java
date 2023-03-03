@@ -99,5 +99,17 @@ public class LocationService {
 		JDBCTemplate.close(conn);
 		return lvd;
 	}
+
+	public int insertLocation(Location l) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.insertLocation(conn,l);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
 	
 }
