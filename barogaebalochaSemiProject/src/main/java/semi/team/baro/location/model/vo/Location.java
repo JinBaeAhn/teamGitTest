@@ -71,6 +71,9 @@ public class Location {
 	public String getGroundContent() {
 		return groundContent;
 	}
+	public String getGroundContentBr() {
+		return groundContent.replaceAll("\r\n", "<br>");
+	}
 
 	public void setGroundContent(String groundContent) {
 		this.groundContent = groundContent;

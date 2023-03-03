@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.taglibs.standard.tag.el.fmt.RequestEncodingTag;
+
 
 import semi.team.baro.matching.model.service.MatchingService;
 import semi.team.baro.matching.model.vo.MatchingPageData;
@@ -37,12 +37,14 @@ public class MatchingListServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		//2.값추출
 		int reqPage = Integer.parseInt(request.getParameter("requestPage"));
+		System.out.println(reqPage);
 		//3.비즈니스로직
 		MatchingService service = new MatchingService();
 		MatchingPageData mpd = service.selectMatchingList(reqPage);
 		//4.화면처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/matching/matchingList.jsp");
 		request.setAttribute("list", mpd.getList());
+		System.out.println(mpd.getList().size());
 		request.setAttribute("pageNavi", mpd.getPageNavi());
 		request.setAttribute("start", mpd.getStart());
 		view.forward(request, response);

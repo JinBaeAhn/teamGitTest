@@ -34,7 +34,7 @@
                 </div>                
                 <div class="nav">
                     <ul class="navi">
-                        <li><a href="/matchingList.do">MATCHING</a></li>
+                        <li><a href="/matchingList.do?requestPage=1">MATCHING</a></li>
                         <li><a href="/mercenaryList.do">용병모집</a></li>
                         <li><a href="/locationList.do?requestPage=1">구장</a></li>
                         <li><a href="/noticeList.do">공지사항</a></li>

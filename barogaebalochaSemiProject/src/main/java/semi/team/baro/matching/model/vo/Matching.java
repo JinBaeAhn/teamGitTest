@@ -11,6 +11,7 @@ public class Matching {
 	private int groundNo;
 	private String groundLocation;
 	private int reservationNo;
+	private String groundName;
 	
 	private int matchingNo;
 	private int matchingRequestStatus;
@@ -26,8 +27,8 @@ public class Matching {
 
 	public Matching(int matchingBoardNo, int memberNo, String matchingBoardTitle, String matchingBoardContent,
 			String regDate, int readCount, int matchingStatus, int groundNo, String groundLocation, int reservationNo,
-			int matchingNo, int matchingRequestStatus, String reservationTime, String reservationDate,
-			int reservationStatus) {
+			String groundName, int matchingNo, int matchingRequestStatus, String reservationTime,
+			String reservationDate, int reservationStatus) {
 		super();
 		this.matchingBoardNo = matchingBoardNo;
 		this.memberNo = memberNo;
@@ -39,6 +40,7 @@ public class Matching {
 		this.groundNo = groundNo;
 		this.groundLocation = groundLocation;
 		this.reservationNo = reservationNo;
+		this.groundName = groundName;
 		this.matchingNo = matchingNo;
 		this.matchingRequestStatus = matchingRequestStatus;
 		this.reservationTime = reservationTime;
@@ -126,6 +128,14 @@ public class Matching {
 		this.reservationNo = reservationNo;
 	}
 
+	public String getGroundName() {
+		return groundName;
+	}
+
+	public void setGroundName(String groundName) {
+		this.groundName = groundName;
+	}
+
 	public int getMatchingNo() {
 		return matchingNo;
 	}
@@ -165,6 +175,8 @@ public class Matching {
 	public void setReservationStatus(int reservationStatus) {
 		this.reservationStatus = reservationStatus;
 	}
-
+	
 	
 }
+	
+	
