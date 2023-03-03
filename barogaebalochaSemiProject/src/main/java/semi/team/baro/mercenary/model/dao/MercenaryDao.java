@@ -40,7 +40,7 @@ public class MercenaryDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Mercenary> list = new ArrayList<Mercenary>();
-		String query = "select * from (select rownum as rnum, n.* from(select * from mercenary order by 1 desc)n) where rnum between 1 and 10;";
+		String query = "select * from (select rownum as rnum, n.* from(select * from mercenary order by 1 desc)n) where rnum between ? and ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);

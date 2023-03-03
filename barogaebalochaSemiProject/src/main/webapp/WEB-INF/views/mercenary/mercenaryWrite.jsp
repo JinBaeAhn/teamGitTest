@@ -88,7 +88,7 @@
                         <tr>
                             <th>경기날짜</th>
                             <td>
-                                <input type="text" class="input-form" id="datepicker" name="gameDate">
+                                <input type="text" class="input-form" id="datepicker" name="gameDate" required>
                             </td>
                         </tr>
                         <tr>
@@ -109,7 +109,7 @@
                         <tr>
                             <th>실력</th>
                             <td>
-                                <input type="radio" name="level" class="btn1" id="1" value="1">
+                                <input type="radio" name="level" class="btn1" id="1" value="1" checked>
                                 <label for="1">최상</label>
                                 <input type="radio" name="level" class="btn1" id="2" value="2">
                                 <label for="2">상</label>
@@ -124,12 +124,12 @@
                         <tr>
                             <th>참가비</th>
                             <td>
-                                <input type="text" class="input-form" placeholder="금액입력" name="mercenaryPay">
+                                <input type="text" class="input-form" placeholder="금액입력" name="mercenaryPay" required>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <textarea class="input-form content" name="mercenaryContent"></textarea>
+                                <textarea class="input-form content" name="mercenaryContent" required></textarea>
                             </td>
                         </tr>
                         <tr>

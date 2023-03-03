@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
     <%
     	ArrayList<Mercenary> list = (ArrayList<Mercenary>)request.getAttribute("list");
+    	String pageNavi = (String)request.getAttribute("pageNavi");
     %>
 <!DOCTYPE html>
 <html>
@@ -44,10 +45,13 @@
     }
     .button{
         width: 100%;
-        padding-left: 550px;
+        padding-left: 970px;
         margin-top: 30px;
         box-sizing: border-box;
     }
+    #pageNavi{
+   		margin-top: 50px;
+   	}
 </style>
 </head>
 <body>
@@ -99,6 +103,7 @@
         <%} %>                     
         </div>
         <div class="button"><a href="/mercenaryWrite.do" class="btn1 bc2 bs2">작성하기</a></div>
+        <div id="pageNavi"><%=pageNavi %></div>
 	</div>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

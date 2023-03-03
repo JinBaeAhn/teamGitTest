@@ -79,6 +79,12 @@
 	.inputCommentBox>form>ul>li:last-child{
 		width: 10%;
 	}
+	.view-link{
+		width: 100%;
+	}
+	.view-link>a{
+		text-align: center;
+	}
 </style>
 </head>
 <body>
@@ -142,12 +148,14 @@
 			<tr>
 				<th colspan="4">
 					<div class="back-link">
-						<a href="/mercenaryList.do" class="btn1 bs4 bc1">목록으로</a>
+						
 					</div>
 				</th>
 			</tr>	
 		</table>
-
+		<div class="view-link">
+			<a href="/mercenaryList.do" class="btn2 bc1">목록으로</a>
+		</div>
 		<div class="inputCommentBox">
 			<form action="/mercenaryRequestInsert.do" method="post">
 				<ul>

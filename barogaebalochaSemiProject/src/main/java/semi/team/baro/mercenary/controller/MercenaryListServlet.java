@@ -40,6 +40,7 @@ public class MercenaryListServlet extends HttpServlet {
 		//3. 비즈니스로직
 		MercenaryService service = new MercenaryService();
 		MercenaryPageData mcpd = service.mercenarySelectAll(reqPage);
+		System.out.println(mcpd.getList().size());
 		//ArrayList<Mercenary> list = service.mercenarySelectAll();
 		//4. 결과처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/mercenary/mercenaryList.jsp");
