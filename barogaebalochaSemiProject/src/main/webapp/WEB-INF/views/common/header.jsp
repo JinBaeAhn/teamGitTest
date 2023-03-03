@@ -12,6 +12,7 @@
     <!-- 구글 아이콘 -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/notice.css">
     <script src="js/jquery-3.6.0.js"></script>
 </head>
 <body>

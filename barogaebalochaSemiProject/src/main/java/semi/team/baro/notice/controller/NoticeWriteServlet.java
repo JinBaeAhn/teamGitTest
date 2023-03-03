@@ -46,11 +46,8 @@ public class NoticeWriteServlet extends HttpServlet {
 		} else {
 			System.out.println("NoticeWrite Failed");
 		}
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/notice/noticeList.jsp");
-		requestDispatcher.forward(request, response);
-		
+		response.sendRedirect("/noticeList.do");
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
