@@ -8,9 +8,23 @@ public class Notice {
 	private String noticeContent;
 	private int readCount;
 	private String regDate;
+	
+	private String memberId;
+	
 	public Notice() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public Notice(int noticeNo, String noticeCategory, String noticeTitle, String noticeContent,int readCount,
+			String regDate, String memberId) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeCategory = noticeCategory;
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+		this.readCount = readCount;
+		this.regDate = regDate;
+		this.memberId = memberId;
 	}
 	public Notice(int noticeNo, int memberNo, String noticeCategory, String noticeTitle, String noticeContent,
 			int readCount, String regDate) {
@@ -23,7 +37,6 @@ public class Notice {
 		this.readCount = readCount;
 		this.regDate = regDate;
 	}
-	
 	public Notice(int memberNo, String noticeCategory, String noticeTitle, String noticeContent) {
 		super();
 		this.memberNo = memberNo;
@@ -73,4 +86,11 @@ public class Notice {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+	
 }
