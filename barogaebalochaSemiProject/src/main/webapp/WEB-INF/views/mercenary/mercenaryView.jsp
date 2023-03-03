@@ -12,8 +12,8 @@
 <title>용병모집 상세보기</title>
 <style>
     .tbl {
-    	margin: 50px auto;
-	    width: 100%;
+    	margin: 60px auto;
+	    width: 80%;
 	    border-spacing: 0px;
 	    border-collapse: collapse;
     }
@@ -33,11 +33,52 @@
     	min-height: 300px;
     }
     .back-link>.bs4{
-    	padding: 10px;
+    	padding: 5px;
+    	font-size: 15px;
+    	font-family: ns-bold;
+    }
+    /*
+    .inputCommentBox ul{
+    	width: 100%;
+    	overflow: hidden;
     }
     .inputCommentBox li{
     	list-style-type: none;
+    	float:left;
     }
+    .inputCommentBox li>span{
+    	font-size: 70px;
+    	color: #ccc;
+    }
+    */
+    .inputCommentBox{
+		margin: 50px;
+	}
+	.inputCommentBox>form>ul{
+		list-style-type: none;
+		padding: 0;
+		display: flex;
+	}
+	.inputCommentBox>form>ul>li:first-child{
+		width: 10%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.inputCommentBox>form>ul>li:first-child>span{
+		font-size: 70px;
+		color: #ccc;
+	}
+	.inputCommentBox>form>ul>li:nth-child(2){
+		width: 75%;
+	}
+	.inputCommentBox>form>ul>li:nth-child(2)>textarea{
+		height: 95px;
+		min-height: 95px;
+	}
+	.inputCommentBox>form>ul>li:last-child{
+		width: 10%;
+	}
 </style>
 </head>
 <body>
@@ -49,26 +90,27 @@
 		</div>
 		<table class="tbl" id="mercenaryView">
 			<tr>
+				<th colspan="4"> 용병모집 </th>
+			</tr>
+			<tr>
+				<th>지역</th>
+				<td><%=mc.getLocation() %></td>
 				<th>구장이름</th>
-				<td colspan="2"><%=mc.getGroundName() %></td>
+				<td colspan="3"><%=mc.getGroundName() %></td>
 			</tr>
 			<tr>
 				<th>주소</th>
-				<td colspan="2">서울시 영등포구</td>
+				<td colspan="3">서울시 영등포구</td>
 			</tr>
 			<tr>
 				<th>경기일</th>
-				<td><%=mc.getGameDate() %></td>
-				<td><%=mc.getGameShowTime() %></td> 
+				<td colspan="3"><%=mc.getGameDate() %> [ <%=mc.getGameShowTime() %> ]</td>
+				 
 			</tr>
 			<tr>
-				<th>작성자</th>
 				<th>참가비</th>
-				<th>실력</th>
-			</tr>
-			<tr>
-				<td><%=mc.getMemberId() %></td>
 				<td><%=mc.getMercenaryPay() %> 원</td>
+				<th>실력</th>
 				<%if(mc.getLevel() == 1){ %>
 					<td>최상</td>
 				<%}else if(mc.getLevel() == 2) {%>
@@ -80,20 +122,25 @@
 				<%}else if(mc.getLevel() == 5) {%>
 					<td>최하</td>
 				<%} %>
-				
 			</tr>
 			<tr>
-				<th colspan="3">상세내용</th>
+				<th>작성자</th>
+				<td><%=mc.getMemberId() %></td>
+				<th>작성일</th>
+				<td style="color:#ccc;font-size:15px;"><%=mc.getRegDate() %></td>
 			</tr>
 			<tr>
-				<td colspan="3">
+				<th colspan="4">상세내용</th>
+			</tr>
+			<tr>
+				<td colspan="4">
 					<div class="mercenary-content">
 						<%=mc.getMercenaryContent() %>
 					</div>
 				</td>
 			</tr>
 			<tr>
-				<th colspan="3">
+				<th colspan="4">
 					<div class="back-link">
 						<a href="/mercenaryList.do" class="btn1 bs4 bc1">목록으로</a>
 					</div>
@@ -102,15 +149,15 @@
 		</table>
 
 		<div class="inputCommentBox">
-			<form action="/insertNoticeComment.do" method="post">
+			<form action="/mercenaryRequestInsert.do" method="post">
 				<ul>
 					<li>
-						<span class="material-icons">account_box</span>
+						<span class="material-symbols-outlined">account_circle</span>
 					</li>
 					<li>
-						<input type="hidden" name="mercenaryRef" value="<%=mc.getMercenaryNo() %>">
-						<input type="hidden" name="ncRef" value="0">
-						<textarea name="ncContent" class="input-form"></textarea>
+						<input type="hidden" name="mercenaryNo" value="<%=mc.getMercenaryNo() %>">
+						<input type="hidden" name="mcRequestNo" value="0">
+						<textarea name="mcRequestContent" class="input-form"></textarea>
 					</li>
 					<li>
 						<button type="submit" class="btn1 bc1 bs4">등록</button>

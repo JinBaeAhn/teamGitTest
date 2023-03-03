@@ -95,11 +95,6 @@
                             <th>경기시간</th>
                             <td>
                                 <select class="input-form" name="gameTime">
-                                    <option value="24">24 : 00 ~ 02 : 00</option>
-                                    <option value="02">02 : 00 ~ 04 : 00</option>
-                                    <option value="04">04 : 00 ~ 06 : 00</option>
-                                    <option value="06">06 : 00 ~ 08 : 00</option>
-                                    <option value="08">08 : 00 ~ 10 : 00</option>
                                     <option value="10">10 : 00 ~ 12 : 00</option>
                                     <option value="12">12 : 00 ~ 14 : 00</option>
                                     <option value="14">14 : 00 ~ 16 : 00</option>
@@ -107,6 +102,7 @@
                                     <option value="18">18 : 00 ~ 20 : 00</option>
                                     <option value="20">20 : 00 ~ 22 : 00</option>
                                     <option value="22">22 : 00 ~ 24 : 00</option>
+                                    <option value="24">24 : 00 ~ 02 : 00</option>
                                 </select>
                             </td>
                         </tr>
