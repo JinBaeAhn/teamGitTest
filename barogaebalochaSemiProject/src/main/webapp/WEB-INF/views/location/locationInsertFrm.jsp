@@ -183,7 +183,7 @@ input[name="f"]{
 			].join("");
 		});
 	});
-	
+
 	function loadMap(){
 		const addr = $("#address").val();
 		naver.maps.Service.geocode({
@@ -208,9 +208,22 @@ input[name="f"]{
 		        	$("#postcode").val(data.zonecode);
 		        	$("#address").val(data.address);
 		        	$("#detailAddress").focus();
-		        	const lng = response.result.items[1].point.x;//경도
-					const lat = response.result.items[1].point.y;//위도
-		        	console.log(); 
+		        	naver.maps.Service.geocode({
+		    			address : addr
+		    		},function(status, response){
+		    			if(status === naver.maps.Service.Status.ERROR){//자바스크립트 타입비교 ===
+		    				return alert("조회 에러");
+		    			}
+		    			console.log(response);
+		    			const lng = response.result.items[1].point.x;//경도
+		    			const lat = response.result.items[1].point.y;//위도
+		    			//위경도 객체
+		    			const latlng = new naver.maps.LatLng(lat,lng);
+		    			map.setCenter(latlng);
+		    			marker.setPosition(latlng);
+		    		});
+			        	console.log(lng);
+			        	console.log(lat);
 		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
 		            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
 		        }

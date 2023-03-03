@@ -10,6 +10,35 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+
+
+.tbl {
+    width: 100%;
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+.tbl tr{
+    background-color: #fefefe;
+    color: #181818;
+}
+.tbl td {
+    padding: 1rem;
+    text-align: center;
+}
+.menu li{
+    list-style-type: none;
+}
+.menu {
+    display: none;
+}
+.bs5 {
+    width: 800px;
+    padding: 1rem;
+    font-size: 1.2em;
+}
+
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -20,11 +49,14 @@
 				<th>선택</th>
 				<th>번호</th>
 				<th>아이디</th>
+				<th>비밀번호</th>
 				<th>이름</th>
+				<th>메일주소</th>
 				<th>전화번호</th>
 				<th>주소</th>
-				<th>가입일</th>
 				<th>회원등급</th>
+				<th>가입일</th>
+				<th>회원포인트</th>
 				<th>등급변경</th>
 			</tr>
 			<%for(Member member : list) {%>
@@ -32,10 +64,14 @@
 				<td><input type="checkbox" class="chk"></td>
 				<td><%=member.getMemberNo() %></td>
 				<td><%=member.getMemberId() %></td>
+				<td><%=member.getMemberPw() %></td>
 				<td><%=member.getMemberName() %></td>
+				<td><%=member.getMemberMail() %></td>
 				<td><%=member.getMemberPhone() %></td>
 				<td><%=member.getMemberAddr() %></td>
+				<td><%=member.getMemberLevel() %></td>
 				<td><%=member.getEnrollDate() %></td>
+				<td><%=member.getMemberCredit() %></td>
 				<td>
 					<%if(member.getMemberLevel() == 1) {%>
 					<select class="input-form">

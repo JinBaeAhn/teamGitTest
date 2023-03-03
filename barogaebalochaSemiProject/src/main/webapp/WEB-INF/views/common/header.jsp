@@ -46,9 +46,8 @@
                 <%if( m!=null && m.getMemberLevel()==1){%>
                 <div class="nav">
 	                    <ul class="navi">
-	                        <li><a href="#">정보수정</a></li>
 	                        <li><a href="#">회원관리</a></li>
-	                        <li><a href="#">구장등록</a></li>
+	                        <li><a href="/locationInsert.do">구장등록</a></li>
 	                        <li><a href="#">신고관리</a></li>
 	                        <li>
 	                            <a href="#" name="search">메뉴</a>
