@@ -12,7 +12,7 @@
 <title>용병모집 상세보기</title>
 <style>
     .tbl {
-    	margin: 60px auto;
+    	margin: 0 auto;
 	    width: 90%;
 	    border-spacing: 0px;
 	    border-collapse: collapse;
@@ -80,11 +80,20 @@
 	.inputCommentBox>form>ul>li:last-child{
 		width: 10%;
 	}
-	.view-link{
+	.back-link{
 		width: 100%;
 	}
-	.view-link>a{
+	.back-link{
 		text-align: center;
+	}
+	.view-link{
+		text-align: right;
+		width: 90%;
+		margin: 0 auto;
+	}
+	.view-link>a{
+		padding-left: 15px;
+		color: #181818;
 	}
 </style>
 </head>
@@ -94,6 +103,8 @@
 		<div class="page-title">
 			<h2>용병모집</h2>
 		</div>
+		<div class="read-count"></div>
+		<span class="material-symbols-outlined">spoof</span><span><%=mc.getReadCount() %></span>
 		<table class="tbl" id="mercenaryView">
 			<tr>
 				<th colspan="4"> 용병모집 </th>
@@ -153,7 +164,11 @@
 			</tr>	
 		</table>
 		<div class="view-link">
-			<a href="/mercenaryList.do" class="btn2 bc1">목록으로</a>
+			<a href="#">수정</a>
+			<a href="#">삭제</a>
+		</div>
+		<div class="back-link">
+			<a href="/mercenaryList.do?reqPage=1" class="btn2 bc1">목록으로</a>
 		</div>
 		<div class="inputCommentBox">
 			<form action="/mercenaryRequestInsert.do" method="post">
