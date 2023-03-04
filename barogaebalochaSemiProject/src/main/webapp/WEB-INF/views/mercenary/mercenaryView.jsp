@@ -1,8 +1,11 @@
+<%@page import="semi.team.baro.mercenary.model.vo.MercenaryRequest"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="semi.team.baro.mercenary.model.vo.Mercenary"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
     	Mercenary mc = (Mercenary)request.getAttribute("mc");
+    	ArrayList<MercenaryRequest> list = (ArrayList<MercenaryRequest>)request.getAttribute("list");
     %>
 <!DOCTYPE html>
 <html>
@@ -109,6 +112,13 @@
 	}
 	.posting-link>.btn2{
 		padding: 5px 10px;
+	}
+	.posting-link>.btn2:hover{
+		background-color: #AACB73; 
+		border: 2px solid #AACB73;
+	}
+	.comment-wrap{
+		border-bottom: 1px solid #ccc;
 	}
 </style>
 </head>
@@ -226,20 +236,27 @@
 			</form>
 		</div>
 		<!-- 댓글 -->
-        <div class="comment-wrap">
+		<%for(MercenaryRequest mcReq : list) {%>
+		<div class="comment-wrap">
             <div class="posting-comment">
                 <span class="material-icons">account_box</span>
             </div>
             <div class="posting-info">
-                <span style="font-size:17px;">user01</span>
-                <p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
-                <p>2023-03-02 17:28:32</p>
+                <span style="font-size:17px;"><%=mcReq.getMemberId() %></span>
+                <p><%=mcReq.getMercenaryRequestContent() %></p>
+                <p><%=mcReq.getMercenaryRequestDate() %></p>
             </div>
             <div class="posting-link">
+            	<%if( m != null && m.getMemberNo() == mc.getMemberNo()) {%>
                 <button type="button" class="btn2 bc2 sel">선택</button>
+                <%}else if( m != null && m.getMemberNo() == mcReq.getMemberNo()) {%>
+                <a href="#">수정</a>
+                <a href="#">삭제</a>
+                <%} %>
             </div>
-        </div>  	
-	</div>
+        </div>  		
+		<%} %>
+      </div>
 	<script>
 	    function mercenaryDelete(mercenaryNo) {
 	        Swal.fire({

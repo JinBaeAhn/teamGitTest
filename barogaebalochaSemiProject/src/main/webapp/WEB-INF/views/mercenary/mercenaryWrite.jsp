@@ -61,7 +61,6 @@
 	<div class="page-content">
 		<div class="page-title">
             <h2>용병모집 작성</h2>
-            <hr>
             <div class="mercenary-input-wrap">
                 <form action="/mercenaryInsert.do?memberNo=<%=m.getMemberNo() %>" method="post">
                     <table class="tbl" id="mercenaryWrite">

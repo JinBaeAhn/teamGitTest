@@ -1,6 +1,7 @@
 package semi.team.baro.mercenary.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import semi.team.baro.mercenary.model.service.MercenaryService;
 import semi.team.baro.mercenary.model.vo.Mercenary;
+import semi.team.baro.mercenary.model.vo.MercenaryRequest;
 
 /**
  * Servlet implementation class MercenaryViewServlet
@@ -38,9 +40,11 @@ public class MercenaryViewServlet extends HttpServlet {
 		//3.비즈니스로직
 		MercenaryService service = new MercenaryService();
 		Mercenary mc = service.mercenaryView(mercenaryNo);
+		ArrayList<MercenaryRequest> list = service.mercenaryRequestList(mercenaryNo); //댓글리스트
 		//4.결과처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/mercenary/mercenaryView.jsp");
 		request.setAttribute("mc", mc);
+		request.setAttribute("list", list);
 		view.forward(request, response);
 	}
 

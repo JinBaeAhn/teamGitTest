@@ -7,6 +7,7 @@ import common.JDBCTemplate;
 import semi.team.baro.mercenary.model.dao.MercenaryDao;
 import semi.team.baro.mercenary.model.vo.Mercenary;
 import semi.team.baro.mercenary.model.vo.MercenaryPageData;
+import semi.team.baro.mercenary.model.vo.MercenaryRequest;
 
 public class MercenaryService {
 	private MercenaryDao dao;
@@ -134,7 +135,27 @@ public class MercenaryService {
 		}else {
 			JDBCTemplate.rollback(conn);
 		}
+		JDBCTemplate.close(conn);
 		return result;
+	}
+
+	public int mercenaryRequestInsert(MercenaryRequest mcReq) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.mercenaryRequestInsert(conn, mcReq);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public ArrayList<MercenaryRequest> mercenaryRequestList(int mercenaryNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<MercenaryRequest> list = dao.mercenaryRequestList(conn, mercenaryNo);
+		JDBCTemplate.close(conn);
+		return list;
 	}	
 }
 
