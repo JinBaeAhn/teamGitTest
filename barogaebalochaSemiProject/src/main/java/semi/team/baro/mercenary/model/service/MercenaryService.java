@@ -16,9 +16,9 @@ public class MercenaryService {
 		dao = new MercenaryDao();
 	}
 
-	public int mercenaryInsert(Mercenary m) {
+	public int mercenaryInsert(Mercenary mc) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = dao.mercenaryInsert(conn, m);
+		int result = dao.mercenaryInsert(conn, mc);
 		if(result > 0) {
 			JDBCTemplate.commit(conn);
 		}else {

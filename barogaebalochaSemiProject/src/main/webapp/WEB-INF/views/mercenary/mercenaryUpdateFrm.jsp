@@ -92,7 +92,7 @@
                         <tr>
                             <th>경기날짜</th>
                             <td>
-                                <input type="text" class="input-form" id="datepicker" name="gameDate" required>
+                                <input type="text" class="input-form" id="datepicker" name="gameDate" value="<%=mc.getGameDate() %>"required>
                             </td>
                         </tr>
                         <tr>
@@ -133,7 +133,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <textarea class="input-form content" name="mercenaryContent" required></textarea>
+                                <textarea class="input-form content" name="mercenaryContent" required><%=mc.getMercenaryContent() %></textarea>
                             </td>
                         </tr>
                         <tr>

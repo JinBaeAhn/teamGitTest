@@ -14,17 +14,18 @@ public class MercenaryDao {
 	public int mercenaryInsert(Connection conn, Mercenary mc) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into mercenary values(mercenary_seq.nextval, 0, ?, ?, ?, ?, ?, ?, 0, to_char(sysdate, 'yyyy-mm-dd'), 0, ?)";
+		String query = "insert into mercenary values(mercenary_seq.nextval, ?, ?, ?, ?, ?, ?, ?, 0, to_char(sysdate, 'yyyy-mm-dd'), 0, ?)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, mc.getLocation());
-			pstmt.setString(2, mc.getGroundName());
-			pstmt.setString(3, mc.getGameDate());
-			pstmt.setInt(4, mc.getGameTime());
-			pstmt.setString(5, mc.getMercenaryContent());
-			pstmt.setInt(6, mc.getMercenaryPay());
-			pstmt.setInt(7, mc.getLevel());
+			pstmt.setInt(1, mc.getMemberNo());
+			pstmt.setString(2, mc.getLocation());
+			pstmt.setString(3, mc.getGroundName());
+			pstmt.setString(4, mc.getGameDate());
+			pstmt.setInt(5, mc.getGameTime());
+			pstmt.setString(6, mc.getMercenaryContent());
+			pstmt.setInt(7, mc.getMercenaryPay());
+			pstmt.setInt(8, mc.getLevel());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -77,7 +78,7 @@ public class MercenaryDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Mercenary mc = null;
-		String query = "select mercenary_no, game_location, ground_name, game_date, game_time, mercenary_content, mercenary_pay, read_count, reg_date, mercenary_whether, skill, member_id from mercenary join member_tbl using(member_no) where mercenary_no = ?";
+		String query = "select mercenary_no, member_no, game_location, ground_name, game_date, game_time, mercenary_content, mercenary_pay, read_count, reg_date, mercenary_whether, skill, member_id from mercenary join member_tbl using(member_no) where mercenary_no = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -86,6 +87,7 @@ public class MercenaryDao {
 			if(rset.next()) {
 				mc = new Mercenary();
 				mc.setMercenaryNo(rset.getInt("mercenary_no"));
+				mc.setMemberNo(rset.getInt("member_no"));
 				mc.setGameDate(rset.getString("game_date"));
 				mc.setGameTime(rset.getInt("game_time"));
 				mc.setGroundName(rset.getString("ground_name"));

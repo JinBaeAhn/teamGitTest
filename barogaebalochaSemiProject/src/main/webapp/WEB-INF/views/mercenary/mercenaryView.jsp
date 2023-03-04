@@ -12,6 +12,20 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <title>용병모집 상세보기</title>
 <style>
+	.read-count{
+		height: 30px;
+		text-align: right;
+		width: 90%;
+		margin: 0 auto;
+	}
+	.read-count span{
+		color: #ccc;
+		height: 30px;
+		line-height: 30px;
+	}
+	.read-count span:first-child{
+		font-size: 20px;
+	}
     .tbl {
     	margin: 0 auto;
 	    width: 90%;
@@ -24,6 +38,7 @@
     } 
     #mercenaryView th, #mercenaryView td{
         border: 1px solid #ccc;
+        font-size: 13px;
     }
     #mercenaryView th{
         background-color: #181818;
@@ -83,9 +98,12 @@
 	}
 	.back-link{
 		width: 100%;
-	}
-	.back-link{
 		text-align: center;
+		margin-top: 30px;
+	}
+	.back-link>a{
+		font-family: ns-bold;
+		font-size: 14px;
 	}
 	.view-link{
 		text-align: right;
@@ -105,8 +123,9 @@
 		<div class="page-title">
 			<h2>용병모집</h2>
 		</div>
-		<div class="read-count"></div>
-		<span class="material-symbols-outlined">spoof</span><span><%=mc.getReadCount() %></span>
+		<div class="read-count">
+			<span class="material-symbols-outlined">spoof</span><span><%=mc.getReadCount() %></span>
+		</div>
 		<table class="tbl" id="mercenaryView">
 			<tr>
 				<th colspan="4"> 용병모집 </th>
@@ -159,14 +178,14 @@
 			</tr>
 			<tr>
 				<th colspan="4">
-					<div class="back-link">
+					<div class="no">
 						
 					</div>
 				</th>
 			</tr>	
 		</table>
 		<div class="view-link">
-			<%if( m!=null && m.getMemberNo() == mc.getMemberNo()) {%>
+			<%if( m != null && m.getMemberNo() == mc.getMemberNo()) {%>
 				<a href="/mercenaryUpdateFrm.do?mercenaryNo=<%=mc.getMercenaryNo()%>">수정</a>
 				<a onclick="mercenaryDelete(<%=mc.getMercenaryNo()%>);">삭제</a>
 			<%} %>
@@ -174,6 +193,7 @@
 		<div class="back-link">
 			<a href="/mercenaryList.do?reqPage=1" class="btn2 bc1">목록으로</a>
 		</div>
+		<!-- 댓글input박스 -->
 		<div class="inputCommentBox">
 			<form action="/mercenaryRequestInsert.do" method="post">
 				<ul>
