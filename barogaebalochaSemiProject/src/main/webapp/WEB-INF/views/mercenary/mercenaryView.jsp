@@ -178,7 +178,7 @@
 				<th>작성자</th>
 				<td><%=mc.getMemberId() %></td>
 				<th>작성일</th>
-				<td style="color:#ccc;font-size:15px;"><%=mc.getRegDate() %></td>
+				<td style="color:#ccc;"><%=mc.getRegDate() %></td>
 			</tr>
 			<tr>
 				<th colspan="4">상세내용</th>
