@@ -168,7 +168,35 @@ public class MercenaryDao {
 		return result;
 	}
 
+	public int mercenaryUpdate(Connection conn, Mercenary mc) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "update mercenary set game_location = ?, ground_name = ?, game_date = ?, game_time = ?, mercenary_content = ?, mercenary_pay = ?, skill = ? where mercenary_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, mc.getLocation());
+			pstmt.setString(2, mc.getGroundName());
+			pstmt.setString(3, mc.getGameDate());
+			pstmt.setInt(4, mc.getGameTime());
+			pstmt.setString(5, mc.getMercenaryContent());
+			pstmt.setInt(6, mc.getMercenaryPay());
+			pstmt.setInt(7, mc.getLevel());
+			pstmt.setInt(8, mc.getMercenaryNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 }
+
+
+
+
 
 
 

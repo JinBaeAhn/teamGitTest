@@ -124,6 +124,17 @@ public class MercenaryService {
 		}
 		JDBCTemplate.close(conn);
 		return result;
+	}
+
+	public int mercenaryUpdate(Mercenary mc) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.mercenaryUpdate(conn, mc);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		return result;
 	}	
 }
 

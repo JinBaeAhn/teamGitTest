@@ -67,14 +67,14 @@
             <h2>용병모집 작성</h2>
             <hr>
             <div class="mercenary-input-wrap">
-                <form action="/mercenaryInsert.do" method="post">
+                <form action="/mercenaryUpdate.do?mercenaryNo=<%=mc.getMercenaryNo() %>" method="post">
                     <table class="tbl" id="mercenaryWrite">
                         <tr>
                             <th>지역</th>
                             <td>
                                 <select class="input-form" name="location">
-                                    <option value="seoul">서울</option>
-                                    <option value="incheon">인천</option>
+                                    <option value="1">서울</option>
+                                    <option value="2">인천</option>
                                     <option value="3">경기</option>
                                 </select>
                             </td>
@@ -83,8 +83,8 @@
                             <th>경기장</th>
                             <td>
                                 <select class="input-form" name="groundName">
-                                    <option value="1">서울어쩌구경기장</option>
-                                    <option value="2">인천어쩌구경기장</option>
+                                    <option value="seoul">서울어쩌구경기장</option>
+                                    <option value="incheon">인천어쩌구경기장</option>
                                     <option value="3">경기어쩌구경기장</option>
                                 </select>
                             </td>
@@ -138,7 +138,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input type="reset" class="btn1 bc1" value="취소">
+                                <a href="/mercenaryList.do?reqPage=1" class="btn1 bc1">취소</a>
                                 <input type="submit" class="btn1 bc1" value="완료">
                             </td>
                         </tr>

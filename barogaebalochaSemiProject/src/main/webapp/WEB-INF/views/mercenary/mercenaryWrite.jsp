@@ -134,7 +134,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input type="reset" class="btn1 bc1" value="취소">
+                                <a href="/mercenaryList.do?reqPage=1" class="btn1 bc1">취소</a>
                                 <input type="submit" class="btn1 bc1" value="완료">
                             </td>
                         </tr>

@@ -27,8 +27,8 @@
 		font-size: 20px;
 	}
     .tbl {
+    	width: 90%;
     	margin: 0 auto;
-	    width: 90%;
 	    border-spacing: 0px;
 	    border-collapse: collapse;
     }
@@ -54,20 +54,6 @@
     	font-size: 15px;
     	font-family: ns-bold;
     }
-    /*
-    .inputCommentBox ul{
-    	width: 100%;
-    	overflow: hidden;
-    }
-    .inputCommentBox li{
-    	list-style-type: none;
-    	float:left;
-    }
-    .inputCommentBox li>span{
-    	font-size: 70px;
-    	color: #ccc;
-    }
-    */
     .inputCommentBox{
 		margin: 50px;
 	}
@@ -115,6 +101,15 @@
 		color: #181818;
 		cursor:pointer;
 	}
+	.posting-info>p{
+		margin: 0;
+	}
+	.posting-info>p:last-child{
+		margin-left: 70px;
+	}
+	.posting-link>.btn2{
+		padding: 5px 10px;
+	}
 </style>
 </head>
 <body>
@@ -124,7 +119,8 @@
 			<h2>용병모집</h2>
 		</div>
 		<div class="read-count">
-			<span class="material-symbols-outlined">spoof</span><span><%=mc.getReadCount() %></span>
+			<span class="material-symbols-outlined">spoof</span>  
+			<span><%=mc.getReadCount() %></span>	
 		</div>
 		<table class="tbl" id="mercenaryView">
 			<tr>
@@ -143,6 +139,14 @@
 			<tr>
 				<th>경기일</th>
 				<td colspan="3"><%=mc.getGameDate() %> [ <%=mc.getGameShowTime() %> ]</td>				 
+			</tr>
+			<tr>
+				<th>모집상태</th>
+				<% if(mc.getMercenaryWhether() == 0 ) {%>
+					<td colspan="3">모집중</td>
+				<%}else if(mc.getMercenaryWhether() == 1) {%>
+					<td colspan="3">모집완료</td>
+				<%} %>				
 			</tr>
 			<tr>
 				<th>참가비</th>
@@ -201,16 +205,40 @@
 						<span class="material-symbols-outlined">account_circle</span>
 					</li>
 					<li>
-						<input type="hidden" name="mercenaryNo" value="<%=mc.getMercenaryNo() %>">
-						<input type="hidden" name="mcRequestNo" value="0">
-						<textarea name="mcRequestContent" class="input-form"></textarea>
+						<%if(m == null) {%>
+							<textarea name="mcRequestContent" class="input-form" style="color:#ccc;" readonly>로그인한 회원만 작성할 수 있습니다.</textarea>
+						<%}else {%>
+							<input type="hidden" name="mcRequsetWriter" value="<%=m.getMemberNo() %>">
+							<input type="hidden" name="mercenaryNo" value="<%=mc.getMercenaryNo() %>">
+							<input type="hidden" name="mcRequestNo" value="0">
+							<textarea name="mcRequestContent" class="input-form"></textarea>
+						<%} %>
+						
 					</li>
 					<li>
+						<% if( m == null ) {%>
+						<button type="button" class="btn1 bc1 bs4">등록</button>
+						<%}else {%>
 						<button type="submit" class="btn1 bc1 bs4">등록</button>
+						<%} %>
 					</li>
 				</ul>
 			</form>
-		</div>	
+		</div>
+		<!-- 댓글 -->
+        <div class="comment-wrap">
+            <div class="posting-comment">
+                <span class="material-icons">account_box</span>
+            </div>
+            <div class="posting-info">
+                <span style="font-size:17px;">user01</span>
+                <p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
+                <p>2023-03-02 17:28:32</p>
+            </div>
+            <div class="posting-link">
+                <button type="button" class="btn2 bc2 sel">선택</button>
+            </div>
+        </div>  	
 	</div>
 	<script>
 	    function mercenaryDelete(mercenaryNo) {
