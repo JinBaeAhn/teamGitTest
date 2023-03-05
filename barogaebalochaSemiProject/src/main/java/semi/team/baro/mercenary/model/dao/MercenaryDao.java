@@ -245,6 +245,60 @@ public class MercenaryDao {
 		}
 		return list;
 	}
+
+	public int mercenaryRequestDelete(Connection conn, int mcReqNo, int mercenaryNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "delete from mercenary_request where mercenary_request_no = ? and mercenary_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mcReqNo);
+			pstmt.setInt(2, mercenaryNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int mercenaryRequestUpdate(Connection conn, MercenaryRequest mcReq) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "update mercenary_request set mercenary_request_content = ? where mercenary_request_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, mcReq.getMercenaryRequestContent());
+			pstmt.setInt(2, mcReq.getMercenaryRequestNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int mercenaryRequestResultAllUpdate(Connection conn, MercenaryRequest mcReq) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		//1. mercenary_request 테이블의 mercenary_request_result를 전부 1로변경(where mercenaryNo = ?)에 해당하는것만
+		String query = "update mercenary_request set mercenary_request_result = 1 where mercenary_no = ? ";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }
 
 

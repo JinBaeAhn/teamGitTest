@@ -243,15 +243,16 @@
             </div>
             <div class="posting-info">
                 <span style="font-size:17px;"><%=mcReq.getMemberId() %></span>
-                <p><%=mcReq.getMercenaryRequestContent() %></p>
+                <p><%=mcReq.getMercenaryRequestContentBr() %></p>
                 <p><%=mcReq.getMercenaryRequestDate() %></p>
             </div>
-            <div class="posting-link">
-            	<%if( m != null && m.getMemberNo() == mc.getMemberNo()) {%>
-                <button type="button" class="btn2 bc2 sel">선택</button>
-                <%}else if( m != null && m.getMemberNo() == mcReq.getMemberNo()) {%>
-                <a href="#">수정</a>
-                <a href="#">삭제</a>
+            <textarea name="mercenaryRequestContent" class="input-form" style="min-height:96px;display:none;"><%=mcReq.getMercenaryRequestContent() %></textarea>
+            <div class="posting-link">             
+                <%if( m != null && m.getMemberNo() == mcReq.getMemberNo()) {%>
+                <a href="javascript:void(0)" onclick="modifyComment(this, <%=mcReq.getMercenaryRequestNo()%>, <%=mc.getMercenaryNo()%>);">수정</a>
+				<a href="javascript:void(0)" onclick="deleteComment(this, <%=mcReq.getMercenaryRequestNo()%>, <%=mc.getMercenaryNo()%>);">삭제</a>
+                <%} else if(m != null && m.getMemberNo() == mc.getMemberNo()){%>
+                <button type="button" onclick="mercenarySel(<%=mcReq.getMercenaryRequestNo()%>, <%=mc.getMercenaryNo()%>, '<%=mcReq.getMemberId() %>');" class="btn2 bc2">선택</button>
                 <%} %>
             </div>
         </div>  		
@@ -274,6 +275,85 @@
 	            }
 	        })
 	    }
+	    function modifyComment(obj, mercenaryRequestNo, mercenaryNo){
+			//숨겨놓은 textarea를 화면에 보여줌
+			$(obj).parent().prev().show();
+			//화면에 있던 댓글내용을 숨김
+			$(obj).parent().prev().prev().hide();
+			//수정 -> 수정완료
+			$(obj).text("수정완료");
+			$(obj).attr("onclick", "modifyComplete(this, "+mercenaryRequestNo+", "+mercenaryNo+")");
+			//삭제 -> 수정취소
+			$(obj).next().text("수정취소");
+			$(obj).next().attr("onclick", "modifyCancel(this, "+mercenaryRequestNo+", "+mercenaryNo+")");
+		}
+		
+		//수정완료 취소
+		function modifyCancel(obj, mercenaryRequestNo, mercenaryNo){
+			$(obj).parent().prev().hide(); //textarea숨김
+			$(obj).parent().prev().prev().show(); //기존댓글 다시 보여줌
+			//수정완료 -> 수정
+			$(obj).prev().text("수정");
+			$(obj).prev().attr("onclick", "modifyComment(this, "+mercenaryRequestNo+", "+mercenaryNo+")");
+			//수정취소 -> 삭제
+			$(obj).text("삭제");
+			$(obj).attr("onclick", "deleteComment(this, "+mercenaryRequestNo+", "+mercenaryNo+")");
+		}	
+		
+		function modifyComplete(obj, mercenaryRequestNo, mercenaryNo){
+			//form태그를 생성해서 전송
+			//댓글내용, 댓글번호, 공지사항번호
+			//1. form태그 생성
+			const form = $("<form style='display:none;' action='/updateMercenaryRequest.do' method='post'</form>");
+			//2. input태그 2개숨김
+			const mcReqInput = $("<input type='text' name='mercenaryRequestNo'>");
+			mcReqInput.val(mercenaryRequestNo);
+			const mercenaryNoInput = $("<input type='text' name='mercenaryNo'>");
+			mercenaryNoInput.val(mercenaryNo);
+			//3. textarea
+			const mcReqContent = $(obj).parent().prev().clone();
+			//4. form 태그에 input, textarea를 모두 포함
+			form.append(mcReqInput).append(mercenaryNoInput).append(mcReqContent);
+			//5. 생성된 form태그를 body태그에 추가
+			$("body").append(form);
+			//body의 맨마지막 현재페이지의 footer아래에 생성됨
+			form.submit();
+		}
+		
+		function deleteComment(obj, mcReqNo, mercenaryNo){
+			Swal.fire({
+	            title: '용병신청글 삭제',
+	            text: "작성한 신청을 삭제하시겠습니까?",
+	            icon: 'question',
+	            showCancelButton: true,
+	            confirmButtonColor: '#AACB73',
+	            cancelButtonColor: '#ccc',
+	            confirmButtonText: '확인',
+	            cancelButtonText: '취소'
+	        }).then((result) => {
+	            if (result.isConfirmed) {
+	            	location.href="/deleteMercenaryRequest.do?mcReqNo="+mcReqNo+"&mercenaryNo="+mercenaryNo;
+	            }
+	        })
+		}
+	    
+		function mercenarySel(mercenaryRequestNo, mercenaryNo, memberId){
+			Swal.fire({
+	            title: '용병선택',
+	            text: '[ '+memberId+' ]님을 용병으로 선택 하시겟습니까?',
+	            icon: 'question',
+	            showCancelButton: true,
+	            confirmButtonColor: '#AACB73',
+	            cancelButtonColor: '#ccc',
+	            confirmButtonText: '확인',
+	            cancelButtonText: '취소'
+	        }).then((result) => {
+	            if (result.isConfirmed) {
+	            	location.href="/mercenarySel.do?mcReqNo="+mercenaryRequestNo+"&mercenaryNo="+mercenaryNo+"&mcReqWriter="+memberId;
+	            }
+	        })
+		}
+		
 	</script>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
