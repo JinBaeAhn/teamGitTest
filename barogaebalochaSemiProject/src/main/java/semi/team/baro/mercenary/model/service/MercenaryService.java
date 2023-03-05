@@ -187,9 +187,39 @@ public class MercenaryService {
 		int result = 0;
 		//1. mercenary_request 테이블의 mercenary_request_result를 전부 1로변경(where mercenaryNo = ?)에 해당하는것만
 		result = dao.mercenaryRequestResultAllUpdate(conn, mcReq);
-		//2. mercenary_request 테이블의 mercenary_request_result를 해당 request를 작성한 아이디로 update
-		//3. mercenary 테이블의 mercenaryWhether를 0에서 1로변경(모집중 -> 모집완료)
-		return 0;
+		if(result > 0) {
+			//2. mercenary_request 테이블의 mercenary_request_result를 해당 request를 작성한 아이디로 update
+			result = dao.mercenaryRequestResultSelUpdate(conn, mcReq);
+			if(result > 0) {
+				//3. mercenary 테이블의 mercenaryWhether를 0에서 1로변경(모집중 -> 모집완료)
+				result = dao.mercenaryWhetherUpdate(conn, mcReq);
+				if(result > 0) {
+					JDBCTemplate.commit(conn);
+				}else {
+					JDBCTemplate.rollback(conn);
+				}
+			}
+		}	
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public int mercenaryCancle(MercenaryRequest mcReq) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = 0;
+		//1. mercenary_request 테이블의 mercenary_request_result를 전부 0으로변경(where mercenaryNo = ?)에 해당하는것만
+		result = dao.mercenaryRequestResultAllCancleUpdate(conn, mcReq);
+		if(result > 0) {
+			//2. mercenary 테이블의 mercenaryWhether를 1에서 0으로변경(모집완료 -> 모집중)
+			result = dao.mercenaryRequestResultCancleUpdate(conn, mcReq);
+			if(result > 0) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+		}	
+		JDBCTemplate.close(conn);
+		return result;
 	}	
 }
 

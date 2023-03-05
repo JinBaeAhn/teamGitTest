@@ -13,16 +13,16 @@ import semi.team.baro.mercenary.model.service.MercenaryService;
 import semi.team.baro.mercenary.model.vo.MercenaryRequest;
 
 /**
- * Servlet implementation class MercenarySelServlet
+ * Servlet implementation class MercenaryCancleServlet
  */
-@WebServlet(name = "MercenarySel", urlPatterns = { "/mercenarySel.do" })
-public class MercenarySelServlet extends HttpServlet {
+@WebServlet(name = "MercenaryCancle", urlPatterns = { "/mercenaryCancle.do" })
+public class MercenaryCancleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MercenarySelServlet() {
+    public MercenaryCancleServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,10 +43,9 @@ public class MercenarySelServlet extends HttpServlet {
 		mcReq.setMemberId(mcReqWriter);
 		//3. 비즈니스로직
 		MercenaryService service = new MercenaryService();
-		int result = service.mercenarySel(mcReq);
-		//mercenary_request 테이블의 mercenary_request_result를 전부 1로변경(where mercenaryNo = ?)에 해당하는것만
-		//mercenary_request 테이블의 mercenary_request_result를 해당 request를 작성한 아이디로 update
-		//mercenary 테이블의 mercenaryWhether를 0에서 1로변경(모집중 -> 모집완료)
+		int result = service.mercenaryCancle(mcReq);
+		//mercenary_request 테이블의 mercenary_request_result를 전부 0으로변경(where mercenaryNo = ?)에 해당하는것만
+		//mercenary 테이블의 mercenaryWhether를 1에서 0으로변경(모집완료 -> 모집중)
 		//4. 결과처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		if(result > 0) {

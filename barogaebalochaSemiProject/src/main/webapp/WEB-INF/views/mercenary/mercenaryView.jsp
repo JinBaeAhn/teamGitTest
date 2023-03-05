@@ -113,10 +113,6 @@
 	.posting-link>.btn2{
 		padding: 5px 10px;
 	}
-	.posting-link>.btn2:hover{
-		background-color: #AACB73; 
-		border: 2px solid #AACB73;
-	}
 	.comment-wrap{
 		border-bottom: 1px solid #ccc;
 	}
@@ -218,15 +214,19 @@
 						<%if(m == null) {%>
 							<textarea name="mcRequestContent" class="input-form" style="color:#ccc;" readonly>로그인한 회원만 작성할 수 있습니다.</textarea>
 						<%}else {%>
-							<input type="hidden" name="mcRequsetWriter" value="<%=m.getMemberNo() %>">
-							<input type="hidden" name="mercenaryNo" value="<%=mc.getMercenaryNo() %>">
-							<input type="hidden" name="mcRequestNo" value="0">
-							<textarea name="mcRequestContent" class="input-form"></textarea>
+							<%if(mc.getMercenaryWhether() == 1) {%>
+								<textarea name="mcRequestContent" class="input-form" style="color:#ccc;" readonly>모집이 완료되었습니다.</textarea>
+							<%} else{%>
+								<input type="hidden" name="mcRequsetWriter" value="<%=m.getMemberNo() %>">
+								<input type="hidden" name="mercenaryNo" value="<%=mc.getMercenaryNo() %>">
+								<input type="hidden" name="mcRequestNo" value="0">
+								<textarea name="mcRequestContent" class="input-form"></textarea>
+							<%} %>
 						<%} %>
 						
 					</li>
 					<li>
-						<% if( m == null ) {%>
+						<% if( m == null || mc.getMercenaryWhether() == 1) {%>
 						<button type="button" class="btn1 bc1 bs4">등록</button>
 						<%}else {%>
 						<button type="submit" class="btn1 bc1 bs4">등록</button>
@@ -252,7 +252,13 @@
                 <a href="javascript:void(0)" onclick="modifyComment(this, <%=mcReq.getMercenaryRequestNo()%>, <%=mc.getMercenaryNo()%>);">수정</a>
 				<a href="javascript:void(0)" onclick="deleteComment(this, <%=mcReq.getMercenaryRequestNo()%>, <%=mc.getMercenaryNo()%>);">삭제</a>
                 <%} else if(m != null && m.getMemberNo() == mc.getMemberNo()){%>
-                <button type="button" onclick="mercenarySel(<%=mcReq.getMercenaryRequestNo()%>, <%=mc.getMercenaryNo()%>, '<%=mcReq.getMemberId() %>');" class="btn2 bc2">선택</button>
+                	<%if(mcReq.getMercenaryRequestResult().equals(mcReq.getMemberId())) {%>
+                	<button type="button" onclick="mercenaryCancle(<%=mcReq.getMercenaryRequestNo()%>, <%=mc.getMercenaryNo()%>, '<%=mcReq.getMemberId() %>');" style="background-color:#ccc;border:2px solid #ccc;" class="btn2 bc2">선택취소</button>
+                	<%} else if(mcReq.getMercenaryRequestResult().equals("0")){%>
+                	<button type="button" onclick="mercenarySel(<%=mcReq.getMercenaryRequestNo()%>, <%=mc.getMercenaryNo()%>, '<%=mcReq.getMemberId() %>');" class="btn2 bc4">선택</button>
+                	<%} else if(mcReq.getMercenaryRequestResult().equals("1")){%>
+					<button type="button" onclick="alert('더이상 선택할 수 없습니다.');" class="btn2 bc2" style="background-color:#ccc;border:2px solid #ccc;">선택</button>                		
+                	<%} %>
                 <%} %>
             </div>
         </div>  		
@@ -354,6 +360,22 @@
 	        })
 		}
 		
+		function mercenaryCancle(mercenaryRequestNo, mercenaryNo, memberId){
+			Swal.fire({
+	            title: '용병선택취소',
+	            text: '용병[ '+memberId+' ]님을 취소 하시겟습니까?',
+	            icon: 'question',
+	            showCancelButton: true,
+	            confirmButtonColor: '#AACB73',
+	            cancelButtonColor: '#ccc',
+	            confirmButtonText: '확인',
+	            cancelButtonText: '취소'
+	        }).then((result) => {
+	            if (result.isConfirmed) {
+	            	location.href="/mercenaryCancle.do?mcReqNo="+mercenaryRequestNo+"&mercenaryNo="+mercenaryNo+"&mcReqWriter="+memberId;
+	            }
+	        })
+		}	
 	</script>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

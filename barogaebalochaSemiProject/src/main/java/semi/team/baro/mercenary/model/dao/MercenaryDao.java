@@ -293,11 +293,92 @@ public class MercenaryDao {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mcReq.getMercenaryNo());
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
 		}
-		return 0;
+		return result;
+	}
+
+	public int mercenaryRequestResultSelUpdate(Connection conn, MercenaryRequest mcReq) {		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		//2. mercenary_request 테이블의 mercenary_request_result를 해당 request를 작성한 아이디로 update
+		String query = "update mercenary_request set mercenary_request_result = ? where mercenary_request_no = ? ";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, mcReq.getMemberId());
+			pstmt.setInt(2, mcReq.getMercenaryRequestNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int mercenaryWhetherUpdate(Connection conn, MercenaryRequest mcReq) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		//3. mercenary 테이블의 mercenaryWhether를 0에서 1로변경(모집중 -> 모집완료)
+		String query = "update mercenary set mercenary_whether = 1 where mercenary_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mcReq.getMercenaryNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int mercenaryRequestResultAllCancleUpdate(Connection conn, MercenaryRequest mcReq) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		//1. mercenary_request 테이블의 mercenary_request_result를 전부 1로변경(where mercenaryNo = ?)에 해당하는것만
+		String query = "update mercenary_request set mercenary_request_result = 0 where mercenary_no = ? ";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mcReq.getMercenaryNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int mercenaryRequestResultCancleUpdate(Connection conn, MercenaryRequest mcReq) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		//3. mercenary 테이블의 mercenaryWhether를 0에서 1로변경(모집중 -> 모집완료)
+		String query = "update mercenary set mercenary_whether = 0 where mercenary_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mcReq.getMercenaryNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
 	}
 }
 
