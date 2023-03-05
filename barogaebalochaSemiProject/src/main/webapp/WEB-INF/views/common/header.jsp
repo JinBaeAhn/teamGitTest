@@ -55,8 +55,8 @@
 	                                <li><a href="#" class="searchBox">MATCHING</a></li>
 	                                <li><a href="#" class="searchBox">용병모집</a></li>
 	                                <li><a href="#" class="searchBox">구장</a></li>
-	                                <li><a href="#" class="searchBox">공지사항</a></li>
-	                                <li><a href="#" class="searchBox">게시판</a></li>
+	                                <li><a href="/noticeList.do?noticePage=1" class="searchBox">공지사항</a></li>
+	                                <li><a href="/freeBoardList.do?boardPage=1" class="searchBox">게시판</a></li>
 	                            </ul>
 	                        </li>
 	                    </ul>
@@ -69,8 +69,8 @@
                         <li><a href="/matchingList.do?requestPage=1">MATCHING</a></li>
                         <li><a href="/mercenaryList.do">용병모집</a></li>
                         <li><a href="/locationList.do?requestPage=1">구장</a></li>
-                        <li><a href="/noticeList.do">공지사항</a></li>
-                        <li><a href="#">게시판</a></li>
+                        <li><a href="/noticeList.do?noticePage=1">공지사항</a></li>
+                        <li><a href="//freeBoardList.do?boardPage=1">게시판</a></li>
                     </ul>
                 </div>
                 <%} %>

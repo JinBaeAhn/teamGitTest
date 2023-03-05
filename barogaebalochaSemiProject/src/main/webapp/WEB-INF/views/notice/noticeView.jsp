@@ -6,7 +6,7 @@
     %>
 <%@include file="/WEB-INF/views/common/header.jsp" %>
 <div class="page-content">
-<h3><a href="/noticeList.do">공지사항</a></h3>
+<h3><a href="/noticeList.do?noticePage=1">공지사항</a></h3>
 	<table class="notice-view table" id="noticeView">
 		<tr>
 			<th class="col-md-2"><%=notice.getNoticeCategory() %></th>
@@ -23,10 +23,12 @@
 			<td colspan="4"><div class="noticeViewContent"><%=notice.getNoticeContent() %></div></td>
 		</tr>
 	</table>
+	<%if(m != null && m.getMemberLevel() < 2) { %>
 	<div class="notice-view-btnbox">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 		<a class="btn bc44" href="/noticeUpdateForm.do?noticeNo=<%=notice.getNoticeNo()%>">Update</a>
 		<button class="btn bc44" onclick="noticeRemove(<%=notice.getNoticeNo()%>)">remove</button>
 	</div>
+ 	<%} %>
 </div>
 <script type="text/javascript">
 	function noticeRemove(noticeNo) {
