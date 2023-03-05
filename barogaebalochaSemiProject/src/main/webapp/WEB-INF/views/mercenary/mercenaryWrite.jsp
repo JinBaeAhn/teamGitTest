@@ -27,8 +27,7 @@
         border: 1px solid #ccc;
     }
     #mercenaryWrite th{
-        background-color: #181818;
-        color: #fcfcfc;
+        color: #181818;
     }
     .btn1{
         padding: 8px;
