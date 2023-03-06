@@ -80,7 +80,7 @@ public class MercenaryDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Mercenary mc = null;
-		String query = "select mercenary_no, member_no, game_location, ground_name, game_date, game_time, mercenary_content, mercenary_pay, read_count, reg_date, mercenary_whether, skill, member_id from mercenary join member_tbl using(member_no) join ground_tbl using(ground_no) where mercenary_no = ?";
+		String query = "select * from mercenary join member_tbl using(member_no) join ground_tbl using(ground_no) where mercenary_no = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -101,6 +101,9 @@ public class MercenaryDao {
 				mc.setMercenaryWhether(rset.getInt("mercenary_whether"));
 				mc.setReadCount(rset.getInt("read_count"));
 				mc.setRegDate(rset.getString("reg_date"));
+				mc.setGroundLocation(rset.getString("ground_location"));
+				mc.setGroundLat(rset.getString("ground_lat"));
+				mc.setGroundLng(rset.getString("ground_lng"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -173,7 +176,7 @@ public class MercenaryDao {
 	public int mercenaryUpdate(Connection conn, Mercenary mc) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "update mercenary set game_location = ?, ground_name = ?, game_date = ?, game_time = ?, mercenary_content = ?, mercenary_pay = ?, skill = ? where mercenary_no = ?";
+		String query = "update mercenary set game_location = ?, game_ground_name = ?, game_date = ?, game_time = ?, mercenary_content = ?, mercenary_pay = ?, skill = ? where mercenary_no = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
