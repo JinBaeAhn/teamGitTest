@@ -120,6 +120,8 @@ input[name="f"]{
                     </td>
 				</tr>
 				<tr class="tr-1">
+					<th>금액</th>
+					<td><input type="text" name="groundPrice"></td>
 					<th class="td-1">첨부파일</th>
 					<td><input type="file" name="upfile"></td>
 				</tr>

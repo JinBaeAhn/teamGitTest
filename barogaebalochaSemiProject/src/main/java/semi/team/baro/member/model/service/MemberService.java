@@ -23,6 +23,12 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		return m;
 	}
+	public ArrayList<Member> adminOneMember(String memberId) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Member> list = dao.adminOneMember(conn, memberId);
+		JDBCTemplate.close(conn);
+		return list;
+	}
 
 	public int insertMember(Member m) {
 		Connection conn = JDBCTemplate.getConnection();
