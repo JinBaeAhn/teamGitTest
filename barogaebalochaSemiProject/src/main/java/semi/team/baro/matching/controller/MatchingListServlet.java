@@ -41,6 +41,7 @@ public class MatchingListServlet extends HttpServlet {
 		//3.비즈니스로직
 		MatchingService service = new MatchingService();
 		MatchingPageData mpd = service.selectMatchingList(reqPage);
+		//System.out.println(mpd.getList().size());
 		//4.화면처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/matching/matchingList.jsp");
 		request.setAttribute("list", mpd.getList());

@@ -13,6 +13,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tnds8i7hti&submodules=geocoder"></script>
 <title>용병모집 상세보기</title>
 <style>
 	.read-count{
@@ -40,11 +41,11 @@
         text-align: center;
     } 
     #mercenaryView th, #mercenaryView td{
-        border: 1px solid #ccc;
+        border: 1px solid #181818;
         font-size: 13px;
     }
     #mercenaryView th{
-        background-color: #181818;
+        background-color: #ccc;
         color: #fcfcfc;
     }
     .mercenary-content{
@@ -134,13 +135,29 @@
 			</tr>
 			<tr>
 				<th>지역</th>
-				<td><%=mc.getLocation() %></td>
+				<td>
+					 <%if(mc.getLocation().equals("seoul")) {%>
+                     	서울
+                     <%} else if(mc.getLocation().equals("incheon")) {%>
+                     	인천
+                     <%} else if(mc.getLocation().equals("Gyeonggi")) {%>
+                     	경기
+                     <%} %>
+				</td>
 				<th>구장이름</th>
 				<td colspan="3"><%=mc.getGroundName() %></td>
 			</tr>
 			<tr>
+				<th>지도</th>
+				<td colspan="3">
+				<div id="map" style="width:100%; height: 400px; margin: 0 auto;"></div>
+				<input type="hidden" id="groundLat" value="<%=mc.getGroundLat()%>">
+				<input type="hidden" id="groundLng" value="<%=mc.getGroundLng() %>">
+				</td>
+			<tr>
+			<tr>
 				<th>주소</th>
-				<td colspan="3">서울시 영등포구</td>
+				<td colspan="3"><%=mc.getGroundLocation() %></td>
 			</tr>
 			<tr>
 				<th>경기일</th>
@@ -376,6 +393,22 @@
 	            }
 	        })
 		}	
+		
+		const groundLat = $("#groundLat").val(); //위도
+		const groundLng = $("#groundLng").val(); //경도
+		
+		const map = new naver.maps.Map("map",{
+			center : new naver.maps.LatLng(groundLat, groundLng),//지도의 중심지정
+			zoom : 18, //지도의 배율
+	            draggable: false,
+	            pinchZoom: false,
+	            scrollWheel: false,
+		});
+		//지도(지정위치)위에 마커
+		const marker = new naver.maps.Marker({
+			position : new naver.maps.LatLng(groundLat, groundLng),
+			map : map //위에서 선언한 map에 올리라는 의미
+		});
 	</script>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

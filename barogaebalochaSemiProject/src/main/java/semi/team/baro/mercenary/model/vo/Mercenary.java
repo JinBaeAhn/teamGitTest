@@ -14,27 +14,13 @@ public class Mercenary {
 	private int mercenaryWhether; //용병모집상태(0:모집중 / 1:모집완료)
 	private int mercenaryPay; //참가비
 	private int level; //실력
+	private String groundLocation;
+	private String groundLat;
+	private String groundLng;
+	
 	public Mercenary() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	public Mercenary(int mercenaryNo, int memberNo, String location, String groundName, String gameDate,
-			int gameTime, String mercenaryContent, int readCount, String regDate, int mercenaryWhether,
-			int mercenaryPay, int level, String memberId) {
-		super();
-		this.mercenaryNo = mercenaryNo;
-		this.memberNo = memberNo;
-		this.memberId = memberId;
-		this.location = location;
-		this.groundName = groundName;
-		this.gameDate = gameDate;
-		this.gameTime = gameTime;
-		this.mercenaryContent = mercenaryContent;
-		this.readCount = readCount;
-		this.regDate = regDate;
-		this.mercenaryWhether = mercenaryWhether;
-		this.mercenaryPay = mercenaryPay;
-		this.level = level;
 	}
 	public int getMercenaryNo() {
 		return mercenaryNo;
@@ -120,7 +106,23 @@ public class Mercenary {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	
-	
+	public String getGroundLocation() {
+		return groundLocation;
+	}
+	public void setGroundLocation(String groundLocation) {
+		this.groundLocation = groundLocation;
+	}
+	public String getGroundLat() {
+		return groundLat;
+	}
+	public void setGroundLat(String groundLat) {
+		this.groundLat = groundLat;
+	}
+	public String getGroundLng() {
+		return groundLng;
+	}
+	public void setGroundLng(String groundLng) {
+		this.groundLng = groundLng;
+	}
 	
 }

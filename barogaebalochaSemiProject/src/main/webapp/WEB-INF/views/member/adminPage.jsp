@@ -22,9 +22,13 @@
     background-color: #fefefe;
     color: #181818;
 }
+.tbl tr>th{
+    text-align: center;
+}
 .tbl td {
     padding: 1rem;
     text-align: center;
+    font-size: 0.5em;
 }
 .menu li{
     list-style-type: none;
@@ -37,6 +41,7 @@
     padding: 1rem;
     font-size: 1.2em;
 }
+
 
 </style>
 </head>
@@ -57,7 +62,7 @@
 				<th>회원등급</th>
 				<th>가입일</th>
 				<th>회원포인트</th>
-				<th>등급변경</th>
+				<th colspan="2">등급변경</th>
 			</tr>
 			<%for(Member member : list) {%>
 			<tr class="tr-1">

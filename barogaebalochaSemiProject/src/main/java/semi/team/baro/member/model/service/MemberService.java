@@ -62,6 +62,25 @@ public class MemberService {
 	}
 
 
+
+	public int deleteMember(Member m) {
+		Connection conn = JDBCTemplate.getConnection();
+		String memberId = m.getMemberId();
+		int result = dao.insertDelMember(conn, m);
+		if(result>0) {
+			result = dao.deleteMember(conn, memberId);
+			if(result>0) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+		}JDBCTemplate.close(conn);
+		
+		return result;
+		
+	}
+
+
 	public int changeLevel(int memberNo, int memberLevel) {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = dao.changeLevel(conn,memberNo,memberLevel);

@@ -6,8 +6,12 @@ public class Board {
 	private String photoTitle;
 	private String photoContent;
 	private int readCount;
+	private String regDate;
+
 	private String filename;
 	private String filepath;
+	
+	private String memberId;
 	public Board() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -23,53 +27,68 @@ public class Board {
 		this.filename = filename;
 		this.filepath = filepath;
 	}
-	public Board(int memberNo, String photoTitle, String photoContent, int readCount) {
+	public Board(int photoNo, String photoTitle, String photoContent, int readCount, String regDate, String memberId) {
 		super();
-		this.memberNo = memberNo;
+		this.photoNo = photoNo;
 		this.photoTitle = photoTitle;
 		this.photoContent = photoContent;
 		this.readCount = readCount;
+		this.regDate = regDate;
+		this.memberId = memberId;
 	}
-	protected int getPhotoNo() {
+	public int getPhotoNo() {
 		return photoNo;
 	}
-	protected void setPhotoNo(int photoNo) {
+	public void setPhotoNo(int photoNo) {
 		this.photoNo = photoNo;
 	}
-	protected int getMemberNo() {
+	public int getMemberNo() {
 		return memberNo;
 	}
-	protected void setMemberNo(int memberNo) {
+	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
-	protected String getPhotoTitle() {
+	public String getPhotoTitle() {
 		return photoTitle;
 	}
-	protected void setPhotoTitle(String photoTitle) {
+	public void setPhotoTitle(String photoTitle) {
 		this.photoTitle = photoTitle;
 	}
-	protected String getPhotoContent() {
+	public String getPhotoContent() {
 		return photoContent;
 	}
-	protected void setPhotoContent(String photoContent) {
+	public void setPhotoContent(String photoContent) {
 		this.photoContent = photoContent;
 	}
-	protected int getReadCount() {
+	public int getReadCount() {
 		return readCount;
 	}
-	protected void setReadCount(int readCount) {
+	public void setReadCount(int readCount) {
 		this.readCount = readCount;
 	}
-	protected String getFilename() {
+	public String getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
+	public String getFilename() {
 		return filename;
 	}
-	protected void setFilename(String filename) {
+	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	protected String getFilepath() {
+	public String getFilepath() {
 		return filepath;
 	}
-	protected void setFilepath(String filepath) {
+	public void setFilepath(String filepath) {
 		this.filepath = filepath;
 	}
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+	
 }

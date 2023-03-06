@@ -8,20 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import semi.team.baro.member.model.service.MemberService;
+import semi.team.baro.member.model.vo.Member;
 
 /**
- * Servlet implementation class ChangeLevelServlet
+ * Servlet implementation class DeleteServlet
  */
-@WebServlet(name = "ChangeLevel", urlPatterns = { "/changeLevel.do" })
-public class ChangeLevelServlet extends HttpServlet {
+@WebServlet(name = "deleteMember", urlPatterns = { "/deleteMember.do" })
+public class DeleteMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChangeLevelServlet() {
+    public DeleteMemberServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,30 +32,27 @@ public class ChangeLevelServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//1. 인코딩
 		request.setCharacterEncoding("utf-8");
-		//2.값추출
-		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
-		int memberLevel = Integer.parseInt(request.getParameter("memberLevel"));
-		System.out.println("memberNo : "+ memberNo);
-		System.out.println("memberLevel : "+ memberLevel);
-		//3.비즈니스로직
+		HttpSession session = request.getSession(false);
+		Member m = (Member)session.getAttribute("m");
+		
 		MemberService service = new MemberService();
-		int result = service.changeLevel(memberNo,memberLevel);
-		//4.결과처리
-		// 변경성공 : 관리자페이지로 이동
-		// 변경실패 : alert 메세지를 띄운 후 관리자페이지로 이동
-		if(result>0) {
-			//주소창을 변경
-			response.sendRedirect("/adminPage.do");
+		int result = service.deleteMember(m);
+		
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+		if(result >0 ) {
+			request.setAttribute("title", "탈퇴 성공");
+			request.setAttribute("msg", "Bye~");
+			request.setAttribute("icon", "success");
+			request.setAttribute("loc", "/logout.do");
+			
 		}else {
-			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-			request.setAttribute("title", "등급 변경 실패");
-			request.setAttribute("msg", "등급 변경 중 문제가 발생");
-			request.setAttribute("icon", "warning");
-			request.setAttribute("loc", "/adminPage.do");
-			view.forward(request, response);
+			request.setAttribute("title", "탈퇴 실패");
+			request.setAttribute("msg", "넌 못간다");
+			request.setAttribute("icon", "error");
+			request.setAttribute("loc", "/mypage.do");
 		}
+		view.forward(request, response);
 	}
 
 	/**
