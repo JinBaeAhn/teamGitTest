@@ -134,7 +134,7 @@
 	    margin-left: 50px;
     }
 	.modal-btn-frm{
-	margin-top: 70px;
+	margin-top: 50px;
 	}
 </style>
 </head>
@@ -142,9 +142,9 @@
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
 	<div class="page-content">
 		<div class="page-title">
-            <h2>용병모집 작성</h2>
+            <h2>매칭폼 작성</h2>
             <div class="matchinglistWriteFrm-input-wrap">
-                <form action="/mercenaryInsert.do?memberNo=<%=m.getMemberNo() %>" method="post">
+                <form action="/matchingListInsert.do?memberNo=<%=m.getMemberNo() %>" method="post">
                     <table class="tbl" id="matchinglistWriteFrm">
                         <tr>
                             <th>지역</th>
@@ -160,11 +160,7 @@
                         <tr>
                             <th>경기장</th>
                             <td>
-                                <select class="input-form" name="groundName">
-                                    <option value="1">서울어쩌구경기장</option>
-                                    <option value="2">인천어쩌구경기장</option>
-                                    <option value="3">경기어쩌구경기장</option>
-                                </select>
+                                <input type="text" class="input-form" name="groundName" value="구장 지역을 먼저 선택해주세요"readonly>
                             </td>
                         </tr>
                         <tr>
@@ -206,9 +202,9 @@
                         </tr>
                           -->
                         <tr>
-                            <th>참가비</th>
+                            <th>대여가격</th>
                             <td>
-                                <input type="text" class="input-form" placeholder="금액입력" name="mercenaryPay" required> <!-- ground price 자체를 띄워주기 -->
+                                <input type="text" class="input-form input-price" value="" readonly> <!-- ground price 자체를 띄워주기 -->
                             </td>
                         </tr>
                         <tr>
@@ -232,19 +228,15 @@
 	                <h2>구장 조회</h2>
 	            </div>
 	            <div class="modal-content">
-	                <form action="/login.html" method="post">
+	               
 	                    <input type="text" class="modal-location" value="" readonly>
 	                    <select class="modal-select-form" name="location">
-                                    <option value="서울">서울</option>
-                                    <option value="인천">인천</option>
-                                    <option value="경기">경기</option>
                         </select>
                     	<div class="modal-btn-frm">
-		                   
 		                	<input type="submit" class="btn1 bc1 modal-btn" value="구장 선택">
 		                    <input type="reset" class="btn1 bc1 modal-btn" value="취소">
 	                    </div>
-	                </form>
+	                
 	            </div>
 	        </div>
     	</div>
@@ -267,10 +259,57 @@
 	    	  $(".modal-wrap").css("display","flex");
 	    	  locationVal = $(".location-select-form").val();
 	    	  $(".modal-location").val(locationVal);
+	    	  //console.log(locationVal)
+	    	  const result = $(".modal-select-form");
+	    	  result.empty();
+	    	  //ajax시작
+	    	   $.ajax({
+	    		url : "/locationSearchList.do",
+	    		type : "get",
+	    		data : {groundLocation : locationVal},
+	    		dataType : "JSON",
+	    		success : function(data){
+	    			console.log(data);
+	    			if(data.length == 0){
+	    				const option = $("<option value=''></option>");
+    					option.append("해당 지역에 구장이 없습니다.");
+    					result.append(option);
+						}else{
+	    				/*$(".modal-select-form").append()*/
+	    				for(let i=0;i<data.length;i++){
+	    					//const price = $(".input-price").val(data[i].groundPrice+"원");
+	    					const option = $("<option value=''></option>");
+	    					option.val(data[i].groundName+"<<2시간 "+data[i].groundPrice+"원>>");
+	    					option.append(data[i].groundName+"<<2시간 "+data[i].groundPrice+"원>>");
+	    					result.append(option);
+	    					//console.log(data[i].groundName);
+	    				}
+	    			}
+	    		}
+	    	  });
 	    });
 	    $("input[type=reset]").on("click",function(){
-	        $(".modal-wrap").css("display","none");;
+	        $(".modal-wrap").css("display","none");
 	    })
+	    $(".modal-btn-frm>input:first-child").on("click",function(){
+	    	//console.log($(this).parent().prev().val());
+	    	const choice = $(this).parent().prev().val();
+	    	console.log(choice);
+	    	if(choice == ""){
+	    		var input = $(".input-form[name=groundName]");
+	    		input.val("");
+	    		input.val(input.val() + "해당 지역에 구장이 없습니다." );
+	    	}else{
+	    		$(".input-form[name=groundName]").val(choice);
+	    		var str = choice;
+	    		var pattern = /<<(.*?)>>/;
+	    		var result = str.match(pattern)[1];
+	    		$(".input-price").val(result);
+		    	$(".modal-wrap").css("display","none");
+	    	}
+	    	
+	    });
+	    
     </script>
 	
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>

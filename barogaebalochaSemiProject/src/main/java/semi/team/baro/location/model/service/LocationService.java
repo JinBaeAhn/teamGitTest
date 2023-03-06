@@ -111,5 +111,12 @@ public class LocationService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
-	
+
+	public ArrayList<Location> locationSearchList(String location) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Location> list = dao.locationSearchList(location, conn);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
 }
