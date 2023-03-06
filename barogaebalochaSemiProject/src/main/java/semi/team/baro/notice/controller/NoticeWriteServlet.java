@@ -46,7 +46,7 @@ public class NoticeWriteServlet extends HttpServlet {
 		} else {
 			System.out.println("NoticeWrite Failed");
 		}
-		response.sendRedirect("/noticeList.do");
+		response.sendRedirect("/noticeList.do?noticePage=1");
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

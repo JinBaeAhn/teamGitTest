@@ -11,7 +11,7 @@
 	<div class="page-content">
 		<h1>공지사항 작성</h1>
 		<form action="/noticeUpdate.do" method="post" class="row g-3">
-			<input type="text" name="noticeNo" value="<%=notice.getNoticeNo()%>">
+			<input type="hidden" name="noticeNo" value="<%=notice.getNoticeNo()%>">
   			<div class="col-md-8">
 				<input type="text" name="noticeTitle" class="form-control" value="<%=notice.getNoticeTitle() %>" placeholder="제목을 입력해주세요." required>
 			</div>

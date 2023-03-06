@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import common.JDBCTemplate;
 import semi.team.baro.notice.model.dao.NoticeDao;
 import semi.team.baro.notice.model.vo.Notice;
+import semi.team.baro.notice.model.vo.NoticePageData;
 
 public class NoticeService {
 	private NoticeDao noticeDao;
@@ -25,11 +26,61 @@ public class NoticeService {
 		JDBCTemplate.close(connection);
 		return result;
 	}
-	public ArrayList<Notice> selectAllNoticeList() {
+	public NoticePageData selectNoticeList(int noticePage) {
 		Connection connection = JDBCTemplate.getConnection();
-		ArrayList<Notice> noticeList = noticeDao.selectAllNoticeList(connection);
+		//한 페이지 당 게시물 수 지정 -> [10]개
+		int numberOfPerPage = 10;
+		int end = numberOfPerPage*noticePage;
+		int start = end - numberOfPerPage + 1 ;
+		ArrayList<Notice> noticeList = noticeDao.selectNoticeList(connection, start, end);
+		//페이징 제작을 위해 총 게시물 수가 필요함
+		int totalCount = noticeDao.selectNoticeCount(connection);
+		//마지막 페이지 설정
+		int totalPage = (int) Math.ceil((double)totalCount/numberOfPerPage);
+		//navigation size / start number setting 
+		int pageNavigationSize = 5;
+		//reqPage 1~5 : 1 2 3 4 5 , reqPage 6~10 6 7 8 9 10, reqPage 11~15 11 12 13 14 15
+		int pageNo = ((noticePage-1)/pageNavigationSize)*pageNavigationSize+1;
+		//패아자 네비게이션 제작 시작
+		String pageNavigation = "<ul class = 'pagination'>";
+		//이전버튼
+		if(pageNo != 1) {
+			pageNavigation += "<li>";
+			pageNavigation += 	"<a class='page-item' href='/noticeList.do?noticePage="+(pageNo-1)+"'>";
+			pageNavigation += 		"<span class='material-icons'>chevron_left</span>";
+			pageNavigation += 	"</a>";
+			pageNavigation += "</li>";
+		}
+		//page 숫자
+		for(int i=0;i<pageNavigationSize;i++) {
+			if(pageNo == noticePage) {
+				pageNavigation += "<li>";
+				pageNavigation += 	"<a class='page-item active-page' href='/noticeList.do?noticePage="+(pageNo)+"'>";
+				pageNavigation += 		pageNo;
+				pageNavigation += 	"</a>";
+				pageNavigation += "</li>";
+			} else {
+				pageNavigation += "<li>";
+				pageNavigation += 	"<a class='page-item' href='/noticeList.do?noticePage="+(pageNo)+"'>";
+				pageNavigation += 		pageNo;
+				pageNavigation += 	"</a>";
+				pageNavigation += "</li>";
+			}
+			pageNo++;
+			if(pageNo>totalPage) break;
+		}
+		//다음버튼
+		if(pageNo <= totalPage) {
+			pageNavigation += "<li>";
+			pageNavigation += 	"<a class='page-item' href='/noticeList.do?noticePage="+(pageNo)+"'>";
+			pageNavigation += 		"<span class='material-icons'>chevron_right</span>";
+			pageNavigation += 	"</a>";
+			pageNavigation += "</li>";
+		}
+		pageNavigation += "</ul>";
+		NoticePageData noticePageData = new NoticePageData(noticeList,pageNavigation,start);
 		JDBCTemplate.close(connection);
-		return noticeList;
+		return noticePageData;
 	}
 	public Notice getNotice(int noticeNo) {
 		Connection connection = JDBCTemplate.getConnection();
