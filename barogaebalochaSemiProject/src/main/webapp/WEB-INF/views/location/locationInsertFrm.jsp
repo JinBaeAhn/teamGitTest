@@ -105,17 +105,17 @@ input[name="f"]{
                     </tr>
                 <tr>
                     <td colspan="4">
-                        <input id="1" type="checkbox" name="f" value="1">
+                        <input id="1" type="checkbox" name="f" value="0">
                         <label for="1">샤워실</label>
-                        <input id="2" type="checkbox" name="f" value="2">
+                        <input id="2" type="checkbox" name="f" value="1">
                         <label for="2">풋살화</label>
-                        <input id="3" type="checkbox" name="f" value="3">
+                        <input id="3" type="checkbox" name="f" value="2">
                         <label for="3">유니폼</label>
-                        <input id="4" type="checkbox" name="f" value="4">
+                        <input id="4" type="checkbox" name="f" value="3">
                         <label for="4">축구공</label>
-                        <input id="5" type="checkbox" name="f" value="5">
+                        <input id="5" type="checkbox" name="f" value="4">
                         <label for="5">주차</label>
-                        <input id="6" type="checkbox" name="f" value="6">
+                        <input id="6" type="checkbox" name="f" value="5">
                         <label for="6">물제공</label>
                     </td>
 				</tr>
@@ -130,13 +130,17 @@ input[name="f"]{
 				</tr>
 				<tr class="tr-1">
 					<td colspan="4">
-						<button type="submit" class="btn11 bc66 bs4">구장등록</button>
+						<button type="submit" class="btn11 bc66 bs4 groundinsert">구장등록</button>
 					</td>
 				</tr>
 			</table>
 		</form>
 	</div>
 	<script>
+	
+	
+	
+	
 	const map = new naver.maps.Map("map",{
 		center : new naver.maps.LatLng(37.533837,126.896836),
 		zoom : 17,
