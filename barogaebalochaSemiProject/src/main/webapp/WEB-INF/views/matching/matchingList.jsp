@@ -4,6 +4,8 @@
     pageEncoding="UTF-8"%>
     <%
     	ArrayList<Matching> list = (ArrayList<Matching>)request.getAttribute("list");
+    	String pageNavi = (String)request.getAttribute("pageNavi");
+		int start = (int)request.getAttribute("start");
     %>
 <!DOCTYPE html>
 <html>
@@ -90,7 +92,10 @@
            </a>	
         <%} %>                     
         </div>
-        <div class="button"><a href="matchingListWrite.do" class="btn1 bc2 bs2">매치폼 작성하기</a></div>
+        <%if(m != null) {%>
+        	<div class="button"><a href="/matchingListWrite.do" class="btn1 bc2 bs2">작성하기</a></div>
+        <%} %>
+        <div id="pageNavi"><%=pageNavi %></div>
 	</div>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
