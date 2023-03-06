@@ -109,6 +109,7 @@ public class LocationDao {
 			pstmt.setString(5, l.getGroundContent());
 			pstmt.setString(6, l.getFilePath());
 			pstmt.setString(7, l.getGroundLocation());
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
