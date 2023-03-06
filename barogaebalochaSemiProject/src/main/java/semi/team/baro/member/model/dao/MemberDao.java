@@ -59,17 +59,16 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Member m = new Member();
-				m.setEnrollDate(rset.getString("enrollDate_date"));
-				m.setMemberAddr(rset.getString("member_addr"));
-				m.setMemberId(rset.getString("member_Id"));
-				m.setMemberLevel(rset.getInt("member_level"));
-
-				m.setMemberName(rset.getString("member_name"));
 				m.setMemberNo(rset.getInt("member_no"));
-				m.setMemberPhone(rset.getString("member_phone"));
+				m.setMemberId(rset.getString("member_id"));
 				m.setMemberPw(rset.getString("member_pw"));
-
-
+				m.setMemberName(rset.getString("member_name"));
+				m.setMemberMail(rset.getString("member_mail"));
+				m.setMemberPhone(rset.getString("member_phone"));
+				m.setMemberAddr(rset.getString("member_addr"));
+				m.setMemberLevel(rset.getInt("member_level"));
+				m.setEnrollDate(rset.getString("enroll_date"));
+				m.setMemberCredit(rset.getInt("member_credit"));
 				list.add(m);
 
 			}
@@ -181,6 +180,7 @@ public class MemberDao {
 	}
 
 
+
 	public int insertDelMember(Connection conn, Member m) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -226,6 +226,25 @@ public class MemberDao {
 			JDBCTemplate.close(pstmt);
 		}
 		
+		return result;
+	}
+
+
+	public int changeLevel(Connection conn, int memberNo, int memberLevel) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "update member_tbl set member_level=? where member_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, memberLevel);
+			pstmt.setInt(2, memberNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
 		return result;
 	}
 }

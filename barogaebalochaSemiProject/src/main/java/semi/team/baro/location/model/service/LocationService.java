@@ -102,6 +102,7 @@ public class LocationService {
 
 	public int insertLocation(Location l) {
 		Connection conn = JDBCTemplate.getConnection();
+//		int result = dao.insertamenity(conn,)
 		int result = dao.insertLocation(conn,l);
 		if(result>0) {
 			JDBCTemplate.commit(conn);
