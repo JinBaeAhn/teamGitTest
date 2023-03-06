@@ -45,13 +45,13 @@ public class JoinServlet extends HttpServlet {
 		
 		Member m = new Member();
 		m.setMemberId(mRequest.getParameter("memberId"));
-		m.setMemberPw(mRequest.getParameter("memberPw"));
+		m.setMemberPw(mRequest.getParameter("memberPw"));			
+		m.setFilepath(mRequest.getFilesystemName("imgFile"));			
 		m.setMemberName(mRequest.getParameter("memberName"));
 		m.setMemberMail(mRequest.getParameter("memberMail1")+"@"+mRequest.getParameter("memberMail2"));
 		m.setMemberPhone(mRequest.getParameter("memberPhone1")+"-"+mRequest.getParameter("memberPhone2")+"-"+mRequest.getParameter("memberPhone3"));
 		m.setMemberContent(mRequest.getParameter("memberContent"));
 		m.setMemberAddr(mRequest.getParameter("memberAddr"));
-		m.setFilepath(mRequest.getFilesystemName("imgFile"));
 		//3.비즈니스로직
 		
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/common/msg.jsp");

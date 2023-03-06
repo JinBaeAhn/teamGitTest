@@ -79,8 +79,10 @@
 							<%}else{ %>
 							<img src="/upload/photo/<%=m.getFilepath() %>" id="img-view">
 							<%} %>
+							<button type="button" class="btn bc1 delFile">삭제</button>
+                            <input type="file" name="imgFile" id="imgFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this);">
+	    					<input type="hidden" name="oldImgFile" value="<%=m.getFilepath()%>">
                         </label>
-                        <input type="file" name="imgFile" id="imgFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this);" >
                     </div>
                     <div class="input-wrap">
                         <label for="memberId">아이디</label>
@@ -89,9 +91,12 @@
                         </div>
                     </div>
                     <div class="input-wrap">
+                    	<div>
+                            <input type="text" name="memberPw" id="memberPw" class="input-form" value="<%=m.getMemberPw()%>" >
+                        </div>
                         <label for="memberPw">새로운 비밀번호</label>
                         <div>
-                            <input type="text" name="memberPw" id="memberPw" class="input-form" placeholder="비밀번호를 입력해주세요(8~16글자)" >
+                            <input type="text" name="newMemberPw" id="newMemberPw" class="input-form" placeholder="비밀번호를 입력해주세요(8~16글자)" >
                         </div>
                         <span id="msg1"></span>
                     </div>
@@ -186,7 +191,7 @@
                 }
            }
     	
-        $("#memberPw").on("focus",function(){
+        $("#newMemberPw").on("focus",function(){
     		const inputType = $(this).attr("type");
             if(inputType === "text"){
                 $(this).attr("type","password");
@@ -198,7 +203,7 @@
                 $(this).attr("type","password");
             }
     	});
-        $("#memberPw").on("keyup",function(){
+        $("#newMemberPw").on("keyup",function(){
             const pw = $(this).val();
             const regExp = /^[a-z0-9]{8,16}$/;
             if(regExp.test(pw)){
@@ -212,7 +217,7 @@
             }
         });
         $("#memberPwRe").on("change",function(){
-            const pw = $("#memberPw").val();
+            const pw = $("#newMemberPw").val();
             const pwRe = $(this).val();
             if(pw == pwRe){
                 $("#msg2").text("비밀번호가 일치합니다.");
@@ -224,6 +229,10 @@
                 $(this).css("border","1px solid red");
             }
         });
+        $("button.delFile").on("click",function(){
+			
+			$("[name=oldImgFile]").val("");
+		});
         
         </script>
         <%@ include file="/WEB-INF/views/common/footer.jsp" %>
