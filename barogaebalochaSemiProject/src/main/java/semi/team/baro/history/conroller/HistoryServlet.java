@@ -1,4 +1,4 @@
-package semi.team.baro.member.controller;
+package semi.team.baro.history.conroller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,21 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.team.baro.member.model.service.MemberService;
+import semi.team.baro.history.model.service.HistoryService;
 import semi.team.baro.mercenary.model.vo.Mercenary;
-import semi.team.baro.mercenary.model.vo.MercenaryRequest;
 
 /**
- * Servlet implementation class MemberHistoryServlet
+ * Servlet implementation class HistoryServlet
  */
-@WebServlet(name = "MemberHistory", urlPatterns = { "/memberHistory.do" })
-public class MemberHistoryServlet extends HttpServlet {
+@WebServlet(name = "History", urlPatterns = { "/history.do" })
+public class HistoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberHistoryServlet() {
+    public HistoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,15 +35,15 @@ public class MemberHistoryServlet extends HttpServlet {
 		//1. 인코딩
 		request.setCharacterEncoding("utf-8");
 		//2. 값추출
-		//int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
+		String categoryName = request.getParameter("categoryName");
 		//3. 비즈니스로직
-		//MemberService service = new MemberService();
-		//용병모집기록
-		//ArrayList<Mercenary> mcList = service.historyMercenary(memberNo);
-		//용병신청기록
-		//ArrayList<MercenaryRequest> mcReqList = service.historyMercenaryRequest(memberNo);
+		HistoryService service = new HistoryService();
+		ArrayList<Mercenary> mcList = service.history(memberNo, categoryName);
 		//4. 결과처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/member/history.jsp");
+		request.setAttribute("mcList", mcList);
 		view.forward(request, response);
 	}
 

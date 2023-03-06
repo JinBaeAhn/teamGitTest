@@ -1,5 +1,11 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="semi.team.baro.mercenary.model.vo.Mercenary"%>
+<%@page import="semi.team.baro.history.model.vo.HistoryPageData"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+    ArrayList<Mercenary> mcList = ( ArrayList<Mercenary>)request.getAttribute("mcList");
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,12 +46,13 @@
 			<h2>HISTORY</h2>
 		</div>
 		<ul class="history-menu">
-			<li>MATCHING</li>
-			<li>용병모집</li>
-			<li>용병신청</li>
-			<li>게시판</li>
-			<li>신고내역</li>
-		</ul>
+			<!-- historyMatching.do?memberNo=<%=m.getMemberNo()%>&reqPage=1 -->
+			<li><a href="#">MATCHING</a></li>
+			<li><a href="history.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=Mercenary">용병모집</a></li>
+			<li><a href="#">용병신청</a></li>
+			<li><a href="#">게시판</a></li>
+			<li><a href="#">신고내역</a></li>
+		</ul>	
 		<table class="history-content table">
 			<tr>
 				<th class="col-md-1">no.</th>
@@ -56,60 +63,21 @@
 				<th class="col-md-2">작성일</th>
 				<th class="com-md-1"></th>
 			</tr>
-			<tr>
-				<td>1</td>
-				<td>서울</td>
-				<td>서울어쩌고구장</td>
-				<td>2023/03/22</td>
-				<td>모집완료</td>
-				<td>2023/03/03</td>
-				<td>
-					<a href="blackListFrm.do?memberNo=<%=m.getMemberNo()%>">신고</a>
-				</td>
-			</tr>
-		</table>
-		<table class="history-content table">
-			<tr>
-				<th class="col-md-1">no.</th>
-				<th class="com-mi-1">지역</th>
-				<th class="col-md-3">구장이름</th>
-				<th class="col-md=3">경기일</th>
-				<th class="col-md-2">신청내용</th>
-				<th class="col-md-2">모집결과</th>
-				<th class="com-md-1"></th>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>서울</td>
-				<td>서울어쩌고구장</td>
-				<td>2023/03/22</td>
-				<td>모집완료</td>
-				<td>수락완료</td>
-				<td>
-					<a href="blackListFrm.do?memberNo=<%=m.getMemberNo()%>">신고</a>
-				</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>서울</td>
-				<td>서울어쩌고구장</td>
-				<td>2023/03/22</td>
-				<td>모집완료</td>
-				<td>-</td>
+			<%for(Mercenary mc : mcList) {%>
+				<tr>
+				<td><%=mc.getMercenaryNo() %></td>
+				<td><%=mc.getLocation() %></td>
+				<td><%=mc.getGroundName() %></td>
+				<td><%=mc.getGameDate() %></td>
+				<td><%=mc.getMercenaryWhether() %></td>
+				<td><%=mc.getRegDate() %></td>
 				<td>신고</td>
 			</tr>
+			<%} %>
 		</table>
 	</div>
 	<script>
-		$(".history-menu>li").on("click", function(){
-		    $(".history-menu>li").removeClass("active-tab");
-		    $(this).addClass("active-tab");
-		    const contents = $(".history-content");
-		    contents.hide();
-		    const index = $(".history-menu>li").index(this);
-		    contents.eq(index).show(); 
-		});
-		$(".history-menu>li").eq(0).click();
+
 	</script>
 
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>

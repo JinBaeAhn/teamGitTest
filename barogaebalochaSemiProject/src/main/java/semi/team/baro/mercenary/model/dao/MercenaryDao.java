@@ -384,6 +384,67 @@ public class MercenaryDao {
 		}
 		return result;
 	}
+
+	public ArrayList<Mercenary> mercenaryOneSelect(Connection conn, int start, int end, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Mercenary> list = new ArrayList<Mercenary>();
+		String query = "select * from (select rownum as rnum, n.* from(select * from mercenary join ground_tbl using(ground_no) where member_no = ? order by 1 desc)n) where rnum between ? and ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				//mercenaryNo, game_location, ground_name, game_date, game_time, mercenary_whether, reg_date;
+				Mercenary mc = new Mercenary();
+				mc.setMercenaryNo(rset.getInt("mercenary_no"));
+				mc.setLocation(rset.getString("game_location"));
+				mc.setGroundName(rset.getString("ground_name"));
+				mc.setGameDate(rset.getString("game_date"));
+				mc.setGameTime(rset.getInt("game_time"));
+				mc.setMercenaryWhether(rset.getInt("mercenary_whether"));
+				mc.setRegDate(rset.getString("reg_date"));
+				list.add(mc);
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, memberNo);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	public int selectHistoryMercenaryCount(Connection conn, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int totalCount = 0;
+		String query = "select count(*) as cnt from mercenary where member_no = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, memberNo);
+			rset = pstmt.executeQuery();
+			totalCount = rset.getInt("cnt");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rset);
+		}
+		return totalCount;
+	}
 }
 
 
