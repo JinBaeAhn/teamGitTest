@@ -7,6 +7,7 @@ import common.JDBCTemplate;
 import semi.team.baro.mercenary.model.dao.MercenaryDao;
 import semi.team.baro.mercenary.model.vo.Mercenary;
 import semi.team.baro.mercenary.model.vo.MercenaryPageData;
+import semi.team.baro.mercenary.model.vo.MercenaryRequest;
 
 public class MercenaryService {
 	private MercenaryDao dao;
@@ -16,9 +17,9 @@ public class MercenaryService {
 		dao = new MercenaryDao();
 	}
 
-	public int mercenaryInsert(Mercenary m) {
+	public int mercenaryInsert(Mercenary mc) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = dao.mercenaryInsert(conn, m);
+		int result = dao.mercenaryInsert(conn, mc);
 		if(result > 0) {
 			JDBCTemplate.commit(conn);
 		}else {
@@ -101,7 +102,15 @@ public class MercenaryService {
 
 	public Mercenary mercenaryView(int mercenaryNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		Mercenary mc = dao.mercenaryView(conn, mercenaryNo);
+		int result = dao.readCountUpdate(conn, mercenaryNo);
+		Mercenary mc = null;
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+			mc = dao.mercenaryView(conn, mercenaryNo);
+		}else {
+			JDBCTemplate.rollback(conn);
+			mc = null;
+		}
 		JDBCTemplate.close(conn);
 		return mc;
 	}
@@ -114,6 +123,101 @@ public class MercenaryService {
 		}else {
 			JDBCTemplate.rollback(conn);
 		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public int mercenaryUpdate(Mercenary mc) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.mercenaryUpdate(conn, mc);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public int mercenaryRequestInsert(MercenaryRequest mcReq) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.mercenaryRequestInsert(conn, mcReq);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public ArrayList<MercenaryRequest> mercenaryRequestList(int mercenaryNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<MercenaryRequest> list = dao.mercenaryRequestList(conn, mercenaryNo);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
+	public int mercenaryRequestDelete(int mcReqNo, int mercenaryNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.mercenaryRequestDelete(conn, mcReqNo, mercenaryNo);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public int mercenaryRequestUpdate(MercenaryRequest mcReq) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.mercenaryRequestUpdate(conn, mcReq);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public int mercenarySel(MercenaryRequest mcReq) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = 0;
+		//1. mercenary_request 테이블의 mercenary_request_result를 전부 1로변경(where mercenaryNo = ?)에 해당하는것만
+		result = dao.mercenaryRequestResultAllUpdate(conn, mcReq);
+		if(result > 0) {
+			//2. mercenary_request 테이블의 mercenary_request_result를 해당 request를 작성한 아이디로 update
+			result = dao.mercenaryRequestResultSelUpdate(conn, mcReq);
+			if(result > 0) {
+				//3. mercenary 테이블의 mercenaryWhether를 0에서 1로변경(모집중 -> 모집완료)
+				result = dao.mercenaryWhetherUpdate(conn, mcReq);
+				if(result > 0) {
+					JDBCTemplate.commit(conn);
+				}else {
+					JDBCTemplate.rollback(conn);
+				}
+			}
+		}	
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public int mercenaryCancle(MercenaryRequest mcReq) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = 0;
+		//1. mercenary_request 테이블의 mercenary_request_result를 전부 0으로변경(where mercenaryNo = ?)에 해당하는것만
+		result = dao.mercenaryRequestResultAllCancleUpdate(conn, mcReq);
+		if(result > 0) {
+			//2. mercenary 테이블의 mercenaryWhether를 1에서 0으로변경(모집완료 -> 모집중)
+			result = dao.mercenaryRequestResultCancleUpdate(conn, mcReq);
+			if(result > 0) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+		}	
 		JDBCTemplate.close(conn);
 		return result;
 	}	

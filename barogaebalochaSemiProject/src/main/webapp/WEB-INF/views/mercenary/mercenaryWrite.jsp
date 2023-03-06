@@ -27,8 +27,7 @@
         border: 1px solid #ccc;
     }
     #mercenaryWrite th{
-        background-color: #181818;
-        color: #fcfcfc;
+        color: #181818;
     }
     .btn1{
         padding: 8px;
@@ -61,9 +60,8 @@
 	<div class="page-content">
 		<div class="page-title">
             <h2>용병모집 작성</h2>
-            <hr>
             <div class="mercenary-input-wrap">
-                <form action="/mercenaryInsert.do" method="post">
+                <form action="/mercenaryInsert.do?memberNo=<%=m.getMemberNo() %>" method="post">
                     <table class="tbl" id="mercenaryWrite">
                         <tr>
                             <th>지역</th>
@@ -88,7 +86,7 @@
                         <tr>
                             <th>경기날짜</th>
                             <td>
-                                <input type="text" class="input-form" id="datepicker" name="gameDate" required>
+                                <input type="text" class="input-form" id="datepicker" name="gameDate" required >
                             </td>
                         </tr>
                         <tr>
@@ -134,7 +132,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input type="reset" class="btn1 bc1" value="취소">
+                                <a href="/mercenaryList.do?reqPage=1" class="btn1 bc1">취소</a>
                                 <input type="submit" class="btn1 bc1" value="완료">
                             </td>
                         </tr>

@@ -42,10 +42,9 @@ public class UploadImageServlet extends HttpServlet {
 		MultipartRequest multipartRequest = new MultipartRequest(request, saveDirectory, maxSize, "utf-8", new DefaultFileRenamePolicy());
 		String filePath = multipartRequest.getFilesystemName("file");
 		//결과처리 > 업로드 된 파일 경로 리턴하면 됨
-		
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
-		//image태그 SRC속성에 넣을 값 그대로 리턴하는 중 
+		//image태그 SRC속성에 넣을 값 그대로 리턴하는 중		
 		out.print("/upload/editor/" + filePath);
 	}
 

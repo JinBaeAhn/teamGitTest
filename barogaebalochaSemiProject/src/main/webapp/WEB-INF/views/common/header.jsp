@@ -15,6 +15,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- 구글 아이콘 -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- 기본css -->
     <link rel="stylesheet" href="/css/default.css">
     <link rel="stylesheet" href="/css/locationInfo.css">
     <link rel="stylesheet" href="/css/locationList.css">
@@ -23,7 +24,6 @@
     <link rel="stylesheet" href="/css/matchingWriteFrm.css">
     <link rel="stylesheet" href="/css/memberInfo.css">
     <link rel="stylesheet" href="/css/admin.css">
-    <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/notice.css">
     <script src="js/jquery-3.6.0.js"></script>
 </head>
@@ -52,11 +52,11 @@
 	                        <li>
 	                            <a href="#" name="search">메뉴</a>
 	                            <ul class="menu">
-	                                <li><a href="#" class="searchBox">MATCHING</a></li>
-	                                <li><a href="#" class="searchBox">용병모집</a></li>
-	                                <li><a href="#" class="searchBox">구장</a></li>
-	                                <li><a href="#" class="searchBox">공지사항</a></li>
-	                                <li><a href="#" class="searchBox">게시판</a></li>
+	                                <li><a href="/matchingList.do?requestPage=1" class="searchBox">MATCHING</a></li>
+	                                <li><a href="/mercenaryList.do?reqPage=1" class="searchBox">용병모집</a></li>
+	                                <li><a href="/locationList.do?requestPage=1" class="searchBox">구장</a></li>
+	                                <li><a href="/noticeList.do?noticePage=1" class="searchBox">공지사항</a></li>
+	                                <li><a href="/freeBoardList.do?boardPage=1" class="searchBox">게시판</a></li>
 	                            </ul>
 	                        </li>
 	                    </ul>
@@ -64,11 +64,11 @@
                 <%}else {%>                
                 <div class="nav">
                     <ul class="navi">
+                        <li><a href="/matchingList.do?requestPage=1">MATCHING</a></li>
                         <li><a href="/mercenaryList.do?reqPage=1">용병모집</a></li>
-                        <li><a href="/matchingList.do">MATCHING</a></li>
                         <li><a href="/locationList.do?requestPage=1">구장</a></li>
-                        <li><a href="/noticeList.do">공지사항</a></li>
-                        <li><a href="#">게시판</a></li>
+                        <li><a href="/noticeList.do?noticePage=1">공지사항</a></li>
+                        <li><a href="/freeBoardList.do?boardPage=1">게시판</a></li>
                     </ul>
                 </div>
                 <%} %>

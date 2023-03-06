@@ -59,7 +59,6 @@
 	<div class="page-content">
 		        <div class="page-title">
             <h2>용병모집</h2>
-            <hr>
         </div>
         <div class="mercenary-wrap">
         <% for(Mercenary mc : list) {%>

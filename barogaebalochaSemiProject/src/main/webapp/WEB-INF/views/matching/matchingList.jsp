@@ -25,34 +25,23 @@
                 <div class="mercenary-list-left">
                     <div class="mercenary-date">
                         <ul>
-                            <li style="font-size: 15px;"><%=mc.getLocation() %></li>
-                            <li><%=mc.getGameDate() %></li>
-                            <li><%=mc.getGameShowTime() %></li>
+                            <li style="font-size: 15px;"><%=mc.getGroundLocation() %></li>
+                            <li><%=mc.getReservationDate() %></li>
+                            <li><%=mc.getReservationTime() %></li>
                         </ul>
                     </div>
                     <div class="mercenary-info">
                         <ul>
-                            <li style="font-size: 20px;">구장이름</li>
-                            <%if(mc.getLevel() == 1){ %>
-								<li>실력 : 최상 </li>
-							<%}else if(mc.getLevel() == 2) {%>
-								<li>실력 : 상 </li>
-							<%}else if(mc.getLevel() == 3) {%>
-								<li>실력 : 중 </li>
-							<%}else if(mc.getLevel() == 4) {%>
-								<li>실력 : 하 </li>
-							<%}else if(mc.getLevel() == 5) {%>
-								<li>실력 : 최하 </li>
-							<%} %>
-                            
+                            <li style="font-size: 20px;"><%=mc.getGroundName() %></li>
+								<li>예약번호 : <%=mc.getReservationNo() %> </li>
                         </ul>
                     </div>
                 </div>
                 <div class="mercenary-result">
-                	<%if(mc.getMercenaryWhether() == 0) {%>
-	                    <div class="btn1" style="background-color: #AACB73; color:#fff">모집중</div>            	
-                	<%}else if(mc.getMercenaryWhether() == 1) {%>
-                		<div class="btn1" style="background-color: #ccc; color:#fff">모집완료</div> 
+                	<%if(mc.getMatchingStatus() == 1) {%>
+	                    <div class="btn1" style="background-color: #AACB73; color:#fff">매치신청</div>            	
+                	<%}else if(mc.getMatchingStatus() == 2) {%>
+                		<div class="btn1" style="background-color: #ccc; color:#fff">신청마감</div> 
                 	<%} %>
                 </div>
             </div>	
