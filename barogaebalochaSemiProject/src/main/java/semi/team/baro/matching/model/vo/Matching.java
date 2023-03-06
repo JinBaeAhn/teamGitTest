@@ -12,6 +12,7 @@ public class Matching {
 	private String groundLocation;
 	private int reservationNo;
 	private String groundName;
+	private int matchingPrice;
 	
 	private int matchingNo;
 	private int matchingRequestStatus;
@@ -27,7 +28,7 @@ public class Matching {
 
 	public Matching(int matchingBoardNo, int memberNo, String matchingBoardTitle, String matchingBoardContent,
 			String regDate, int readCount, int matchingStatus, int groundNo, String groundLocation, int reservationNo,
-			String groundName, int matchingNo, int matchingRequestStatus, String reservationTime,
+			String groundName, int matchingPrice, int matchingNo, int matchingRequestStatus, String reservationTime,
 			String reservationDate, int reservationStatus) {
 		super();
 		this.matchingBoardNo = matchingBoardNo;
@@ -41,6 +42,7 @@ public class Matching {
 		this.groundLocation = groundLocation;
 		this.reservationNo = reservationNo;
 		this.groundName = groundName;
+		this.matchingPrice = matchingPrice;
 		this.matchingNo = matchingNo;
 		this.matchingRequestStatus = matchingRequestStatus;
 		this.reservationTime = reservationTime;
@@ -136,6 +138,14 @@ public class Matching {
 		this.groundName = groundName;
 	}
 
+	public int getMatchingPrice() {
+		return matchingPrice;
+	}
+
+	public void setMatchingPrice(int matchingPrice) {
+		this.matchingPrice = matchingPrice;
+	}
+
 	public int getMatchingNo() {
 		return matchingNo;
 	}
@@ -175,8 +185,6 @@ public class Matching {
 	public void setReservationStatus(int reservationStatus) {
 		this.reservationStatus = reservationStatus;
 	}
-	
-	
+
 }
-	
 	

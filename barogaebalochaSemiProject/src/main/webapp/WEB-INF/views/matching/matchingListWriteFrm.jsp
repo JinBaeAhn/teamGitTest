@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <style>
 	.locationSearch{
-	width: 147.5px;
+	width: 142.5px;
 	}
     .tbl {
     width: 100%;
@@ -146,10 +146,16 @@
             <div class="matchinglistWriteFrm-input-wrap">
                 <form action="/matchingListInsert.do?memberNo=<%=m.getMemberNo() %>" method="post">
                     <table class="tbl" id="matchinglistWriteFrm">
+                    	<tr>
+                            <th>매칭 제목</th>
+                            <td>
+                                <input type="text" class="input-form" name="matchingBoardTitle" value="제목을 작성해주세요" required>
+                            </td>
+                        </tr>
                         <tr>
                             <th>지역</th>
                             <td>
-                                <select class="location-select-form" name="location">
+                                <select class="location-select-form" name="groundlocation">
                                     <option value="서울">서울</option>
                                     <option value="인천">인천</option>
                                     <option value="경기">경기</option>
@@ -166,13 +172,13 @@
                         <tr>
                             <th>경기날짜</th>
                             <td>
-                                <input type="text" class="input-form" id="datepicker" name="gameDate" required >
+                                <input type="text" class="input-form" id="datepicker" name="reservationDate" required >
                             </td>
                         </tr>
                         <tr>
                             <th>경기시간</th>
                             <td>
-                                <select class="input-form" name="gameTime">
+                                <select class="input-form" name="reservationTime">
                                     <option value="10">10 : 00 ~ 12 : 00</option>
                                     <option value="12">12 : 00 ~ 14 : 00</option>
                                     <option value="14">14 : 00 ~ 16 : 00</option>
@@ -204,12 +210,12 @@
                         <tr>
                             <th>대여가격</th>
                             <td>
-                                <input type="text" class="input-form input-price" value="" readonly> <!-- ground price 자체를 띄워주기 -->
+                                <input type="text" class="input-form input-price" value="" name="matchingPrice" readonly> <!-- ground price 자체를 띄워주기 -->
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <textarea class="input-form content" name="matchinglistWriteFrmContent" required></textarea>
+                                <textarea class="input-form content" name="matchingBoardContent" required></textarea>
                             </td>
                         </tr>
                         <tr>
@@ -307,9 +313,10 @@
 	    		$(".input-price").val(result);
 		    	$(".modal-wrap").css("display","none");
 	    	}
-	    	
 	    });
-	    
+	    $(".input-form[name=matchingBoardTitle]").on("click",function(){
+	    	$(this).val("");
+	    })
     </script>
 	
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>

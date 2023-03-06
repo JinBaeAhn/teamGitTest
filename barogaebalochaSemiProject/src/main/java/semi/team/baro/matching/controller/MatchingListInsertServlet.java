@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semi.team.baro.matching.model.vo.Matching;
+
 /**
  * Servlet implementation class MatchingListInsertServlet
  */
@@ -26,8 +28,20 @@ public class MatchingListInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//1.인코딩
+		request.setCharacterEncoding("utf-8");
+		//2.값추출
+		Matching mc = new Matching();
+		mc.setGroundLocation(request.getParameter("groundLocation"));
+		mc.setReservationTime(request.getParameter("reservationTime"));
+		mc.setReservationDate(request.getParameter("reservationDate"));
+		mc.setGroundName(request.getParameter("groundName"));
+		mc.setReservationNo(Integer.parseInt(request.getParameter("reservationNo")));
+		mc.setMatchingStatus(Integer.parseInt(request.getParameter("matchingStatus")));
+		mc.setMatchingBoardContent(request.getParameter("matchingBoardContent"));
+		mc.setMatchingBoardTitle(request.getParameter("matchingTitle"));
+		//3.비즈니스로직
+		//4.결과처리
 	}
 
 	/**
