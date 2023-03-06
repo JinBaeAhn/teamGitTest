@@ -99,7 +99,7 @@ public class LocationDao {
 	public int insertLocation(Connection conn, Location l) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into ground_tbl values(ground_seq.nextval,?,?,?,?,?,?)";
+		String query = "insert into ground_tbl values(ground_seq.nextval,?,?,?,?,?,?,?)";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, l.getGroundName());
@@ -108,6 +108,7 @@ public class LocationDao {
 			pstmt.setString(4, l.getGroundLng());
 			pstmt.setString(5, l.getGroundContent());
 			pstmt.setString(6, l.getFilePath());
+			pstmt.setString(7, l.getGroundLocation());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
