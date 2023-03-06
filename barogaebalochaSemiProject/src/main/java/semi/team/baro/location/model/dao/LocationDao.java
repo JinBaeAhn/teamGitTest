@@ -119,4 +119,32 @@ public class LocationDao {
 		return result;
 	}
 
+	public ArrayList<Location> locationSearchList(String location, Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Location> list = new ArrayList<Location>();
+		String query = "SELECT GROUND_NAME, GROUND_PRICE FROM GROUND_TBL WHERE GROUND_LOCATION LIKE ? ORDER BY 1";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,"%"+location+"%");
+			rset = pstmt.executeQuery();
+			while(rset.next()){
+				Location l = new Location();
+				l.setGroundName(rset.getString("ground_name"));
+				l.setGroundPrice(rset.getInt("ground_price"));
+				list.add(l);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+	}
+
+
 }
