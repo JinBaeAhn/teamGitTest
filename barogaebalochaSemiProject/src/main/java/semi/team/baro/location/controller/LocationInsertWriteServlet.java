@@ -48,6 +48,7 @@ public class LocationInsertWriteServlet extends HttpServlet {
 		String groundContent = mRequest.getParameter("groundContent");
 		String filepath = mRequest.getFilesystemName("upfile");
 		String groundLocation = mRequest.getParameter("address");
+		/*
 		String[] amenityList = mRequest.getParameterValues("f");
 		int[] amenityActiveList = {0,0,0,0,0,0};
 		for(int i=0;i<amenityActiveList.length;i++) {
@@ -58,6 +59,7 @@ public class LocationInsertWriteServlet extends HttpServlet {
 		for(int i=0;i<amenityActiveList.length;i++) {
 			System.out.println(amenityActiveList[i]);
 		}
+		*/
 		Location l = new Location();
 		l.setGroundName(groundName);
 		l.setGroundLat(groundLat);

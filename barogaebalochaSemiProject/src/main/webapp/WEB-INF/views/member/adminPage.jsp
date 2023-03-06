@@ -37,14 +37,47 @@
     display: none;
 }
 .bs5 {
-	margin-top : 25px;
+	margin-top : 15px;
     width: 250px;
     padding: 2rem;
     font-size: 1.2em;
 }
-.page-title{
-	margin-bottom : 25px;
+
+.btn6 {
+    border: none;
+    padding: 3px;
+    margin-left: 12px;
+    display: inline-block;
+    box-sizing: border-box;
+    transition-duration: 0.5s;
+    font-size: 12px;
+    font-family: ns-light;
+    border-radius: 3px;
+    width : 35px;
+    text-align: center;
+    
 }
+.searchIdinput{
+	
+	line-height: 30px;
+	margin-bottom : 20px;
+	text-align: right;
+	margin-right: 20px;
+}
+.bc21 {
+    background-color: #fff;
+    color: rgba(57, 62, 70, 0.9);
+    border: 1px solid rgba(57, 62, 70, 0.9);
+    height: 33px;
+   
+}
+.searchId{
+	border: 1px solid rgba(57, 62, 70, 0.9);
+	height: 33px;
+	text-align: center;
+}
+
+
 
 </style>
 </head>
@@ -52,6 +85,9 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<div class="page-content">
 		<div class="page-title">회원관리</div>
+		<div class="searchIdinput">
+		<input type="text" class="searchId"><a class="btn6 bc21" href="#">검색</a>
+		</div>
 		<table class="tbl tbl-hover">
 			<tr class="tr-3">
 				<th>선택</th>
