@@ -78,6 +78,19 @@ public class MemberService {
 		return result;
 		
 	}
+
+
+	public int changeLevel(int memberNo, int memberLevel) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.changeLevel(conn,memberNo,memberLevel);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
 	
 
 }
