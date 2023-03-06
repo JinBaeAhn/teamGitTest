@@ -42,7 +42,7 @@ public class MercenaryDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Mercenary> list = new ArrayList<Mercenary>();
-		String query = "select * from (select rownum as rnum, n.* from(select * from mercenary order by 1 desc)n) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, n.* from(select * from mercenary join ground_tbl using(ground_no) order by 1 desc)n) where rnum between ? and ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -63,6 +63,7 @@ public class MercenaryDao {
 				mc.setMercenaryWhether(rset.getInt("mercenary_whether"));
 				mc.setReadCount(rset.getInt("read_count"));
 				mc.setRegDate(rset.getString("reg_date"));
+				mc.setGroundLocation(rset.getString("ground_location"));
 				list.add(mc);
 			}
 		} catch (SQLException e) {
@@ -79,7 +80,7 @@ public class MercenaryDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Mercenary mc = null;
-		String query = "select mercenary_no, member_no, game_location, ground_name, game_date, game_time, mercenary_content, mercenary_pay, read_count, reg_date, mercenary_whether, skill, member_id from mercenary join member_tbl using(member_no) where mercenary_no = ?";
+		String query = "select mercenary_no, member_no, game_location, ground_name, game_date, game_time, mercenary_content, mercenary_pay, read_count, reg_date, mercenary_whether, skill, member_id from mercenary join member_tbl using(member_no) join ground_tbl using(ground_no) where mercenary_no = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
