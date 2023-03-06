@@ -26,7 +26,7 @@ public class NoticeService {
 		JDBCTemplate.close(connection);
 		return result;
 	}
-	public NoticePageData selectAllNoticeList(int noticePage) {
+	public NoticePageData selectNoticeList(int noticePage) {
 		Connection connection = JDBCTemplate.getConnection();
 		//한 페이지 당 게시물 수 지정 -> [10]개
 		int numberOfPerPage = 10;

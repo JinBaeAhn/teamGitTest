@@ -6,7 +6,6 @@
     	ArrayList<Notice> noticeList = (ArrayList<Notice>)request.getAttribute("noticeList");
     	String pageNavigation = (String)request.getAttribute("pageNavigation");
     	int start = (int)request.getAttribute("start");
-    	
     %>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
 	<div class="page-content">
