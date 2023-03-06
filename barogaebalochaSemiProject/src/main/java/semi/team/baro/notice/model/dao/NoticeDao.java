@@ -39,7 +39,6 @@ public class NoticeDao {
 			preparedStatement = connection.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {
-				
 				int noticeNo = resultSet.getInt(1);
 				String memberId = resultSet.getString(2);
 				String noticeCategory = resultSet.getString(3);
@@ -50,7 +49,6 @@ public class NoticeDao {
 				Notice notice = new Notice(noticeNo, noticeCategory, noticeTitle, noticeContent, readCount, regDate, memberId);
 				noticeList.add(notice);
 			}
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,7 +58,57 @@ public class NoticeDao {
 		}
 		return noticeList;
 	}
-	public Notice selectOneNoticeList(Connection connection, int noticeNo) {
+	public ArrayList<Notice> selectNoticeList(Connection connection, int start, int end) {
+		String query = "SELECT * FROM (SELECT ROWNUM AS LIST_COUNT, ALLLIST.* FROM (select notice_no, member_id, notice_category, notice_title, notice_content, read_count, reg_date from notice join member_tbl using(member_no) order by 1 desc) ALLLIST) WHERE LIST_COUNT BETWEEN ? AND ?";
+		ArrayList<Notice> noticeList = new ArrayList<Notice>();
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, start);
+			preparedStatement.setInt(2, end);
+			resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				int noticeNo = resultSet.getInt("notice_no");
+				String memberId = resultSet.getString("member_Id");
+				String noticeCategory = resultSet.getString("notice_category");
+				String noticeTitle = resultSet.getString("notice_title");
+				String noticeContent = resultSet.getString("notice_content");
+				int readCount = resultSet.getInt("read_count");
+				String regDate = resultSet.getString("reg_date");
+				Notice notice = new Notice(noticeNo, noticeCategory, noticeTitle, noticeContent, readCount, regDate, memberId);
+				noticeList.add(notice);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(preparedStatement);
+			JDBCTemplate.close(resultSet);
+		}
+		return noticeList;
+	}
+	public int selectNoticeCount(Connection connection) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		String quert = "select count(*) as total_count from notice";
+		int totalCount = 0;
+		try {
+			preparedStatement = connection.prepareStatement(quert);
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				totalCount = resultSet.getInt("total_count");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(preparedStatement);
+			JDBCTemplate.close(resultSet);
+		}
+		return totalCount;
+	}
+	public Notice selectOneNotice(Connection connection, int noticeNo) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		String query = "select * from notice where notice_no = ?";
@@ -123,5 +171,39 @@ public class NoticeDao {
 		}
 		return result;
 	}
-
+	public int removeNotice(Connection connection, int noticeNo) {
+		PreparedStatement preparedStatement = null;
+		String query = "delete from notice where notice_no = ?";
+		int result = 0;
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, noticeNo);
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(preparedStatement);
+		}
+		return result;
+	}
+	public int noticeUpdate(Connection connection, Notice notice) {
+		PreparedStatement preparedStatement = null;
+		String query = "update notice set notice_category = ?, notice_title = ? , notice_content = ? where notice_no = ?";
+		int result = 0;
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, notice.getNoticeCategory());
+			preparedStatement.setString(2, notice.getNoticeTitle());
+			preparedStatement.setString(3, notice.getNoticeContent());
+			preparedStatement.setInt(4, notice.getNoticeNo());
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(preparedStatement);
+		}
+		return result;
+	}
 }

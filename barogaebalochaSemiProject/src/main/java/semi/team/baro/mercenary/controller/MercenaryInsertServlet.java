@@ -34,30 +34,30 @@ public class MercenaryInsertServlet extends HttpServlet {
 		//1. 인코딩
 		request.setCharacterEncoding("utf-8");
 		//2. 값추출 - 지역 / 경기장 / 경기날짜 / 경기시간 / 실력 / 참가비 / 게시글내용
-		Mercenary m = new Mercenary();	
-		m.setLocation(request.getParameter("location"));
-		m.setGroundName(request.getParameter("groundName"));
-		m.setGameDate(request.getParameter("gameDate"));
-		m.setGameTime(Integer.parseInt(request.getParameter("gameTime")));
-		m.setLevel(Integer.parseInt(request.getParameter("level")));
-		m.setMercenaryPay(Integer.parseInt(request.getParameter("mercenaryPay")));
-		m.setMercenaryContent(request.getParameter("mercenaryContent"));
+		Mercenary mc = new Mercenary();	
+		mc.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));
+		mc.setLocation(request.getParameter("location"));
+		mc.setGroundName(request.getParameter("groundName"));
+		mc.setGameDate(request.getParameter("gameDate"));
+		mc.setGameTime(Integer.parseInt(request.getParameter("gameTime")));
+		mc.setLevel(Integer.parseInt(request.getParameter("level")));
+		mc.setMercenaryPay(Integer.parseInt(request.getParameter("mercenaryPay")));
+		mc.setMercenaryContent(request.getParameter("mercenaryContent"));
 		//3. 비즈니스로직
 		MercenaryService service = new MercenaryService();
-		int result = service.mercenaryInsert(m);
+		int result = service.mercenaryInsert(mc);
 		//4. 결과처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		if(result > 0) {
 			request.setAttribute("icon", "success");
 			request.setAttribute("title", "작성완료");
 			request.setAttribute("msg", "게시글이 작성되었습니다.");
-			request.setAttribute("loc", "/mercenaryList.do");
 		}else {
 			request.setAttribute("icon", "error");
 			request.setAttribute("title", "작성실패");
 			request.setAttribute("msg", "오류가 발생했습니다.");
-			request.setAttribute("loc", "/mercenaryList.do");
 		}
+		request.setAttribute("loc", "/mercenaryList.do?reqPage=1");
 		view.forward(request, response);
 	}
 

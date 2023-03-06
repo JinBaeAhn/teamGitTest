@@ -31,7 +31,7 @@
             title: title,         
             text: msg,  
         }).then(function(){
-			location.href = loc;			
+			location.href = loc;
 		});
 	</script>
 </head>
