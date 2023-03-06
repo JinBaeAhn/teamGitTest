@@ -10,7 +10,7 @@
 		
 		
 		<!-- 수정필요부분 1 -->
-			<input type="hidden" name="memberNo" value="0">
+			<input type="hidden" name="memberNo" value="<%=m.getMemberNo()%>">
 			
 			
   			<div class="col-md-8">

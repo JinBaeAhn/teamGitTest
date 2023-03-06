@@ -1,7 +1,6 @@
 package semi.team.baro.notice.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import semi.team.baro.notice.model.service.NoticeService;
-import semi.team.baro.notice.model.vo.Notice;
+import semi.team.baro.notice.model.vo.NoticePageData;
 
 /**
  * Servlet implementation class NoticeListServlet
@@ -34,14 +33,14 @@ public class NoticeListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
+		int noticePage = Integer.parseInt(request.getParameter("noticePage"));
 		NoticeService noticeService = new NoticeService();
-		ArrayList<Notice> noticeList = noticeService.selectAllNoticeList();
-		request.setAttribute("noticeList", noticeList);
+		NoticePageData noticePageData = noticeService.selectNoticeList(noticePage);
+		request.setAttribute("noticeList", noticePageData.getNoticeList());
+		request.setAttribute("pageNavigation", noticePageData.getPageNavigation());
+		request.setAttribute("start", noticePageData.getStart());
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/notice/noticeList.jsp");
 		requestDispatcher.forward(request, response);
-		
-		
-
 	}
 
 	/**

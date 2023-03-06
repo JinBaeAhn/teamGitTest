@@ -74,6 +74,9 @@ input[name="f"]{
     cursor: pointer;
     color: rgba(37, 42, 52, 1);
 }
+.naverMap{
+	display: none;
+}
 </style>
 </head>
 <body>
@@ -81,12 +84,13 @@ input[name="f"]{
 		<div class="page-content">
 		<div class="page-title">구장 등록</div>
 		<form action="/locationInsertWrite.do" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="groundLat" id="groundLat" value="">
+		<input type="hidden" name="groundLng" id="groundLng" value="">
         <div class="address-wrap">
             <input type="text" name="postcod" id="postcode"
             class="input-form" readonly style="width:90%; display:inline-block;" placeholder="구장찾기">
             <button  type="button" class="btn11 bc33" onclick="searchAddr();">주소찾기</button>
-            <div id="map" style="width:100%; height:500px;"></div>
-            <button type="button" onclick="loadMap();" class="btn bc1">조회한 곳으로 지도 이동</button>
+            <div class=naverMap id="map" style="width:100%; height:500px;"></div>
             <input type="text" name="address" id="address"
 			class="input-form" readonly>
 			<input type="text" name="detailAddress" id="detailAddress"
@@ -207,6 +211,7 @@ input[name="f"]{
 		        	console.log(data);
 		        	$("#postcode").val(data.zonecode);
 		        	$("#address").val(data.address);
+		        	const addr = data.address;
 		        	$("#detailAddress").focus();
 		        	naver.maps.Service.geocode({
 		    			address : addr
@@ -221,11 +226,9 @@ input[name="f"]{
 		    			const latlng = new naver.maps.LatLng(lat,lng);
 		    			map.setCenter(latlng);
 		    			marker.setPosition(latlng);
+		    			$("#groundLat").val(lat);
+		    			$("#groundLng").val(lng);
 		    		});
-			        	console.log(lng);
-			        	console.log(lat);
-		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-		            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
 		        }
 		    }).open();
 		 
