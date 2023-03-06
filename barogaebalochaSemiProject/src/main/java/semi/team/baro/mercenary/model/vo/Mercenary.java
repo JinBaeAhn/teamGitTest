@@ -15,6 +15,8 @@ public class Mercenary {
 	private int mercenaryPay; //참가비
 	private int level; //실력
 	private String groundLocation;
+	private String groundLat;
+	private String groundLng;
 	
 	public Mercenary() {
 		super();
@@ -110,4 +112,17 @@ public class Mercenary {
 	public void setGroundLocation(String groundLocation) {
 		this.groundLocation = groundLocation;
 	}
+	public String getGroundLat() {
+		return groundLat;
+	}
+	public void setGroundLat(String groundLat) {
+		this.groundLat = groundLat;
+	}
+	public String getGroundLng() {
+		return groundLng;
+	}
+	public void setGroundLng(String groundLng) {
+		this.groundLng = groundLng;
+	}
+	
 }

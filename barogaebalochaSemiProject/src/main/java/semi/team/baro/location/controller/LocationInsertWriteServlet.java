@@ -1,6 +1,7 @@
 package semi.team.baro.location.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -47,7 +48,16 @@ public class LocationInsertWriteServlet extends HttpServlet {
 		String groundContent = mRequest.getParameter("groundContent");
 		String filepath = mRequest.getFilesystemName("upfile");
 		String groundLocation = mRequest.getParameter("address");
-		System.out.println(groundName+groundLat+groundLng+groundContent+filepath+groundLocation);
+		String[] amenityList = mRequest.getParameterValues("f");
+		int[] amenityActiveList = {0,0,0,0,0,0};
+		for(int i=0;i<amenityActiveList.length;i++) {
+			if(amenityList[i].equals(i)) {
+				amenityActiveList[i] = 1;	
+			}
+		}
+		for(int i=0;i<amenityActiveList.length;i++) {
+			System.out.println(amenityActiveList[i]);
+		}
 		Location l = new Location();
 		l.setGroundName(groundName);
 		l.setGroundLat(groundLat);

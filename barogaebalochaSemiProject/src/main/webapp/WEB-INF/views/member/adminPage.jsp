@@ -22,9 +22,13 @@
     background-color: #fefefe;
     color: #181818;
 }
+.tbl tr>th{
+    text-align: center;
+}
 .tbl td {
     padding: 1rem;
     text-align: center;
+    font-size: 0.5em;
 }
 .menu li{
     list-style-type: none;
@@ -33,9 +37,13 @@
     display: none;
 }
 .bs5 {
-    width: 800px;
-    padding: 1rem;
+	margin-top : 25px;
+    width: 250px;
+    padding: 2rem;
     font-size: 1.2em;
+}
+.page-title{
+	margin-bottom : 25px;
 }
 
 </style>
@@ -57,7 +65,7 @@
 				<th>회원등급</th>
 				<th>가입일</th>
 				<th>회원포인트</th>
-				<th>등급변경</th>
+				<th colspan="2">등급변경</th>
 			</tr>
 			<%for(Member member : list) {%>
 			<tr class="tr-1">
@@ -99,19 +107,18 @@
 			</tr>
 			<%} %>
 			<tr>
-				<th colspan="9">
-					<button class="btn bc4 bs4 checkedChangeLevel">선택회원등급변경</button>
+				<th colspan="13">
+					<button class="btn bc4 bs5 checkedChangeLevel">선택회원등급변경</button>
 				</th>
 			</tr>
 		</table>
 	</div>
 	<script>
-		$(".changeLevel").on("click",funtion(){
+		$(".changeLevel").on("click",function(){
 			const memberNo = $(this).parent().parent().children().eq(1).text();
 			const memberLevel = $(this).parent().prev().children().val();
-			location.href="/chageLevel.do?memberNo="+memberNo+"&memberLevel="+memberLevel;
+			location.href="/changeLevel.do?memberNo="+memberNo+"&memberLevel="+memberLevel;
 		});
-		
 		$(".checkedChangeLevel").on("click",function(){
 			const check = $(".chk:checked");
 			if(check.length == 0){
