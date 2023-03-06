@@ -48,6 +48,7 @@ public class LocationInsertWriteServlet extends HttpServlet {
 		String groundContent = mRequest.getParameter("groundContent");
 		String filepath = mRequest.getFilesystemName("upfile");
 		String groundLocation = mRequest.getParameter("address");
+		int groundPrice = Integer.parseInt(mRequest.getParameter("groundPrice"));
 		/*
 		String[] amenityList = mRequest.getParameterValues("f");
 		int[] amenityActiveList = {0,0,0,0,0,0};
@@ -67,6 +68,7 @@ public class LocationInsertWriteServlet extends HttpServlet {
 		l.setGroundContent(groundContent);
 		l.setFilePath(filepath);
 		l.setGroundLocation(groundLocation);
+		l.setGroundPrice(groundPrice);
 		//3. 비즈니스로직
 		LocationService service = new LocationService();
 		int result = service.insertLocation(l);

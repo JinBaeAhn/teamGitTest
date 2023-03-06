@@ -86,7 +86,7 @@
 	<div class="page-content">
 		<div class="page-title">회원관리</div>
 		<div class="searchIdinput">
-		<input type="text" class="searchId"><a class="btn6 bc21" href="#">검색</a>
+		<input type="text" class="searchId" name="memberId"><a class="btn6 bc21" href="adminSearch.do">검색</a>
 		</div>
 		<table class="tbl tbl-hover">
 			<tr class="tr-3">
