@@ -67,14 +67,23 @@
                 <div class="mercenary-list-left">
                     <div class="mercenary-date">
                         <ul>
-                            <li style="font-size: 15px;"><%=mc.getLocation() %></li>
+                            <li style="font-size: 15px;">
+                            <%if(mc.getLocation().equals("seoul")) {%>
+                            	서울
+                            <%} else if(mc.getLocation().equals("incheon")) {%>
+                            	인천
+                            <%} else if(mc.getLocation().equals("Gyeonggi")) {%>
+                            	경기
+                            <%} %>
+                
+                            </li>
                             <li><%=mc.getGameDate() %></li>
                             <li><%=mc.getGameShowTime() %></li>
                         </ul>
                     </div>
                     <div class="mercenary-info">
                         <ul>
-                            <li style="font-size: 20px;">구장이름</li>
+                            <li style="font-size: 20px;"><%=mc.getGroundName() %></li>
                             <%if(mc.getLevel() == 1){ %>
 								<li>실력 : 최상 </li>
 							<%}else if(mc.getLevel() == 2) {%>

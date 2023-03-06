@@ -45,14 +45,16 @@ public class LocationInsertWriteServlet extends HttpServlet {
 		String groundLat = mRequest.getParameter("groundLat");
 		String groundLng = mRequest.getParameter("groundLng");
 		String groundContent = mRequest.getParameter("groundContent");
-		String filename = mRequest.getOriginalFileName("upfile");
-		System.out.println(groundName+groundLat+groundLng+groundContent+filename);
+		String filepath = mRequest.getFilesystemName("upfile");
+		String groundLocation = mRequest.getParameter("address");
+		System.out.println(groundName+groundLat+groundLng+groundContent+filepath+groundLocation);
 		Location l = new Location();
 		l.setGroundName(groundName);
 		l.setGroundLat(groundLat);
 		l.setGroundLng(groundLng);
 		l.setGroundContent(groundContent);
-		l.setFilePath(filename);
+		l.setFilePath(filepath);
+		l.setGroundLocation(groundLocation);
 		//3. 비즈니스로직
 		LocationService service = new LocationService();
 		int result = service.insertLocation(l);
@@ -67,7 +69,7 @@ public class LocationInsertWriteServlet extends HttpServlet {
 			request.setAttribute("msg", "오류가 발생했습니다.");
 			request.setAttribute("icon", "error");
 		}
-		request.setAttribute("loc", "/locationList.do?reqPage=1");
+		request.setAttribute("loc", "/locationList.do?requestPage=1");
 		view.forward(request, response);
 	}
 

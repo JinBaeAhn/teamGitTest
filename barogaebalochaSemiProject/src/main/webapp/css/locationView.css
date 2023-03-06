@@ -1,0 +1,71 @@
+.tbl {
+    width: 100%;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.tbl th,
+.tbl td {
+    padding: 1rem;
+    text-align: center;
+    border: solid 2px #ccc;
+}
+.tbl .tr-1 {
+    background-color: #fefefe;
+}
+.tbl .td-1 {
+    background-color: #fefefe;
+    color: rgba(37, 42, 52, 1);
+    
+}
+.tbl.tbl-hover .tr-1:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.input-form:focus {
+    box-shadow: 0 0 0 0.1rem #eee;
+}
+
+textarea.input-form {
+    resize: none;
+    min-height: 300px;
+}
+.input-form:read-only:not(select),
+.input-form:disabled {
+    background-color: #f7f7f9;
+}
+
+.btn11{
+    border: none;
+    padding: 0.8rem;
+    display: inline-block;
+    box-sizing: border-box;
+    transition-duration: 0.5s;
+    font-size: 15px;
+    border-radius: 5px;
+    margin: 0 auto;
+}
+.bc33{
+    margin-left: 25px;
+}
+.page-title{
+    margin-bottom: 20px;
+}
+input[name="f"]{
+    margin: 10px;
+}
+.bc66{
+    color: rgba(37, 42, 52, 1);
+    background-color: #fff;
+    border: 2px solid rgba(238, 238, 238, 1);
+}
+.bc66:hover {
+    background-color: rgba(238, 238, 238, 1);
+    cursor: pointer;
+    color: rgba(37, 42, 52, 1);
+}
+.bs22 {
+    width: 10%;
+    padding: 1rem;
+    font-size: 1.2em;
+}

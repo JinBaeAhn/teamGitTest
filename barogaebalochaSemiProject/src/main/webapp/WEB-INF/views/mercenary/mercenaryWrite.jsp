@@ -69,7 +69,7 @@
                                 <select class="input-form" name="location">
                                     <option value="seoul">서울</option>
                                     <option value="incheon">인천</option>
-                                    <option value="3">경기</option>
+                                    <option value="Gyeonggi">경기</option>
                                 </select>
                             </td>
                         </tr>
