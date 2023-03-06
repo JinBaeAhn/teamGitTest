@@ -29,31 +29,34 @@ public class ChangeLevelServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//1. 인코딩
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//1.인코딩
 		request.setCharacterEncoding("utf-8");
 		//2.값추출
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 		int memberLevel = Integer.parseInt(request.getParameter("memberLevel"));
-		System.out.println("memberNo : "+ memberNo);
-		System.out.println("memberLevel : "+ memberLevel);
+		System.out.println("memberNo : " + memberNo);
+		System.out.println("memberLevel : " + memberLevel);
 		//3.비즈니스로직
 		MemberService service = new MemberService();
 		int result = service.changeLevel(memberNo,memberLevel);
 		//4.결과처리
 		// 변경성공 : 관리자페이지로 이동
-		// 변경실패 : alert 메세지를 띄운 후 관리자페이지로 이동
+		// 변경실패 : alert메세지 띄운 후 관리자페이지로 이동
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		if(result>0) {
 			//주소창을 변경
-			response.sendRedirect("/adminPage.do");
+			request.setAttribute("title", "등급 변경 성공");
+			request.setAttribute("msg", "등급 변경 완료");
+			request.setAttribute("icon", "success");
+			request.setAttribute("loc", "/adminPage.do");
 		}else {
-			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 			request.setAttribute("title", "등급 변경 실패");
 			request.setAttribute("msg", "등급 변경 중 문제가 발생");
 			request.setAttribute("icon", "warning");
 			request.setAttribute("loc", "/adminPage.do");
-			view.forward(request, response);
 		}
+		view.forward(request, response);
 	}
 
 	/**

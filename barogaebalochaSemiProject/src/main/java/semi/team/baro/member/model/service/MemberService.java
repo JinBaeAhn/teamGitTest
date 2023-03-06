@@ -2,6 +2,8 @@ package semi.team.baro.member.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 import common.JDBCTemplate;
 import semi.team.baro.member.model.dao.MemberDao;
 import semi.team.baro.member.model.vo.Member;
@@ -85,6 +87,30 @@ public class MemberService {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = dao.changeLevel(conn,memberNo,memberLevel);
 		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+
+	public boolean checkedChangeLevel(String no, String level) {
+		Connection conn = JDBCTemplate.getConnection();
+		StringTokenizer sT1 = new StringTokenizer(no,"/");
+		StringTokenizer sT2 = new StringTokenizer(level,"/");
+		boolean result = true;
+		while(sT1.hasMoreTokens()) {
+			int memberNo = Integer.parseInt(sT1.nextToken());
+			int memberLevel = Integer.parseInt(sT2.nextToken());
+			int changeResult = dao.changeLevel(conn, memberNo, memberLevel);
+			if(changeResult == 0) {
+				result = false;
+				break;
+			}
+		}
+		if(result) {
 			JDBCTemplate.commit(conn);
 		}else {
 			JDBCTemplate.rollback(conn);
