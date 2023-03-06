@@ -15,7 +15,8 @@ public class MatchingDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Matching> list = new ArrayList<Matching>();
-		String query = "select * from (select rownum as rnum, n.* from (select matching_no, b.matching_board_no, matching_board_title, read_count, b.matching_status, reg_date, b.reservation_no, ground_name, ground_location, reservation_date, reservation_time from matching_board b left join matching_request r on (b.matching_board_no = r.matching_board_no) left join reservation res on (b.ground_no = res.ground_no) left join ground_tbl g on(b.ground_no=g.ground_no))n) where rnum between ? and ? ";
+		//String query = "select * from (select rownum as rnum, n.* from (select matching_no, b.matching_board_no, matching_board_title, read_count, b.matching_status, reg_date, b.reservation_no, ground_name, ground_location, reservation_date, reservation_time from matching_board b left join matching_request r on (b.matching_board_no = r.matching_board_no) left join reservation res on (b.ground_no = res.ground_no) left join ground_tbl g on(b.ground_no=g.ground_no))n) where rnum between ? and ? ";
+		String query = "select * from (select rownum as rnum, n.* from (select b.matching_board_no, matching_board_title, read_count, b.matching_status, reg_date, b.reservation_no, ground_name, ground_location, reservation_date, reservation_time from matching_board b left join reservation res on (b.reservation_no = res.reservation_no) left join ground_tbl g on(res.ground_no=g.ground_no))n) where rnum between ? and ? ";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -24,7 +25,7 @@ public class MatchingDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Matching m  = new Matching();
-				m.setMatchingNo(rset.getInt("matching_no"));
+				//m.setMatchingNo(rset.getInt("matching_no"));
 				m.setMatchingBoardNo(rset.getInt("matching_board_no"));
 				m.setMatchingBoardTitle(rset.getString("matching_board_title"));
 				m.setReadCount(rset.getInt("read_count"));

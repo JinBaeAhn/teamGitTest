@@ -1,4 +1,4 @@
-package semi.team.baro.board.cotroller;
+package semi.team.baro.board.model.service;
 
 import java.io.IOException;
 
@@ -9,20 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.team.baro.board.model.service.BoardService;
-import semi.team.baro.board.model.vo.BoardPageData;
-
 /**
- * Servlet implementation class FreeBoardListServlet
+ * Servlet implementation class FreeBoardWriteFormServlet
  */
-@WebServlet(name = "FreeBoardList", urlPatterns = { "/freeBoardList.do" })
-public class FreeBoardListServlet extends HttpServlet {
+@WebServlet(name = "FreeBoardWriteForm", urlPatterns = { "/freeBoardWriteForm.do" })
+public class FreeBoardWriteFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardListServlet() {
+    public FreeBoardWriteFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +29,7 @@ public class FreeBoardListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
-
-		int boardPage = Integer.parseInt(request.getParameter("boardPage"));
-		BoardService boardService = new BoardService();
-		BoardPageData boardPageData = boardService.selectBoardList(boardPage);
-		request.setAttribute("boardList", boardPageData.getBoardList());
-		request.setAttribute("pageNavigation", boardPageData.getPageNavigation());
-		request.setAttribute("start", boardPageData.getStart());
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/board/freeBoardList.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/board/freeBoardWriteForm.jsp");
 		requestDispatcher.forward(request, response);
 	}
 
@@ -51,5 +40,4 @@ public class FreeBoardListServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }
