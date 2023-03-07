@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import semi.team.baro.board.model.vo.Board;
+import semi.team.baro.board.model.vo.BoardComment;
 
 public class BoardDao {
 
@@ -129,6 +130,65 @@ public class BoardDao {
 		return board;
 	}
 
+	public ArrayList<BoardComment> selectBoardComments(Connection connection, int photoNo) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<BoardComment> commentList = new ArrayList<BoardComment>();
+		String query = "select * from board_comment where PHOTO_NO = ? and RE_COMMENT is null order by 1";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, photoNo);
+			resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				int boardCommentNo =  resultSet.getInt(1);
+				int boardCommentReference =  resultSet.getInt(2);
+				int boardCommentWriter = resultSet.getInt(3);
+				String boardCommentContent = resultSet.getString(4);
+				String boardCommentDate = resultSet.getString(5);
+				int boardCommentSelfReference =  resultSet.getInt(6);
+				BoardComment boardComment = new BoardComment(boardCommentNo, boardCommentReference, boardCommentWriter, boardCommentContent, boardCommentDate, boardCommentSelfReference);
+				commentList.add(boardComment);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(preparedStatement);
+			JDBCTemplate.close(resultSet);
+		}
+		return commentList;
+	}
+
+	public ArrayList<BoardComment> selectBoardReComments(Connection connection, int photoNo) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<BoardComment> commentList = new ArrayList<BoardComment>();
+		String query = "select * from board_comment where PHOTO_NO = ? and re_comment is not null order by 1";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, photoNo);
+			resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				int boardCommentNo =  resultSet.getInt(1);
+				int boardCommentReference =  resultSet.getInt(2);
+				int boardCommentWriter = resultSet.getInt(3);
+				String boardCommentContent = resultSet.getString(5);
+				String boardCommentDate = resultSet.getString(5);
+				int boardCommentSelfReference =  resultSet.getInt(6);
+				BoardComment boardComment = new BoardComment(boardCommentNo, boardCommentReference, boardCommentWriter, boardCommentContent, boardCommentDate, boardCommentSelfReference);
+				commentList.add(boardComment);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(preparedStatement);
+			JDBCTemplate.close(resultSet);
+		}
+		return commentList;
+	}
+
+
 	public String getBoardWriter(Connection connection, int photoNo) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -189,5 +249,27 @@ public class BoardDao {
 		return result;
 	}
 
+	public String getCommentWriter(Connection connection, int boardCommentWriter, int boardCommentNo) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		String query = "select member_id from board_comment join member_tbl  using(member_no) where member_no = ? and comment_no = ?";
+		String memberId = "";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, boardCommentWriter);
+			preparedStatement.setInt(2, boardCommentNo);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				memberId = resultSet.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(preparedStatement);
+			JDBCTemplate.close(resultSet);
+		}
+		return memberId;
+	}
 
 }

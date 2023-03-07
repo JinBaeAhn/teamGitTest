@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import semi.team.baro.board.model.service.BoardService;
-import semi.team.baro.board.model.vo.Board;
+import semi.team.baro.board.model.vo.BoardViewData;
 
 /**
  * Servlet implementation class FreeBoardViewServlet
@@ -33,10 +33,12 @@ public class FreeBoardViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		int photoNo = Integer.parseInt(request.getParameter("photoNo"));
-		BoardService BoardService = new BoardService();
-		Board board = BoardService.selectOneBoard(photoNo);
+		BoardService boardService = new BoardService();
+		BoardViewData boardViewData = boardService.selectOneBoard(photoNo);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/board/freeBoardView.jsp");
-		request.setAttribute("board", board);
+		request.setAttribute("board", boardViewData.getBoard());
+		request.setAttribute("boardCommentList", boardViewData.getBoardCommentList());
+		request.setAttribute("boardReCommentList", boardViewData.getBoardReCommentList());
 		requestDispatcher.forward(request, response);
 	}
 
