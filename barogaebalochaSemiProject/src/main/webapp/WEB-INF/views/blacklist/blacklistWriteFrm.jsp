@@ -44,7 +44,7 @@
 			</div>
 			<%if( m != null) {%>
 			<div class="blacklist-input-wrap">
-			<form action="/blacklistInsert.do">
+			<form action="/blacklistInsert.do" method="post" enctype="multipart/form-data">
 				<table class="tbl" id="blacklistWrite">
 					<tr>
 						<th colspan="1">제목</th>
@@ -54,7 +54,7 @@
 						<th colspan="1">작성자</th>
 						<td colspan="3">
 						<%=m.getMemberId() %>
-						<input type="hidden" name="memberNo" value="<%=m.getMemberNo() %>">						
+						<input type="hidden" name="writeMemberNo" value="<%=m.getMemberNo() %>">						
 						</td>
 					</tr>
 					<tr>

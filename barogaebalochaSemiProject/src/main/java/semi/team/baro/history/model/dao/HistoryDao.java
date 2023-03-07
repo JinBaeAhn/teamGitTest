@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import common.JDBCTemplate;
+import semi.team.baro.blacklist.model.vo.Blacklist;
 import semi.team.baro.history.model.vo.HistoryPageData;
 import semi.team.baro.mercenary.model.vo.Mercenary;
 import semi.team.baro.mercenary.model.vo.MercenaryRequest;
@@ -127,6 +128,15 @@ public class HistoryDao {
 			JDBCTemplate.close(rset);
 		}
 		return totalCount;
+	}
+
+	public ArrayList<Blacklist> blackListMyHistory(Connection conn, int memberNo, int start, int end) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Blacklist> blaList = new ArrayList<Blacklist>();
+		String query = "select * from (select rownum as rnum, n.* from(select * from admin_black_list join member_tbl using(member_no) where member_no = ?)n) where rnum between ? and ?";
+		
+		return null;
 	}
 
 }
