@@ -37,7 +37,7 @@ public class MatchingListInsertServlet extends HttpServlet {
 		Matching mc = new Matching();
 		mc.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));
 		mc.setGroundLocation(request.getParameter("groundLocation"));
-		mc.setReservationTime(request.getParameter("reservationTime"));
+		mc.setReservationTime(Integer.parseInt(request.getParameter("reservationTime")));
 		mc.setReservationDate(request.getParameter("reservationDate"));
 		mc.setGroundName(request.getParameter("groundName"));
 		//System.out.println(mc.getGroundName()+"구장이름");

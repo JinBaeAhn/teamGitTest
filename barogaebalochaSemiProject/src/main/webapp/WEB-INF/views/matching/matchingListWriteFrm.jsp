@@ -71,7 +71,7 @@
         color:#fcfcfc;
         background-color: #181818;
     }
-    
+   
     <!--모달랩 css-->
     body{
     margin: 0;
@@ -220,8 +220,8 @@
                         </tr>
                         <tr>
                             <td colspan="2">
+                                <input type="submit" class="btn1 bc1" value="작성">
                                 <a href="/matchingList.do?reqPage=1" class="btn1 bc1">취소</a>
-                                <input type="submit" class="btn1 bc1" value="완료">
                             </td>
                         </tr>
                     </table>          

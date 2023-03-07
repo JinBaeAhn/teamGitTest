@@ -66,6 +66,7 @@
     #pageNavi{
    		margin-top: 50px;
    	}
+   	
 </style>
 </head>
 <body>
@@ -103,7 +104,7 @@
                 <div class="matchingList-result">
                 	<%if(mc.getMatchingStatus() == 1) {%>
 	                    <%if(m != null) {%>
-	                    <div class="btn1" style="background-color: #AACB73; "><a style="color:#fff;"" href="/matchingView.do?matchingNo=<%=mc.getMatchingBoardNo() %>">매치신청</a></div> 
+	                    <div class="btn1" style="background-color: #AACB73; "><a style="color:#fff;"" href="/matchingView.do?reservationNo=<%=mc.getReservationNo() %>">매치신청</a></div> 
 	                    <%}else{ %>
 	                    <div class="btn1 need-login" style="background-color: #AACB73; color:#fff;" onclick="alert('로그인이 필요합니다')">매치신청</div> 
 	                    <%} %>          	
@@ -116,7 +117,7 @@
         <%} %>                     
         </div>
         <%if(m != null) {%>
-        	<div class="button"><a href="/matchingListWrite.do" class="btn1 bc2 bs2">작성하기</a></div>
+        	<div class="button"><a href="/matchingListWrite.do" class="btn1 bc2 bs2 frm-btn">작성하기</a></div>
         <%} %>
         <div id="pageNavi"><%=pageNavi %></div>
 	</div>

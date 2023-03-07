@@ -117,7 +117,8 @@ public class MatchingService {
 	public Matching selectOneMatch(int reservationNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		Matching mc = dao.selectOneMatch(conn, reservationNo);
-		return null;
+		JDBCTemplate.close(conn);
+		return mc;
 	}
 
 	

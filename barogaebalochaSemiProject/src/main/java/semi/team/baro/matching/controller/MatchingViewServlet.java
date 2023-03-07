@@ -39,6 +39,7 @@ public class MatchingViewServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		//2.값추출
 		int reservationNo = Integer.parseInt(request.getParameter("reservationNo"));
+		//System.out.println("test용 레저브"+reservationNo);
 		//3.비즈니스로직
 		MatchingService service = new MatchingService();
 		Matching mc = service.selectOneMatch(reservationNo);

@@ -38,7 +38,7 @@ public class MatchingDao {
 				m.setGroundName(rset.getString("ground_name"));
 				m.setGroundLocation(rset.getString("ground_location"));
 				m.setReservationDate(rset.getString("reservation_date"));
-				m.setReservationTime(rset.getString("reservation_time"));
+				m.setReservationTime(rset.getInt("reservation_time"));
 				list.add(m);
 			}
 		} catch (SQLException e) {
@@ -106,7 +106,7 @@ public class MatchingDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, mc.getMemberNo());
 			pstmt.setInt(2, groundNo);
-			pstmt.setString(3, mc.getReservationTime());
+			pstmt.setInt(3, mc.getReservationTime());
 			pstmt.setString(4,  mc.getReservationDate());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -152,7 +152,7 @@ public class MatchingDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, mc.getMemberNo());
 			pstmt.setInt(2, groundNo);
-			pstmt.setString(3, mc.getReservationTime());
+			pstmt.setInt(3, mc.getReservationTime());
 			pstmt.setString(4, mc.getReservationDate());
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
@@ -175,7 +175,7 @@ public class MatchingDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Matching mc = null;
-		String query= "select b.matching_board_no, matching_board_title, b.matching_status, reg_date, b.reservation_no, ground_name, ground_location, reservation_date, reservation_time from matching_board b left join reservation res on (b.reservation_no = res.reservation_no) left join ground_tbl g on(res.ground_no=g.ground_no)  where b.reservation_no = ?";
+		String query= "select b.matching_board_no, matching_board_title, matching_board_content, b.matching_status, reg_date, b.reservation_no, ground_name, ground_location, reservation_date, reservation_time, ground_price from matching_board b left join reservation res on (b.reservation_no = res.reservation_no) left join ground_tbl g on(res.ground_no=g.ground_no)  where b.reservation_no = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -183,15 +183,17 @@ public class MatchingDao {
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				mc = new Matching();
-				mc.setMatchingBoardNo(rset.getInt("member_no"));
+				mc.setMatchingBoardNo(rset.getInt("matching_board_no"));
 				mc.setMatchingBoardTitle(rset.getString("matching_board_title"));
+				mc.setMatchingBoardContent(rset.getString("matching_board_content"));
 				mc.setMatchingStatus(rset.getInt("matching_status"));
 				mc.setRegDate(rset.getNString("reg_date"));
 				mc.setReservationNo(rset.getInt("reservation_no"));
 				mc.setGroundName(rset.getString("ground_name"));
 				mc.setGroundLocation(rset.getString("ground_location"));
 				mc.setReservationDate(rset.getString("reservation_date"));
-				mc.setReservationTime(rset.getString("reservation_time"));
+				mc.setReservationTime(rset.getInt("reservation_time"));
+				mc.setGroundPrice(rset.getInt("ground_price"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
