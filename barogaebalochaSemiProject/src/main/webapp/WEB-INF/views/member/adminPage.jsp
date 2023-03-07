@@ -4,6 +4,8 @@
     pageEncoding="UTF-8"%>
     <%
     ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+    String pageNavi = (String)request.getAttribute("pageNavi");
+    int start = (int)request.getAttribute("start");
     %>
 <!DOCTYPE html>
 <html>
@@ -77,7 +79,9 @@
 	text-align: center;
 }
 
-
+.page-navi{
+	margin: 50px auto;
+}
 
 </style>
 </head>
@@ -147,7 +151,9 @@
 					<button class="btn bc4 bs5 checkedChangeLevel">선택회원등급변경</button>
 				</th>
 			</tr>
+			
 		</table>
+		<div class=page-navi><%=pageNavi %></div>
 	</div>
 	<script>
 		$(".changeLevel").on("click",function(){
