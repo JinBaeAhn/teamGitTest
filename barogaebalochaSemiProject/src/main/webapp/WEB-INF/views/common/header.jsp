@@ -51,7 +51,7 @@
 	                    <ul class="navi">
 	                        <li><a href="/adminPage.do?reqPage=1">회원관리</a></li>
 	                        <li><a href="/locationInsert.do">구장등록</a></li>
-	                        <li><a href="#">신고관리</a></li>
+	                        <li><a href="adminBlacklistList.do">신고관리</a></li>
 	                        <li>
 	                            <a href="#" name="search">메뉴</a>
 	                            <ul class="menu">

@@ -1,3 +1,4 @@
+<%@page import="semi.team.baro.blacklist.model.vo.Blacklist"%>
 <%@page import="semi.team.baro.mercenary.model.vo.MercenaryRequest"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="semi.team.baro.mercenary.model.vo.Mercenary"%>
@@ -6,6 +7,7 @@
     <%
     ArrayList<Mercenary> mcList = ( ArrayList<Mercenary>)request.getAttribute("mcList");
     ArrayList<MercenaryRequest> mcReqList = (ArrayList<MercenaryRequest>)request.getAttribute("mcReqList");
+    ArrayList<Blacklist> blaList = (ArrayList<Blacklist>)request.getAttribute("blaList");
     
     String pageNavi = (String)request.getAttribute("pageNavi");
     String categoryName = (String)request.getAttribute("categoryName");
@@ -61,7 +63,7 @@
 			<li><a href="/historyMercenary.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=mercenary">용병모집</a></li>
 			<li><a href="/historyMercenaryRequest.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=mercenaryRequest">용병신청</a></li>
 			<li><a href="#">게시판</a></li>
-			<li><a href="#">신고내역</a></li>
+			<li><a href="/historyBlacklist.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=blacklist">신고내역</a></li>
 		</ul>
 		<%if( categoryName.equals("mercenary") ){ %>			
 		<table class="history-content table">
@@ -129,6 +131,30 @@
 				<td> - </td>
 				<%} %>
 				<td><a href="/blackListFrm.do">신고</a></td>
+			</tr>
+			<%} %>
+		</table>
+		<div class="page-navi"><%=pageNavi %></div>
+		<%} else if( categoryName.equals("blacklist")){%>
+			<table class="history-content table">
+			<tr>
+				<th style="width:5%">no.</th>
+				<th style="width:10%">신고대상</th>
+				<th style="width:25%">제목</th>
+				<th style="width:25%">첨부파일</th>
+				<th style="width:20%">작성일</th>
+				<th style="width:10%">처리상태</th>
+				<th></th>
+			</tr>
+			<%for(Blacklist bl : blaList) {%>
+			<tr>
+				<td><%=bl.getBlackNo() %></td>
+				<td><%=bl.getBlackMember() %></td>
+				<td><%=bl.getBlackTitle() %></td>
+				<td><%=bl.getBlackFilepath() %></td>
+				<td><%=bl.getRegDate() %></td>
+				<td><%=bl.getBlackStatus() %></td>
+				<td></td>
 			</tr>
 			<%} %>
 		</table>
