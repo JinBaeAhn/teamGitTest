@@ -136,7 +136,55 @@ public class HistoryDao {
 		ArrayList<Blacklist> blaList = new ArrayList<Blacklist>();
 		String query = "select * from (select rownum as rnum, n.* from(select * from admin_black_list join member_tbl using(member_no) where member_no = ?)n) where rnum between ? and ?";
 		
-		return null;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Blacklist bl = new Blacklist();
+				bl.setBlackContent(rset.getString("black_content"));
+				bl.setBlackFilepath(rset.getString("black_filepath"));
+				bl.setBlackMember(rset.getString("black_member"));
+				bl.setBlackNo(rset.getInt("black_no"));
+				bl.setBlackStatus(rset.getInt("black_status"));
+				bl.setBlackTitle(rset.getString("black_title"));
+				bl.setMemberId(rset.getString("member_id"));
+				bl.setMemberNo(rset.getInt("member_no"));
+				bl.setRegDate(rset.getString("reg_date"));
+				blaList.add(bl);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return blaList;
+	}
+
+	public int blackListHistoryCount(Connection conn, int memberNo) {	
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int totalCount = 0;
+		String query = "select count(*) as cnt from admin_black_list where member_no = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, memberNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalCount = rset.getInt("cnt");				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rset);
+		}
+		return totalCount;
 	}
 
 }

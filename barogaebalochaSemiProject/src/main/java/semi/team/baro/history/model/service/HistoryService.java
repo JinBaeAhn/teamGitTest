@@ -156,7 +156,7 @@ public class HistoryService {
 		int end = numPerPage*reqPage;
 		int start = end - numPerPage + 1;
 		//rnum포함 쿼리문 작성
-		ArrayList<Blacklist> mcReqList = dao.blackListMyHistory(conn, memberNo, start, end);
+		ArrayList<Blacklist> blaList = dao.blackListMyHistory(conn, memberNo, start, end);
 		//페이징제작
 		//1. 전체페이지수계산
 		int totalCount = dao.blackListHistoryCount(conn, memberNo);
@@ -206,7 +206,7 @@ public class HistoryService {
 		pageNavi += "</ul>";
 		
 		HistoryPageData hpd = new HistoryPageData();
-		hpd.setMcReqList(mcReqList);
+		hpd.setBlaList(blaList);
 		hpd.setPageNavi(pageNavi);
 		hpd.setStart(start);
 

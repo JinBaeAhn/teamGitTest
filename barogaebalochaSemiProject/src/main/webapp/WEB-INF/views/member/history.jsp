@@ -1,3 +1,4 @@
+<%@page import="semi.team.baro.blacklist.model.vo.Blacklist"%>
 <%@page import="semi.team.baro.mercenary.model.vo.MercenaryRequest"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="semi.team.baro.mercenary.model.vo.Mercenary"%>
@@ -6,6 +7,7 @@
     <%
     ArrayList<Mercenary> mcList = ( ArrayList<Mercenary>)request.getAttribute("mcList");
     ArrayList<MercenaryRequest> mcReqList = (ArrayList<MercenaryRequest>)request.getAttribute("mcReqList");
+    ArrayList<Blacklist> blaList = (ArrayList<Blacklist>)request.getAttribute("blaList");
     
     String pageNavi = (String)request.getAttribute("pageNavi");
     String categoryName = (String)request.getAttribute("categoryName");
@@ -144,30 +146,19 @@
 				<th style="width:10%">처리상태</th>
 				<th></th>
 			</tr>
-			<%for(MercenaryRequest mcReq : mcReqList) {%>
+			<%for(Blacklist bl : blaList) {%>
 			<tr>
-				<td><%=mcReq.getMercenaryNo() %></td>
-				<%if(mcReq.getGameLocation().equals("seoul")) {%>
-                    <td>서울</td>
-                <%} else if(mcReq.getGameLocation().equals("incheon")) {%>
-                 	<td>인천</td>
-                <%} else if(mcReq.getGameLocation().equals("Gyeonggi")) {%>
-                	<td>경기</td>
-                <%} %>
-				<td><%=mcReq.getGroundName() %></td>
-				<td><%=mcReq.getGameDate()%> [ <%=mcReq.getGameShowTime() %> ]</td>
-				<td><%=mcReq.getMercenaryRequestContent() %></td>
-				<%if(mcReq.getMercenaryRequestResult().equals(m.getMemberId())) {%>
-				<td> O </td>
-				<%} else if(mcReq.getMercenaryRequestResult().equals("1")){%>
-				<td> X </td>
-				<%} else if(mcReq.getMercenaryRequestResult().equals("0")){%>
-				<td> - </td>
-				<%} %>
-				<td><a href="/blackListFrm.do">신고</a></td>
+				<td><%=bl.getBlackNo() %></td>
+				<td><%=bl.getBlackMember() %></td>
+				<td><%=bl.getBlackTitle() %></td>
+				<td><%=bl.getBlackFilepath() %></td>
+				<td><%=bl.getRegDate() %></td>
+				<td><%=bl.getBlackStatus() %></td>
+				<td></td>
 			</tr>
 			<%} %>
 		</table>
+		<div class="page-navi"><%=pageNavi %></div>
 		<%} %>
 	<%} else{%>
 		<script>

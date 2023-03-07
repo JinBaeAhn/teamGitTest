@@ -2,6 +2,7 @@ package semi.team.baro.history.conroller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,8 +40,12 @@ public class HistoryBlacklistServlet extends HttpServlet {
 		//3.비즈니스로직
 		HistoryService service = new HistoryService();
 		HistoryPageData hpd = service.blacklistMyHistory(memberNo, reqPage);
-		
 		//4.결과처리
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/member/history.jsp");
+		request.setAttribute("blaList", hpd.getBlaList());
+		request.setAttribute("pageNavi", hpd.getPageNavi());
+		request.setAttribute("categoryName", categoryName);
+		view.forward(request, response);
 	}
 
 	/**
