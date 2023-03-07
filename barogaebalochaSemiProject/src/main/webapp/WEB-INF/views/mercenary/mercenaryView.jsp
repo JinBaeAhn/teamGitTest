@@ -21,13 +21,15 @@
 		text-align: right;
 		width: 90%;
 		margin: 0 auto;
+		overflow:hidden;
 	}
-	.read-count span{
+	.read-count div{
 		color: #ccc;
 		height: 30px;
 		line-height: 30px;
+		float: right;
 	}
-	.read-count span:first-child{
+	.read-count div:last-child{
 		font-size: 20px;
 	}
     .tbl {
@@ -126,8 +128,8 @@
 			<h2>용병모집</h2>
 		</div>
 		<div class="read-count">
-			<span class="material-symbols-outlined">spoof</span>  
-			<span><%=mc.getReadCount() %></span>	
+			<div><%=mc.getReadCount() %></div>	
+			<div class="material-symbols-outlined">spoof</div>  
 		</div>
 		<table class="tbl" id="mercenaryView">
 			<tr>

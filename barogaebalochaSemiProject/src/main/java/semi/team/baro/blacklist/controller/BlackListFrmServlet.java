@@ -1,7 +1,6 @@
-package semi.team.baro.history.conroller;
+package semi.team.baro.blacklist.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,20 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.team.baro.history.model.service.HistoryService;
-import semi.team.baro.mercenary.model.vo.Mercenary;
-
 /**
- * Servlet implementation class HistoryServlet
+ * Servlet implementation class BlackListFrmServlet
  */
-@WebServlet(name = "History", urlPatterns = { "/history.do" })
-public class HistoryServlet extends HttpServlet {
+@WebServlet(name = "BlackListFrm", urlPatterns = { "/blackListFrm.do" })
+public class BlackListFrmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HistoryServlet() {
+    public BlackListFrmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,18 +28,12 @@ public class HistoryServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//1. 인코딩
+		//1.인코딩
 		request.setCharacterEncoding("utf-8");
-		//2. 값추출
-		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
-		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
-		String categoryName = request.getParameter("categoryName");
-		//3. 비즈니스로직
-		HistoryService service = new HistoryService();
-		ArrayList<Mercenary> mcList = service.history(memberNo, categoryName);
-		//4. 결과처리
-		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/member/history.jsp");
-		request.setAttribute("mcList", mcList);
+		//2.값추출
+		//3.비즈니스로직
+		//4.결과처리
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/blacklist/blacklistWriteFrm.jsp");
 		view.forward(request, response);
 	}
 

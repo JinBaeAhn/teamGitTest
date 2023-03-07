@@ -537,7 +537,7 @@
 				success : function(data){
 					
 					if(data == "null"){
-						alert("이메일 주소를 올바르지 않습니다.")
+						alert("이메일 주소가 올바르지 않습니다.")
 					}else{
 						mailCode = data;
 						$("#auth").slideDown();

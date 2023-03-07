@@ -1,6 +1,7 @@
 package semi.team.baro.mercenary.model.vo;
 
 public class MercenaryRequest {
+	//용병모집글번호, 지역, 구장이름, 경기시간, 모집상태, 신청결과, 신청내용, 작성일
 	private int mercenaryRequestNo;
 	private int mercenaryNo;
 	private int memberNo;
@@ -9,6 +10,13 @@ public class MercenaryRequest {
 	private int level;
 	private String mercenaryRequestDate;
 	private String mercenaryRequestResult;
+	private String gameLocation;
+	private String groundName;
+	private String gameDate;
+	private int gameTime;
+	private int mercenaryWhether;
+	
+	
 	public MercenaryRequest() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -76,6 +84,37 @@ public class MercenaryRequest {
 	public void setMercenaryRequestResult(String mercenaryRequestResult) {
 		this.mercenaryRequestResult = mercenaryRequestResult;
 	}
-	
-	
+	public String getGameLocation() {
+		return gameLocation;
+	}
+	public void setGameLocation(String gameLocation) {
+		this.gameLocation = gameLocation;
+	}
+	public String getGroundName() {
+		return groundName;
+	}
+	public void setGroundName(String groundName) {
+		this.groundName = groundName;
+	}
+	public String getGameDate() {
+		return gameDate;
+	}
+	public void setGameDate(String gameDate) {
+		this.gameDate = gameDate;
+	}
+	public int getGameTime() {
+		return gameTime;
+	}
+	public void setGameTime(int gameTime) {
+		this.gameTime = gameTime;
+	}
+	public String getGameShowTime() {
+		return gameTime+" : 00 ~ "+(gameTime+2)+" : 00";
+	}
+	public int getMercenaryWhether() {
+		return mercenaryWhether;
+	}
+	public void setMercenaryWhether(int mercenaryWhether) {
+		this.mercenaryWhether = mercenaryWhether;
+	}
 }

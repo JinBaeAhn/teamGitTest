@@ -4,8 +4,6 @@
     pageEncoding="UTF-8"%>
     <%
     ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
-    String pageNavi = (String)request.getAttribute("pageNavi");
-    int start = (int)request.getAttribute("start");
     %>
 <!DOCTYPE html>
 <html>
@@ -90,12 +88,9 @@
 	<div class="page-content">
 		<div class="page-title">회원관리</div>
 		<div class="searchIdinput">
-		<form action="/adminSearch.do" method="post">
-			<input type="text" class="searchId" name="memberId">
-			<input type="submit" class="btn6 bc21" value="검색">
-		</form>
+		<input type="text" class="searchId" name="memberId" id="input6"><a class="btn6 bc21" id="jQ6" href="adminSearch.do?reqPage=1">검색</a>
 		</div>
-		<table class="tbl tbl-hover">
+		<table class="tbl tbl-hover" id="result6">
 			<tr class="tr-3">
 				<th>선택</th>
 				<th>번호</th>
@@ -156,7 +151,6 @@
 			</tr>
 			
 		</table>
-		<div class=page-navi><%=pageNavi %></div>
 	</div>
 	<script>
 		$(".changeLevel").on("click",function(){
@@ -180,6 +174,7 @@
 			});
 			location.href="/checkedChangeLevel.do?no="+no.join("/")+"&level="+level.join("/");
 		});
+		
 	</script>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
