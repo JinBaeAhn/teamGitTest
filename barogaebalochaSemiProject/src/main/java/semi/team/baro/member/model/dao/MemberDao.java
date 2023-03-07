@@ -38,6 +38,11 @@ public class MemberDao {
 				m.setMemberId(rset.getString("member_id"));
 				m.setMemberLevel(rset.getInt("member_level"));
 				m.setMemberMail(rset.getString("member_mail"));
+				m.setMemberNo(rset.getInt("member_no"));
+				m.setMemberPw(rset.getString("member_pw"));
+				m.setMemberName(rset.getString("member_name"));
+				m.setMemberPhone(rset.getString("member_phone"));
+				m.setMemberLevel(rset.getInt("member_level"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -247,5 +252,45 @@ public class MemberDao {
 		}
 		return result;
 	}
+
+
+	public ArrayList<Member> adminOneMember(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = new ArrayList<Member>();
+		
+		String query = "select * from member_tbl where member_id=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				Member member = new Member();
+				member.setEnrollDate(rset.getString("enroll_date"));
+				member.setFilepath(rset.getString("filepath"));
+				member.setMemberAddr(rset.getString("member_addr"));
+				member.setMemberContent(rset.getString("member_content"));
+				member.setMemberCredit(rset.getInt("member_credit"));
+				member.setMemberId(rset.getString("member_id"));
+				member.setMemberLevel(rset.getInt("member_level"));
+				member.setMemberMail(rset.getString("member_mail"));
+				member.setMemberName(rset.getString("member_name"));
+				member.setMemberNo(rset.getInt("member_no"));
+				member.setMemberPhone(rset.getString("member_phone"));
+				member.setMemberPw(rset.getString("member_pw"));
+				list.add(member);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+}
+	
 }
 
