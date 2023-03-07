@@ -12,12 +12,12 @@ public class Matching {
 	private String groundLocation;
 	private int reservationNo;
 	private String groundName;
-	private int matchingPrice;
+	private int groundPrice;
 	
 	private int matchingNo;
 	private int matchingRequestStatus;
 	
-	private String reservationTime;
+	private int reservationTime;
 	private String reservationDate;
 	private int reservationStatus;
 	
@@ -28,7 +28,7 @@ public class Matching {
 
 	public Matching(int matchingBoardNo, int memberNo, String matchingBoardTitle, String matchingBoardContent,
 			String regDate, int readCount, int matchingStatus, int groundNo, String groundLocation, int reservationNo,
-			String groundName, int matchingPrice, int matchingNo, int matchingRequestStatus, String reservationTime,
+			String groundName, int groundPrice, int matchingNo, int matchingRequestStatus, int reservationTime,
 			String reservationDate, int reservationStatus) {
 		super();
 		this.matchingBoardNo = matchingBoardNo;
@@ -42,7 +42,7 @@ public class Matching {
 		this.groundLocation = groundLocation;
 		this.reservationNo = reservationNo;
 		this.groundName = groundName;
-		this.matchingPrice = matchingPrice;
+		this.groundPrice = groundPrice;
 		this.matchingNo = matchingNo;
 		this.matchingRequestStatus = matchingRequestStatus;
 		this.reservationTime = reservationTime;
@@ -81,6 +81,11 @@ public class Matching {
 	public void setMatchingBoardContent(String matchingBoardContent) {
 		this.matchingBoardContent = matchingBoardContent;
 	}
+	
+	public String getMatchingBoardContentBr() {
+		return matchingBoardContent.replaceAll("\r\n", "<br>");
+	}
+	
 
 	public String getRegDate() {
 		return regDate;
@@ -138,12 +143,12 @@ public class Matching {
 		this.groundName = groundName;
 	}
 
-	public int getMatchingPrice() {
-		return matchingPrice;
+	public int getGroundPrice() {
+		return groundPrice;
 	}
 
-	public void setMatchingPrice(int matchingPrice) {
-		this.matchingPrice = matchingPrice;
+	public void setGroundPrice(int groundPrice) {
+		this.groundPrice = groundPrice;
 	}
 
 	public int getMatchingNo() {
@@ -162,11 +167,13 @@ public class Matching {
 		this.matchingRequestStatus = matchingRequestStatus;
 	}
 
-	public String getReservationTime() {
+	public int getReservationTime() {
 		return reservationTime;
 	}
-
-	public void setReservationTime(String reservationTime) {
+	public String getReservationShowTime() {
+		return reservationTime+" : 00 ~ "+(reservationTime+2)+" : 00";
+	}
+	public void setReservationTime(int reservationTime) {
 		this.reservationTime = reservationTime;
 	}
 
@@ -187,4 +194,3 @@ public class Matching {
 	}
 
 }
-	
