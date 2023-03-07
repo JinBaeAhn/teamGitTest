@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import common.JDBCTemplate;
 import semi.team.baro.board.model.dao.BoardDao;
 import semi.team.baro.board.model.vo.Board;
+import semi.team.baro.board.model.vo.BoardComment;
 import semi.team.baro.board.model.vo.BoardPageData;
+import semi.team.baro.board.model.vo.BoardViewData;
 
 public class BoardService {
 	BoardDao boardDao;
@@ -85,15 +87,28 @@ public class BoardService {
 		return result;
 	}
 
-	public Board selectOneBoard(int photoNo) {
+	public BoardViewData selectOneBoard(int photoNo) {
 		Connection connection = JDBCTemplate.getConnection();
 		int result = boardDao.updateReadCount(connection,photoNo);
 		if(result > 0) {
 			JDBCTemplate.commit(connection);
 			Board board = boardDao.selectOneBoard(connection, photoNo);
 			board.setMemberId(boardDao.getBoardWriter(connection, photoNo));
+			//일반댓글 조회
+			ArrayList<BoardComment> boardCommentList = boardDao.selectBoardComments(connection,photoNo);
+			//대댓글조회
+			ArrayList<BoardComment> boardReCommentList = boardDao.selectBoardReComments(connection,photoNo);
+			//작성자 삽입
+			for(BoardComment comment :boardCommentList) {
+				comment.setMemberId(boardDao.getCommentWriter(connection, comment.getBoardCommentWriter(),comment.getBoardCommentNo()));
+			}
+			for(BoardComment comment :boardReCommentList) {
+				comment.setMemberId(boardDao.getCommentWriter(connection, comment.getBoardCommentWriter(),comment.getBoardCommentNo()));
+			}
+			board.setMemberId(boardDao.getBoardWriter(connection, photoNo));
+			BoardViewData boardViewData = new BoardViewData(board, boardCommentList, boardReCommentList);
 			JDBCTemplate.close(connection);
-			return board;
+			return boardViewData;
 		} else {
 			JDBCTemplate.rollback(connection);
 			JDBCTemplate.close(connection);

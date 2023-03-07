@@ -1,5 +1,9 @@
+<%@page import="semi.team.baro.matching.model.vo.Matching"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+    Matching mc = (Matching)request.getAttribute("mc");
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +75,11 @@
         color:#fcfcfc;
         background-color: #181818;
     }
-   
+    .playTime{
+    	height: 51.59px;
+    	text-align: left;
+    }
+    
     <!--모달랩 css-->
     body{
     margin: 0;
@@ -149,79 +157,52 @@
                     	<tr>
                             <th>매칭 제목</th>
                             <td>
-                                <input type="text" class="input-form" name="matchingBoardTitle" value="제목을 작성해주세요" required>
+                                <input type="text" class="input-form" name="matchingBoardTitle" value=<%=mc.getMatchingBoardTitle() %> readonly>
                             </td>
                         </tr>
                         <tr>
                             <th>지역</th>
                             <td>
-                                <select class="location-select-form" name="groundlocation">
-                                    <option value="서울">서울</option>
-                                    <option value="인천">인천</option>
-                                    <option value="경기">경기</option>
-                                </select>
-                                <input type="button" value="구장조회하기" class="locationSearch btn1 bc1">
+                                <input type="text" class="input-form" name="groundLocation" value=<%=mc.getGroundLocation() %> readonly>
                              </td>
                         </tr>
                         <tr>
                             <th>경기장</th>
                             <td>
-                                <input type="text" class="input-form" name="groundName" value="구장 지역을 먼저 선택해주세요"readonly>
+                                <input type="text" class="input-form" name="groundName" value=<%=mc.getGroundName() %> readonly>
                             </td>
                         </tr>
                         <tr>
                             <th>경기날짜</th>
                             <td>
-                                <input type="text" class="input-form" id="datepicker" name="reservationDate" required >
+                                <input type="text" class="input-form" id="datepicker" value=<%=mc.getReservationDate() %> readonly>
                             </td>
                         </tr>
                         <tr>
                             <th>경기시간</th>
                             <td>
-                                <select class="input-form" name="reservationTime">
-                                    <option value="10">10 : 00 ~ 12 : 00</option>
-                                    <option value="12">12 : 00 ~ 14 : 00</option>
-                                    <option value="14">14 : 00 ~ 16 : 00</option>
-                                    <option value="16">16 : 00 ~ 18 : 00</option>
-                                    <option value="18">18 : 00 ~ 20 : 00</option>
-                                    <option value="20">20 : 00 ~ 22 : 00</option>
-                                    <option value="22">22 : 00 ~ 24 : 00</option>
-                                    <option value="24">24 : 00 ~ 02 : 00</option>
-                                </select>
+                                 <div class="input-form playTime">
+                                 <p><%=mc.getReservationShowTime() %></p>
+                                 </div>
                             </td>
                         </tr>
-                        <!--
-                        <tr>
-                            <th>실력</th>
-                            <td>
-                                <input type="radio" name="level" class="btn1" id="1" value="1" checked>
-                                <label for="1">최상</label>
-                                <input type="radio" name="level" class="btn1" id="2" value="2">
-                                <label for="2">상</label>
-                                <input type="radio" name="level" class="btn1" id="3" value="3">
-                                <label for="3">중</label>
-                                <input type="radio" name="level" class="btn1" id="4" value="4">
-                                <label for="4">하</label>
-                                <input type="radio" name="level" class="btn1" id="5" value="5">
-                                <label for="5">최하</label>                             
-                            </td>
-                        </tr>
-                          -->
                         <tr>
                             <th>대여가격</th>
                             <td>
-                                <input type="text" class="input-form input-price" value="" name="matchingPrice" readonly> <!-- ground price 자체를 띄워주기 -->
+                                <div class="input-form playTime">
+                                 <p><%=mc.getGroundPrice() %></p>
+                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <textarea class="input-form content" name="matchingBoardContent" required></textarea>
+                                <textarea class="input-form content" name="matchingBoardContent" readonly><%=mc.getMatchingBoardContentBr() %></textarea>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input type="submit" class="btn1 bc1" value="작성">
-                                <a href="/matchingList.do?reqPage=1" class="btn1 bc1">취소</a>
+                            	<input type="submit" class="btn1 bc1" value="신청하기">
+                                <a href="/matchingList.do?requestPage=1" class="btn1 bc1">목록으로</a>
                             </td>
                         </tr>
                     </table>          

@@ -1,4 +1,4 @@
-package semi.team.baro.board.cotroller;
+package semi.team.baro.blacklist.controller;
 
 import java.io.IOException;
 
@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.team.baro.board.model.service.BoardService;
-import semi.team.baro.board.model.vo.BoardViewData;
+import semi.team.baro.blacklist.model.service.BlacklistService;
+import semi.team.baro.blacklist.model.vo.Blacklist;
+import semi.team.baro.blacklist.model.vo.BlacklistPageData;
 
 /**
- * Servlet implementation class FreeBoardViewServlet
+ * Servlet implementation class AdminBlacklistListServlet
  */
-@WebServlet(name = "FreeBoardView", urlPatterns = { "/freeBoardView.do" })
-public class FreeBoardViewServlet extends HttpServlet {
+@WebServlet(name = "AdminBlacklistList", urlPatterns = { "/adminBlacklistList.do" })
+public class AdminBlacklistListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardViewServlet() {
+    public AdminBlacklistListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,15 +32,19 @@ public class FreeBoardViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//1.인코딩
 		request.setCharacterEncoding("utf-8");
-		int photoNo = Integer.parseInt(request.getParameter("photoNo"));
-		BoardService boardService = new BoardService();
-		BoardViewData boardViewData = boardService.selectOneBoard(photoNo);
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/board/freeBoardView.jsp");
-		request.setAttribute("board", boardViewData.getBoard());
-		request.setAttribute("boardCommentList", boardViewData.getBoardCommentList());
-		request.setAttribute("boardReCommentList", boardViewData.getBoardReCommentList());
-		requestDispatcher.forward(request, response);
+		//2.값추출
+		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
+		//3.비즈니스로직
+		BlacklistService service = new BlacklistService();
+		BlacklistPageData bl = service.adminBlacklistList(reqPage);
+		//4.결과처리
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/blacklist/adminBlacklistList.jsp");
+		request.setAttribute("list", bl.getList());
+		request.setAttribute("pageNavi", bl.getPageNavi());
+		request.setAttribute("start", bl.getStart());
+		view.forward(request, response);
 	}
 
 	/**
