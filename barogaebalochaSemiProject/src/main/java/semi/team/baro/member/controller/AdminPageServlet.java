@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import semi.team.baro.member.model.service.MemberService;
+import semi.team.baro.member.model.vo.AdminPageData;
 import semi.team.baro.member.model.vo.Member;
 
 /**
@@ -38,7 +39,7 @@ public class AdminPageServlet extends HttpServlet {
 		//2. 값추출
 		HttpSession session = request.getSession(false);
 		Member m = (Member)session.getAttribute("m");
-		
+		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
 		if(m !=null) {
 			//로그인 된 경우
 			if(m.getMemberLevel() !=1) {
@@ -62,10 +63,13 @@ public class AdminPageServlet extends HttpServlet {
 		}
 		//3.비즈니스 로직
 		MemberService service = new MemberService();
-		ArrayList<Member> list = service.selectAllMember();
+		//ArrayList<Member> list = service.selectAllMember();
+		AdminPageData apd = service.selectAllMember(reqPage);
 		//화면처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/member/adminPage.jsp");
-		request.setAttribute("list", list);
+		request.setAttribute("list", apd.getList());
+		request.setAttribute("pageNavi", apd.getPageNavi());
+		request.setAttribute("start", apd.getStart());
 		view.forward(request, response);
 	}
 
