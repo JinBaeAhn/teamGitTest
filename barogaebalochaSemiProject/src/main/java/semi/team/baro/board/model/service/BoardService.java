@@ -72,4 +72,66 @@ public class BoardService {
 		JDBCTemplate.close(connection);
 		return boardPageData;
 	}
+
+	public int insertBoard(Board board) {
+		Connection connection = JDBCTemplate.getConnection();
+		int result = boardDao.insertBoard(connection, board);
+		if(result > 0) {
+			JDBCTemplate.commit(connection);
+		} else {
+			JDBCTemplate.rollback(connection);
+		}
+		JDBCTemplate.close(connection);
+		return result;
+	}
+
+	public Board selectOneBoard(int photoNo) {
+		Connection connection = JDBCTemplate.getConnection();
+		int result = boardDao.updateReadCount(connection,photoNo);
+		if(result > 0) {
+			JDBCTemplate.commit(connection);
+			Board board = boardDao.selectOneBoard(connection, photoNo);
+			board.setMemberId(boardDao.getBoardWriter(connection, photoNo));
+			JDBCTemplate.close(connection);
+			return board;
+		} else {
+			JDBCTemplate.rollback(connection);
+			JDBCTemplate.close(connection);
+			return null;
+		}
+	}
+
+	public Board getBoard(int photoNo) {
+		Connection connection = JDBCTemplate.getConnection();
+		Board board = boardDao.selectOneBoard(connection,photoNo);
+		board.setMemberId(boardDao.getBoardWriter(connection, photoNo));
+		JDBCTemplate.close(connection);
+		return board;
+	}
+
+	public int updateBoard(Board board) {
+		Connection connection = JDBCTemplate.getConnection();
+		int result = boardDao.updateBoard(connection, board);
+		if(result > 0) {
+			JDBCTemplate.commit(connection);
+		} else {
+			JDBCTemplate.rollback(connection);
+		}
+		JDBCTemplate.close(connection);
+		return result;
+	}
+
+	public Board removeBoard(int photoNo) {
+		Connection connection = JDBCTemplate.getConnection();
+		Board board = boardDao.selectOneBoard(connection, photoNo);
+		int result = boardDao.removeBoard(connection,photoNo);
+		if(result > 0) {
+			JDBCTemplate.commit(connection);
+		} else {
+			JDBCTemplate.rollback(connection);
+			board = null;
+		}
+		JDBCTemplate.close(connection);
+		return board;
+	}
 }
