@@ -39,7 +39,7 @@ public class LocationSearchListServlet extends HttpServlet {
 		//1.인코딩
 		request.setCharacterEncoding("utf-8");
 		//2.값추출
-		String location = request.getParameter("groundLocation");
+		String location = request.getParameter("location");
 		
 		//3.비즈니스로직
 		System.out.println(location);

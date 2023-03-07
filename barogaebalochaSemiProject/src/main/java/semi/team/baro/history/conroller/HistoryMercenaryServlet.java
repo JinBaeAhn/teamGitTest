@@ -41,11 +41,11 @@ public class HistoryMercenaryServlet extends HttpServlet {
 		String categoryName = request.getParameter("categoryName");
 		//3. 비즈니스로직
 		HistoryService service = new HistoryService();
-		//HistoryPageData hpd = service.history(memberNo, categoryName);
-		ArrayList<Mercenary> mcList = service.history(memberNo);
+		HistoryPageData hpd = service.mercenaryMyHistory(memberNo, reqPage);
 		//4. 결과처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/member/history.jsp");
-		request.setAttribute("mcList", mcList);
+		request.setAttribute("mcList", hpd.getMcList());
+		request.setAttribute("pageNavi", hpd.getPageNavi());
 		request.setAttribute("categoryName", categoryName);
 		view.forward(request, response);
 	}

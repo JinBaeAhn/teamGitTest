@@ -17,6 +17,7 @@ public class Mercenary {
 	private String groundLocation;
 	private String groundLat;
 	private String groundLng;
+	private int groundNo;
 	
 	public Mercenary() {
 		super();
@@ -124,5 +125,12 @@ public class Mercenary {
 	public void setGroundLng(String groundLng) {
 		this.groundLng = groundLng;
 	}
+	public int getGroundNo() {
+		return groundNo;
+	}
+	public void setGroundNo(int groundNo) {
+		this.groundNo = groundNo;
+	}
+	
 	
 }

@@ -6,6 +6,8 @@
     <%
     ArrayList<Mercenary> mcList = ( ArrayList<Mercenary>)request.getAttribute("mcList");
     ArrayList<MercenaryRequest> mcReqList = (ArrayList<MercenaryRequest>)request.getAttribute("mcReqList");
+    
+    String pageNavi = (String)request.getAttribute("pageNavi");
     String categoryName = (String)request.getAttribute("categoryName");
     %>
 <!DOCTYPE html>
@@ -42,6 +44,9 @@
 	.history-content td>a:hover{
 		color: red;
 	}
+	.page-navi{
+		margin: 50px auto;
+	}
 </style>
 </head>
 <body>
@@ -61,15 +66,16 @@
 		<%if( categoryName.equals("mercenary") ){ %>			
 		<table class="history-content table">
 			<tr>
-				<th class="col-md-1">no.</th>
-				<th class="com-mi-1">지역</th>
-				<th class="col-md-3">구장이름</th>
-				<th class="col-md=3">경기일</th>
-				<th class="col-md-2">모집상태</th>
-				<th class="col-md-2">작성일</th>
+				<th style="width:5%">no.</th>
+				<th style="width:10%">지역</th>
+				<th style="width:25%">구장이름</th>
+				<th style="width:25%">경기일</th>
+				<th style="width:20%">작성일</th>
+				<th style="width:10%">모집상태</th>
+				<th></th>
 			</tr>   
 			<%for(Mercenary mc : mcList) {%>
-				<tr>
+				<tr onclick="location.href='/mercenaryView.do?mercenaryNo=<%=mc.getMercenaryNo()%>'">
 					<td><%=mc.getMercenaryNo() %></td>
 					<%if(mc.getLocation().equals("seoul")) {%>
                         <td>서울</td>
@@ -80,38 +86,53 @@
                     <%} %>
 					<td><%=mc.getGroundName() %></td>
 					<td><%=mc.getGameDate() %> [<%=mc.getGameShowTime() %>] </td>
+					<td><%=mc.getRegDate() %></td>
 					<%if(mc.getMercenaryWhether() == 0) {%>
 					<td>모집중</td>
 					<%}else if(mc.getMercenaryWhether() == 1) {%>
 					<td>모집완료</td>
 					<%} %>
-					<td><%=mc.getRegDate() %></td>
+					<td></td>
 				</tr>
 			<%} %>
 		</table>
-		<%}else if( categoryName.equals("mercenaryRequest")) {%>
+		<div class="page-navi"><%=pageNavi %></div>
+		<%}else if( categoryName.equals("mercenaryRequest") ) {%>
 		<table class="history-content table">
 			<tr>
-				<th class="col-md-1">no.</th>
-				<th class="com-mi-1">지역</th>
-				<th class="col-md-3">구장이름</th>
-				<th class="col-md=3">경기일</th>
-				<th class="col-md-2">모집상태</th>
-				<th class="col-md-1">신청결과</th>
-				<th class="col-md-2"></th>
+				<th style="width:5%">no.</th>
+				<th style="width:10%">지역</th>
+				<th style="width:25%">구장이름</th>
+				<th style="width:25%">경기일</th>
+				<th style="width:20%">신청내용</th>
+				<th style="width:10%">신청결과</th>
+				<th></th>
 			</tr>
 			<%for(MercenaryRequest mcReq : mcReqList) {%>
-			<tr>
+			<tr onclick="location.href='/mercenaryView.do?mercenaryNo=<%=mcReq.getMercenaryNo()%>'">
 				<td><%=mcReq.getMercenaryNo() %></td>
-				<td><%=mcReq.getGameLocation() %>
+				<%if(mcReq.getGameLocation().equals("seoul")) {%>
+                    <td>서울</td>
+                <%} else if(mcReq.getGameLocation().equals("incheon")) {%>
+                 	<td>인천</td>
+                <%} else if(mcReq.getGameLocation().equals("Gyeonggi")) {%>
+                	<td>경기</td>
+                <%} %>
 				<td><%=mcReq.getGroundName() %></td>
 				<td><%=mcReq.getGameDate()%> [ <%=mcReq.getGameShowTime() %> ]</td>
-				<td><%=mcReq.getMercenaryWhether() %></td>
-				<td><%=mcReq.getMercenaryRequestResult() %></td>
-				<td><a href="#">신고</a></td>
+				<td><%=mcReq.getMercenaryRequestContent() %></td>
+				<%if(mcReq.getMercenaryRequestResult().equals(m.getMemberId())) {%>
+				<td> O </td>
+				<%} else if(mcReq.getMercenaryRequestResult().equals("1")){%>
+				<td> X </td>
+				<%} else if(mcReq.getMercenaryRequestResult().equals("0")){%>
+				<td> - </td>
+				<%} %>
+				<td><a href="/blackListFrm.do?memberNo=<%=m.getMemberNo()%>">신고</a></td>
 			</tr>
 			<%} %>
 		</table>
+		<div class="page-navi"><%=pageNavi %></div>
 		<%} %>
 	<%} else{%>
 		<script>
@@ -121,13 +142,11 @@
 	<%} %>
 	</div>
 	<script>
-	/*
 		$(".history-menu>li>a").on("click", function(){
 			    $(".history-menu>li>a").removeClass("active-tab");
 			    $(this).addClass("active-tab");
 			});
-		$(".history-menu>li>a").eq(0).click();
-	*/
+
 	</script>
 
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
