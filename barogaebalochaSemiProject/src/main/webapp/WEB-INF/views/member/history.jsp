@@ -52,13 +52,13 @@
 		</div>
 		<%if( m != null ) {%>
 		<ul class="history-menu">
-			<li><a href="/historyMatching.do?memberNo=<%=m.getMemberNo()%>">MATCHING</a></li>
-			<li><a href="/historyMercenary.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=Mercenary">용병모집</a></li>
-			<li><a href="/historyMercenaryRequest.do?memberNo=<%=m.getMemberNo()%>">용병신청</a></li>
+			<li><a href="/historyMatching.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=matching">MATCHING</a></li>
+			<li><a href="/historyMercenary.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=mercenary">용병모집</a></li>
+			<li><a href="/historyMercenaryRequest.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=mercenaryRequest">용병신청</a></li>
 			<li><a href="#">게시판</a></li>
 			<li><a href="#">신고내역</a></li>
 		</ul>
-		<%if( categoryName.equals("Mercenary") ){ %>			
+		<%if( categoryName.equals("mercenary") ){ %>			
 		<table class="history-content table">
 			<tr>
 				<th class="col-md-1">no.</th>
@@ -100,6 +100,17 @@
 				<th class="col-md-1">신청결과</th>
 				<th class="col-md-2"></th>
 			</tr>
+			<%for(MercenaryRequest mcReq : mcReqList) {%>
+			<tr>
+				<td><%=mcReq.getMercenaryNo() %></td>
+				<td><%=mcReq.getGameLocation() %>
+				<td><%=mcReq.getGroundName() %></td>
+				<td><%=mcReq.getGameDate()%> [ <%=mcReq.getGameShowTime() %> ]</td>
+				<td><%=mcReq.getMercenaryWhether() %></td>
+				<td><%=mcReq.getMercenaryRequestResult() %></td>
+				<td><a href="#">신고</a></td>
+			</tr>
+			<%} %>
 		</table>
 		<%} %>
 	<%} else{%>

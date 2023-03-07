@@ -36,11 +36,11 @@ public class HistoryMercenaryRequestServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		//2.값추출
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+		String categoryName = request.getParameter("categoryName");
 		//3.비즈니스로직
 		HistoryService service = new HistoryService();
 		ArrayList<MercenaryRequest> mcReqList = service.mercenaryRequsetHistory(memberNo);
 		//4.결과처리
-		String categoryName = "mercenaryRequest";
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/member/history.jsp");
 		request.setAttribute("mcReqList", mcReqList);
 		request.setAttribute("categoryName", categoryName);

@@ -17,7 +17,7 @@ import semi.team.baro.mercenary.model.vo.Mercenary;
 /**
  * Servlet implementation class HistoryServlet
  */
-@WebServlet(name = "History", urlPatterns = { "/history.do" })
+@WebServlet(name = "HistoryMercenary", urlPatterns = { "/historyMercenary.do" })
 public class HistoryMercenaryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
