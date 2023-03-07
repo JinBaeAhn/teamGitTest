@@ -1,5 +1,9 @@
+<%@page import="semi.team.baro.matching.model.vo.Matching"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+    Matching mc = (Matching)request.getAttribute("mc");
+    %>
 <!DOCTYPE html>
 <html>
 <head>

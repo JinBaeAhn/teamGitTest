@@ -1,6 +1,7 @@
 package semi.team.baro.matching.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,23 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
+import semi.team.baro.location.model.service.LocationService;
+import semi.team.baro.location.model.vo.LocationViewData;
 import semi.team.baro.matching.model.service.MatchingService;
 import semi.team.baro.matching.model.vo.Matching;
-import semi.team.baro.matching.model.vo.MatchingPageData;
+import semi.team.baro.matching.model.vo.MatchingViewData;
 
 /**
- * Servlet implementation class MatchingListServlet
+ * Servlet implementation class MatchingViewServlet
  */
-@WebServlet(name = "MatchingList", urlPatterns = { "/matchingList.do" })
-public class MatchingListServlet extends HttpServlet {
+@WebServlet(name = "MatchingView", urlPatterns = { "/matchingView.do" })
+public class MatchingViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MatchingListServlet() {
+    public MatchingViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,24 +38,13 @@ public class MatchingListServlet extends HttpServlet {
 		//1.인코딩
 		request.setCharacterEncoding("utf-8");
 		//2.값추출
-		//System.out.println("dddddd");
-		int reqPage = Integer.parseInt(request.getParameter("requestPage"));
-		//System.out.println(reqPage);
+		int reservationNo = Integer.parseInt(request.getParameter("reservationNo"));
 		//3.비즈니스로직
 		MatchingService service = new MatchingService();
-		MatchingPageData mpd = service.selectMatchingList(reqPage);
-		System.out.println(mpd.getList().size());
+		Matching mc = service.selectOneMatch(reservationNo);
 		//4.화면처리
-		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/matching/matchingList.jsp");
-		request.setAttribute("list", mpd.getList());
-		/*
-		for(Matching m : mpd.getList()) {
-			System.out.println(m.getMatchingBoardTitle());
-		}
-		*/
-		//System.out.println(mpd.getList().size());
-		request.setAttribute("pageNavi", mpd.getPageNavi());
-		request.setAttribute("start", mpd.getStart());
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/matching/matchingView.jsp");
+		request.setAttribute("mc", mc);
 		view.forward(request, response);
 	}
 

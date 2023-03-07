@@ -1,12 +1,15 @@
 package semi.team.baro.matching.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semi.team.baro.matching.model.service.MatchingService;
 import semi.team.baro.matching.model.vo.Matching;
 
 /**
@@ -32,17 +35,34 @@ public class MatchingListInsertServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		//2.값추출
 		Matching mc = new Matching();
+		mc.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));
 		mc.setGroundLocation(request.getParameter("groundLocation"));
 		mc.setReservationTime(request.getParameter("reservationTime"));
 		mc.setReservationDate(request.getParameter("reservationDate"));
 		mc.setGroundName(request.getParameter("groundName"));
-		mc.setReservationNo(Integer.parseInt(request.getParameter("reservationNo")));
-		mc.setMatchingStatus(Integer.parseInt(request.getParameter("matchingStatus")));
+		//System.out.println(mc.getGroundName()+"구장이름");
+		//mc.setReservationNo(Integer.parseInt(request.getParameter("reservationNo")));
+		//mc.setMatchingStatus(Integer.parseInt(request.getParameter("matchingStatus")));
 		mc.setMatchingBoardContent(request.getParameter("matchingBoardContent"));
-		mc.setMatchingBoardTitle(request.getParameter("matchingTitle"));
+		mc.setMatchingBoardTitle(request.getParameter("matchingBoardTitle"));
 		//3.비즈니스로직
+		MatchingService service = new MatchingService();
+		int result = service.matchingListInsert(mc);
 		//4.결과처리
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+		if(result > 0) {
+			request.setAttribute("icon", "success");
+			request.setAttribute("title", "작성완료");
+			request.setAttribute("msg", "매칭글이 작성되었습니다.");
+		}else {
+			request.setAttribute("icon", "error");
+			request.setAttribute("title", "작성실패");
+			request.setAttribute("msg", "오류가 발생했습니다.");
+		}
+		request.setAttribute("loc", "/matchingList.do?requestPage=1");
+		view.forward(request, response);
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

@@ -165,6 +165,9 @@ public class Matching {
 	public String getReservationTime() {
 		return reservationTime;
 	}
+	public String getReservationShowTime() {
+		return reservationTime+" : 00 ~ "+(reservationTime)+" : 00";
+	}
 
 	public void setReservationTime(String reservationTime) {
 		this.reservationTime = reservationTime;

@@ -41,8 +41,21 @@
     .matchingList-info{
         padding-top: 20px;
     }
+    .matchingList-info>ul{
+    	margin-bottom: 5px;
+    	margin-left: 50px;
+    }
+    .matchingList-info>ul>li{
+    	width: 200px;
+    }
     .matchingList-date>ul{
-        font-size: 18px;
+    	width: 150px;
+        font-size: 15px;
+        margin-top: 5px;
+    }
+    .matchingList-groundName>ul>li{
+    	width: 300px;
+    	margin-top: 3px;
     }
     .button{
         width: 100%;
@@ -64,26 +77,36 @@
         </div>
         <div class="matchingList-wrap">
         <% for(Matching mc : list) {%>
-        <a href="/matchingView.do?matchingNo=<%=mc.getMatchingBoardNo() %>">
+        
+        <!-- <a href="/matchingView.do?matchingNo=<%=mc.getMatchingBoardNo() %>"> -->
         	<div class="matchingList-list">
                 <div class="matchingList-list-left">
                     <div class="matchingList-date">
                         <ul>
-                            <li style="font-size: 15px;"><%=mc.getGroundLocation() %></li>
+                            <li style="font-size: 15px;"><%=mc.getGroundLocation().substring(0,2)%></li>
                             <li><%=mc.getReservationDate() %></li>
-                            <li><%=mc.getReservationTime() %></li>
+                            <li><%=mc.getReservationShowTime() %></li>
                         </ul>
                     </div>
                     <div class="matchingList-info">
                         <ul>
-                            <li style="font-size: 20px;"><%=mc.getGroundName() %></li>
+                            <li style="font-size: 20px;"><%=mc.getGroundName()%></li>
 								<li>예약번호 : <%=mc.getReservationNo() %> </li>
+                        </ul>
+                    </div>
+                    <div class="matchingList-groundName">
+                        <ul>
+                            <li style="font-size: 25px;"><%=mc.getMatchingBoardTitle() %></li>
                         </ul>
                     </div>
                 </div>
                 <div class="matchingList-result">
                 	<%if(mc.getMatchingStatus() == 1) {%>
-	                    <div class="btn1" style="background-color: #AACB73; color:#fff">매치신청</div>            	
+	                    <%if(m != null) {%>
+	                    <div class="btn1" style="background-color: #AACB73; "><a style="color:#fff;"" href="/matchingView.do?matchingNo=<%=mc.getMatchingBoardNo() %>">매치신청</a></div> 
+	                    <%}else{ %>
+	                    <div class="btn1 need-login" style="background-color: #AACB73; color:#fff;" onclick="alert('로그인이 필요합니다')">매치신청</div> 
+	                    <%} %>          	
                 	<%}else if(mc.getMatchingStatus() == 2) {%>
                 		<div class="btn1" style="background-color: #ccc; color:#fff">신청마감</div> 
                 	<%} %>
@@ -98,5 +121,8 @@
         <div id="pageNavi"><%=pageNavi %></div>
 	</div>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
+<script>
+
+</script>
 </body>
 </html>

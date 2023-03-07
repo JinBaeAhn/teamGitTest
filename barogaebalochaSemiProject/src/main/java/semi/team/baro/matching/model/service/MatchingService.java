@@ -7,6 +7,7 @@ import common.JDBCTemplate;
 import semi.team.baro.matching.model.dao.MatchingDao;
 import semi.team.baro.matching.model.vo.Matching;
 import semi.team.baro.matching.model.vo.MatchingPageData;
+import semi.team.baro.matching.model.vo.MatchingViewData;
 
 public class MatchingService {
 	private MatchingDao dao;
@@ -29,6 +30,9 @@ public class MatchingService {
 		
 		
 		ArrayList<Matching> list = dao.selectMatchingList(conn, start, end);
+//		System.out.println(list.get(9).getGroundName());
+		
+		System.out.println();
 		//페이징제작 시작
 		//전체 페이지 수를 계산 -> 총 게시물 수를 조회
 		int totalCount = dao.selectMatchingCount(conn);
@@ -51,23 +55,30 @@ public class MatchingService {
 		//페이지 네비게이션 제작 시작
 		String pageNavi = "<ul class='pagination circle-style'>";
 		//이전버튼
-	for(int i=0;i<pageNaviSize;i++) {
 		if(pageNo != 1) {
 			pageNavi += "<li>";
 			pageNavi += "<a class='page-item' href='/matchingList.do?requestPage="+(pageNo-1)+"'>";
-			pageNavi += "<span class='material-icons'>chevron-left</span>";
-			pageNavi += "</a></li>";
-		}else {
-			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/matchingList.do?requestPage="+(pageNo)+"'>";
-			pageNavi += pageNo;
+			pageNavi += "<span class='material-icons'>chevron_left</span>";
 			pageNavi += "</a></li>";
 		}
-		pageNo++;
-		if(pageNo>totalPage) {
-			break;
+		//페이지숫자
+		for(int i=0;i<pageNaviSize;i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li>";
+				pageNavi += "<a class='page-item active-page' href='/matchingList.do?requestPage="+(pageNo)+"'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			}else {
+				pageNavi += "<li>";
+				pageNavi += "<a class='page-item' href='/matchingList.do?requestPage="+(pageNo)+"'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			}
+			pageNo++;
+			if(pageNo>totalPage) {
+				break;
+			}
 		}
-	}
 		//다음버튼
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
@@ -82,5 +93,33 @@ public class MatchingService {
 		
 		return mpd;
 	}
+
+	public int matchingListInsert(Matching mc) {
+		Connection conn = JDBCTemplate.getConnection();
+		int groundNo = dao.groundSearch(conn,mc);
+		//System.out.println("groundNo test"+groundNo);
+		int result = dao.reservationInsert(conn, groundNo, mc);
+		if(result>0) {
+			int reservationNo = dao.getReservationNo(conn, groundNo, mc);
+			result = dao.matchingListInsert(conn, reservationNo, groundNo, mc);
+			if(result>0) {
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public Matching selectOneMatch(int reservationNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Matching mc = dao.selectOneMatch(conn, reservationNo);
+		return null;
+	}
+
 	
+
 }
