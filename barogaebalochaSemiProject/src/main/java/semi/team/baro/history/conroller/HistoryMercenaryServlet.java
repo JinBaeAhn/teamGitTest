@@ -1,6 +1,7 @@
 package semi.team.baro.history.conroller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,11 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semi.team.baro.history.model.service.HistoryService;
 import semi.team.baro.history.model.vo.HistoryPageData;
-import semi.team.baro.mercenary.model.service.MercenaryService;
+import semi.team.baro.mercenary.model.vo.Mercenary;
 
 /**
- * Servlet implementation class HistoryMercenaryServlet
+ * Servlet implementation class HistoryServlet
  */
 @WebServlet(name = "HistoryMercenary", urlPatterns = { "/historyMercenary.do" })
 public class HistoryMercenaryServlet extends HttpServlet {
@@ -35,16 +37,18 @@ public class HistoryMercenaryServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		//2. 값추출
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
-		int reqPage = Integer.parseInt(request.getParameter("memberNo"));
+		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
+		String categoryName = request.getParameter("categoryName");
 		//3. 비즈니스로직
-		MercenaryService service = new MercenaryService();
-		HistoryPageData hpd = service.mercenaryOneSelect(memberNo, reqPage);
+		HistoryService service = new HistoryService();
+		//HistoryPageData hpd = service.history(memberNo, categoryName);
+		ArrayList<Mercenary> mcList = service.history(memberNo);
 		//4. 결과처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/member/history.jsp");
-		request.setAttribute("list", hpd.getMcList());
-		request.setAttribute("pageNavi", hpd.getPageNavi());
+		request.setAttribute("mcList", mcList);
+		request.setAttribute("categoryName", categoryName);
 		view.forward(request, response);
-	}	
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
