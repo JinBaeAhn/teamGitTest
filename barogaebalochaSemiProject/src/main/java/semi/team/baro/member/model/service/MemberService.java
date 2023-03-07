@@ -175,4 +175,12 @@ public class MemberService {
 		return apd;
 	}
 
+
+	public ArrayList<Member> adminselectAllMember(String memberId) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Member> list = dao.adminselectAllMember(conn, memberId);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
 }
