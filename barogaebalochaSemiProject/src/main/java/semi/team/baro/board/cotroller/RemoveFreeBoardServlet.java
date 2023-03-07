@@ -1,8 +1,8 @@
 package semi.team.baro.board.cotroller;
 
+import java.io.File;
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import semi.team.baro.board.model.service.BoardService;
-import semi.team.baro.board.model.vo.BoardPageData;
+import semi.team.baro.board.model.vo.Board;
 
 /**
- * Servlet implementation class FreeBoardListServlet
+ * Servlet implementation class RemoveFreeBoardServlet
  */
-@WebServlet(name = "FreeBoardList", urlPatterns = { "/freeBoardList.do" })
-public class FreeBoardListServlet extends HttpServlet {
+@WebServlet(name = "RemoveFreeBoard", urlPatterns = { "/removeFreeBoard.do" })
+public class RemoveFreeBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardListServlet() {
+    public RemoveFreeBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +32,16 @@ public class FreeBoardListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-
-		int boardPage = Integer.parseInt(request.getParameter("boardPage"));
+		int photoNo = Integer.parseInt(request.getParameter("photoNo"));
 		BoardService boardService = new BoardService();
-		BoardPageData boardPageData = boardService.selectBoardList(boardPage);
-		request.setAttribute("boardList", boardPageData.getBoardList());
-		request.setAttribute("pageNavigation", boardPageData.getPageNavigation());
-		request.setAttribute("start", boardPageData.getStart());
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/board/freeBoardList.jsp");
-		requestDispatcher.forward(request, response);
+		Board board = boardService.removeBoard(photoNo);
+		if(board.getFilepath() != null) {
+			String root = getServletContext().getRealPath("/");
+			String removeFileRoot = root+"upload/board/"+board.getFilepath();
+			File removeFile = new File(removeFileRoot);
+			removeFile.delete();
+		}
+		response.sendRedirect("freeBoardList.do?boardPage=1");
 	}
 
 	/**

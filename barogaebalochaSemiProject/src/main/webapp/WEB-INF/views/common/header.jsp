@@ -5,7 +5,7 @@
     	Member m = (Member)session.getAttribute("m");
     %>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"></html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,8 +24,11 @@
     <link rel="stylesheet" href="/css/matchingWriteFrm.css">
     <link rel="stylesheet" href="/css/memberInfo.css">
     <link rel="stylesheet" href="/css/admin.css">
-    <link rel="stylesheet" href="css/notice.css">
+    <link rel="stylesheet" href="/css/notice.css">
     <script src="js/jquery-3.6.0.js"></script>
+    <style type="text/css">
+    .update-remove-btnbox { display: flex; justify-content: end; }
+    </style>
 </head>
 <body>
     <header>

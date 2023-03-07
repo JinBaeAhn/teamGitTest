@@ -7,8 +7,10 @@
 		String pageNavigation = (String)request.getAttribute("pageNavigation");
 		int start = (int)request.getAttribute("start");
     %>
-    
 <%@include file="/WEB-INF/views/common/header.jsp" %>
+<style>
+.table a { display: block; }
+</style>
 <div class="page-content">
 	<h1>자유게시판</h1>
 	
@@ -24,14 +26,14 @@
 			<%Board board = boardList.get(i); %>
 			<tr>
 				<td><%=start+i%></td>
-				<td><%=board.getPhotoTitle() %></td>
+				<td><a href="/freeBoardView.do?photoNo=<%=board.getPhotoNo()%>"><%=board.getPhotoTitle() %></a></td>
 				<td><%=board.getMemberId() %></td>
 				<td><%=board.getRegDate() %></td>
 				<td><%=board.getReadCount() %></td>
 			</tr>
 		<%} %>
 	</table>
-	<div class="free-board-btnbox">
+	<div class="update-remove-btnbox">
 		<a href="javascript:void(0)" id="boardWriteBtn" onclick="writeOk('<%=m%>')" class="btn btn-outline-secondary btn-lg">글쓰기</a>
 	</div>
 	<%=pageNavigation %>

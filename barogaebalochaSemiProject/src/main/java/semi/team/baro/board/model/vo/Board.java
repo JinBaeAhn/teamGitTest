@@ -36,6 +36,14 @@ public class Board {
 		this.regDate = regDate;
 		this.memberId = memberId;
 	}
+	public Board(int photoNo, String photoTitle, String photoContent, String filename, String filepath) {
+		super();
+		this.photoNo = photoNo;
+		this.photoTitle = photoTitle;
+		this.photoContent = photoContent;
+		this.filename = filename;
+		this.filepath = filepath;
+	}
 	public int getPhotoNo() {
 		return photoNo;
 	}

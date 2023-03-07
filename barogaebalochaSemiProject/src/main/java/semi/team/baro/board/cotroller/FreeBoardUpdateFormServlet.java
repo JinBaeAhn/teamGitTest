@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import semi.team.baro.board.model.service.BoardService;
-import semi.team.baro.board.model.vo.BoardPageData;
+import semi.team.baro.board.model.vo.Board;
 
 /**
- * Servlet implementation class FreeBoardListServlet
+ * Servlet implementation class FreeBoardUpdateFormServlet
  */
-@WebServlet(name = "FreeBoardList", urlPatterns = { "/freeBoardList.do" })
-public class FreeBoardListServlet extends HttpServlet {
+@WebServlet(name = "FreeBoardUpdateForm", urlPatterns = { "/freeBoardUpdateForm.do" })
+public class FreeBoardUpdateFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardListServlet() {
+    public FreeBoardUpdateFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,14 +32,11 @@ public class FreeBoardListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-
-		int boardPage = Integer.parseInt(request.getParameter("boardPage"));
+		int photoNo = Integer.parseInt(request.getParameter("photoNo"));
 		BoardService boardService = new BoardService();
-		BoardPageData boardPageData = boardService.selectBoardList(boardPage);
-		request.setAttribute("boardList", boardPageData.getBoardList());
-		request.setAttribute("pageNavigation", boardPageData.getPageNavigation());
-		request.setAttribute("start", boardPageData.getStart());
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/board/freeBoardList.jsp");
+		Board board = boardService.getBoard(photoNo);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/board/freeBoardUpdateForm.jsp");
+		request.setAttribute("board", board);
 		requestDispatcher.forward(request, response);
 	}
 
