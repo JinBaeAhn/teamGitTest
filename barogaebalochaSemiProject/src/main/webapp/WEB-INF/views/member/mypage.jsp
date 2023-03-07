@@ -192,7 +192,7 @@
 				<input type="text" name="enrollDate" id="enrollDate" class="input-form" value="<%=m.getEnrollDate()%>" disabled>
 			</div>
 			<div class="btn-box">
-				<a class="btn1 bc4 bs5" href="/history.do?memberNo=<%=m.getMemberNo() %>&reqPage=1&categoryName='matching'">내가 쓴 글 조회</a>
+				<a class="btn1 bc4 bs5" href="/historyMercenary.do?memberNo=<%=m.getMemberNo() %>&reqPage=1&categoryName='mercenary'">내가 쓴 글 조회</a>
 				<a class="btn1 bc4 bs5" href="/updateMemberFrm.do">정보수정</a>
 				<a class="btn1 bc4 bs5" href="/deleteMember.do">회원탈퇴</a>
 			</div>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import semi.team.baro.history.model.service.HistoryService;
+import semi.team.baro.history.model.vo.HistoryPageData;
 import semi.team.baro.mercenary.model.vo.MercenaryRequest;
 
 /**
@@ -36,13 +37,16 @@ public class HistoryMercenaryRequestServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		//2.값추출
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
 		String categoryName = request.getParameter("categoryName");
 		//3.비즈니스로직
 		HistoryService service = new HistoryService();
-		ArrayList<MercenaryRequest> mcReqList = service.mercenaryRequsetHistory(memberNo);
+		HistoryPageData hpd = service.merceneryRequestMyHistory(memberNo, reqPage);
+		//ArrayList<MercenaryRequest> mcReqList = service.mercenaryRequsetHistory(memberNo);
 		//4.결과처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/member/history.jsp");
-		request.setAttribute("mcReqList", mcReqList);
+		request.setAttribute("mcReqList", hpd.getMcReqList());
+		request.setAttribute("pageNavi", hpd.getPageNavi());
 		request.setAttribute("categoryName", categoryName);
 		view.forward(request, response);
 	}
