@@ -128,7 +128,7 @@
 				<%} else if(mcReq.getMercenaryRequestResult().equals("0")){%>
 				<td> - </td>
 				<%} %>
-				<td><a href="/blackListFrm.do?memberNo=<%=m.getMemberNo()%>">신고</a></td>
+				<td><a href="/blackListFrm.do">신고</a></td>
 			</tr>
 			<%} %>
 		</table>
