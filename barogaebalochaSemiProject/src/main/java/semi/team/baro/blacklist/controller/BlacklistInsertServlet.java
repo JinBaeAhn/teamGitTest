@@ -63,7 +63,7 @@ public class BlacklistInsertServlet extends HttpServlet {
 			request.setAttribute("title", "작성완료");
 			request.setAttribute("msg", "신고글을 정상적으로 작성하였습니다.");
 			request.setAttribute("icon", "success");
-			request.setAttribute("loc", "/historyMercenaryRequest.do?memberNo="+writeMemberNo+"&reqPage=1&categoryName=mercenaryRequest");
+			request.setAttribute("loc", "/historyBlacklist.do?memberNo="+writeMemberNo+"&reqPage=1&categoryName=blacklist");
 		}else {
 			request.setAttribute("title", "ERROR");
 			request.setAttribute("msg", "알 수 없는 오류가 발생했습니다.");

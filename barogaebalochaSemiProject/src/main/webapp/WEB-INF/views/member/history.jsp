@@ -151,7 +151,11 @@
 				<td><%=bl.getBlackNo() %></td>
 				<td><%=bl.getBlackMember() %></td>
 				<td><%=bl.getBlackTitle() %></td>
-				<td><%=bl.getBlackFilepath() %></td>
+				<%if(bl.getBlackFilepath() == null) {%>
+				<td> - </td>
+				<%} else{%>
+				<td><span class="material-symbols-outlined">article</span></td>
+				<%} %>
 				<td><%=bl.getRegDate() %></td>
 				<td><%=bl.getBlackStatus() %></td>
 				<td></td>
