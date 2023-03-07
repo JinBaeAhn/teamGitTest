@@ -7,12 +7,7 @@
 	<div class="page-content">
 		<h1>공지사항 작성</h1>
 		<form action="/noticeWrite.do" method="post" class="row g-3">
-		
-		
-		<!-- 수정필요부분 1 -->
 			<input type="hidden" name="memberNo" value="<%=m.getMemberNo()%>">
-			
-			
   			<div class="col-md-8">
 				<input type="text" name="noticeTitle" class="form-control" placeholder="제목을 입력해주세요." required>
 			</div>
@@ -57,5 +52,5 @@
 				}
 			});
 		}
-		</script>
+	</script>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
