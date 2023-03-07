@@ -124,6 +124,47 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+
+
+	public int updateMemberCredit(String memberId, int totalCredit) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.updateMemberCredit(conn, memberId, totalCredit);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}JDBCTemplate.close(conn);
+		return result;
+	}
+
+
+	public Member selectOneMember(String memberName, String memberPhone) {
+		Connection conn = JDBCTemplate.getConnection();
+		Member m = dao.selectOneMember(conn, memberName, memberPhone);
+		JDBCTemplate.close(conn);
+		return m;
+	}
+
+
+	public Member selectOneMember(String memberId, String memberPhone, String memberMail) {
+		Connection conn = JDBCTemplate.getConnection();
+		Member m = dao.selectOneMember(conn, memberId, memberPhone, memberMail);
+		JDBCTemplate.close(conn);
+		return m;
+	}
+
+
+	public int updateMember(String memberId, String randomCode) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.updateMember(conn, memberId, randomCode);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}JDBCTemplate.close(conn);
+		return result;
+	}
 	
 
 }

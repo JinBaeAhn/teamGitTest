@@ -119,7 +119,7 @@
 			</div>
 			<div class="input-wrap">
 				<label for="memberId">아이디</label>
-				<input type="text" name="memberName" id="memberName" class="input-form" value="<%=m.getMemberId()%>" disabled>
+				<input type="text" name="memberId" id="memberId" class="input-form" value="<%=m.getMemberId()%>" disabled>
 			</div>
 			<div class="input-wrap">
 				<label for="memberName">회원이름</label>
@@ -135,9 +135,9 @@
 			</div>
 			<div class="input-wrap">
 				<label for="memberCredit">포인트</label>
-				<input type="text" name="memberCredit" id="memberCredit" class="input-form" value="<%=m.getMemberCredit()%>p"disabled>
+				<input type="text" name="memberCredit" id="memberCredit" class="input-form" value="<%=m.getMemberCredit()%>"disabled><span>P</span>
 				<a class="btn bc4 bs5" id="charge">충전하기</a>
-				<div id="login-modal" class="modal-bg">
+				<div id="pay-modal" class="modal-bg">
       				<div class="modal-wrap">
         				<div class="modal-head">
           					<h2>결제하기</h2>
@@ -171,7 +171,6 @@
     			</div>
 			</div>
 			<div class="input-wrap">
-				
 				<input type="hidden" name="memberMail" id="memberMail" class="input-form" value="<%=m.getMemberMail()%>" disabled>
 			</div>
 			<div class="input-wrap">
@@ -217,6 +216,8 @@
 		const memberMail = $("#memberMail").val();
 		const memberName = $("#memberName").val();
 		const memberPhone = $("#memberPhone").val();
+		const memberId = $("#memberId").val();
+		const memberCredit = $("#memberCredit").val();
 		
 		const date = d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate()+""+d.getHours()+""+d.getMinutes()+""+d.getSeconds();
 		console.log(price);
@@ -233,7 +234,9 @@
 		},function(rsp){
 			if(rsp.success){
 				alert("결제성공");
-				//결제관련 정보를 DB insert하는 작업이 필요
+				$("#newMemberCredit").val(price);
+				$("#updateCredit").click();
+				location.href="/updateMemberCredit.do?memberId="+memberId+"&memberCredit="+memberCredit+"&newMemberCredit="+price;
 			}else{
 				alert("결제실패");
 			}

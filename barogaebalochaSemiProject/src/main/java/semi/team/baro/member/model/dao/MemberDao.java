@@ -291,6 +291,112 @@ public class MemberDao {
 		
 		return list;
 }
+
+
+	public int updateMemberCredit(Connection conn, String memberId, int totalCredit) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "update member_tbl set member_credit=? where member_id=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, totalCredit);
+			pstmt.setString(2, memberId);
+			
+			result = pstmt.executeUpdate(); 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public Member selectOneMember(Connection conn, String memberName, String memberPhone) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		
+		String query = "select * from member_tbl where member_name=? and member_phone=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberName);
+			pstmt.setString(2, memberPhone);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member();
+				m.setMemberId(rset.getString("member_id"));
+			}
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rset);
+		}
+		
+		return m;
+	}
+
+
+	public Member selectOneMember(Connection conn, String memberId, String memberPhone, String memberMail) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		
+		String query = "select * from member_tbl where member_id=? and member_phone=? and member_mail=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, memberPhone);
+			pstmt.setString(3, memberMail);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member();
+				m.setMemberNo(rset.getInt("member_no"));
+				
+			}
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rset);
+		}
+		
+		return m;
+	}
+
+
+	public int updateMember(Connection conn, String memberId, String randomCode) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "update member_tbl set member_pw=? where member_id=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, randomCode);
+			pstmt.setString(2, memberId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
 	
 }
 
