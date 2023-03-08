@@ -234,12 +234,6 @@
 			<form action="/mercenaryRequestInsert.do" method="post">
 				<ul>
 					<li>
-						<%if( m !=null && m.getFilepath() != null) {%>
-							<%if(mcReq.getMemberFilepath() == null) {%>
-            	<img src="/img/profile.png">
-        	<%} else if(mcReq.getMemberFilepath() != null) { %>
-            	<img src="/upload/photo/<%=mcReq.getMemberFilepath() %>">
-        	<%} %>
 						<span class="material-symbols-outlined">account_circle</span>
 					</li>
 					<li>
@@ -295,7 +289,7 @@
                 	<%} else if(mcReq.getMercenaryRequestResult().equals("1")){%>
 					<button type="button" onclick="alert('더이상 선택할 수 없습니다.');" class="btn2 bc2" style="background-color:#ccc;border:2px solid #ccc;">선택</button>                		
                 	<%} %>
-                <%} %>
+                <%} %>           	
             </div>
         </div>  		
 		<%} %>

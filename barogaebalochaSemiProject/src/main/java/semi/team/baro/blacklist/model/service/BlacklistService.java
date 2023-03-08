@@ -124,6 +124,18 @@ public class BlacklistService {
 		return result;
 	}
 
+	public int blacklistInsert(Blacklist bl) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.blacklistInsert(conn, bl);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	
 	public Blacklist blacklistView(int blackNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		Blacklist bla = dao.blacklistView(conn, blackNo);

@@ -55,10 +55,22 @@
     }
     .agree-content{
         width: 100%;
-        height: 100px;
+        height: 300px;
         overflow: scroll;
         border: 1px solid #ccc;
         font-size: 12px;
+    }
+    #ag1 {
+    	display: none;
+	}
+    #ag2{
+    	display: none;
+    }
+    .mailChk{
+    	
+    }
+    #auth{
+    	display: inline-block;
     }
 </style>
 </head>
@@ -142,7 +154,7 @@
                     </div>
                     <div class="input-wrap">
                         <label for="memberMail">메일</label>
-                        <div>
+                        <div class="input-mail">
                             <input type="text" name="memberMail1" id="memberMail1" class="input-form-short" placeholder="이메일을 입력해주세요" required>
                             <span>@</span>
                             <input type="text" name="memberMail2" id="memberMail2" class="input-form-short" required>
@@ -152,13 +164,15 @@
                                 <option value="gmail.com">구글</option>
                                 <option value="daum.net">다음</option>
                             </select>
+                            <button type="button" class="btn bc1" id="mailChk">중복체크</button>
                         </div>
+                            <span id="ajaxCheckMail"></span>
                     </div>
                     <div class="input-wrap">
                         <label for="mailChk">이메일 인증</label>
-                        <div>
+                        <div class="mailChk">
                             <input type="text" name="mailChk" id="authCode" class="input-form-short" placeholder="인증번호를 입력해주세요.">
-                            <button type="button" id="sendBtn" class="btn2 bc1 bs1">인증메일발송</button>
+                            <button type="button" id="sendBtn" class="btn2 bc2">인증메일발송</button>
                             <div id="auth" style="display : none;">
                             	<button class="btn bc1" id="authBtn">인증하기</button>
                             	<span id="timeZone"></span>
@@ -173,8 +187,8 @@
                     <div class="input-wrap">
                         <input type="checkbox" name="all-agree" id="all-agree"><label for="all-agree">전체약관선택</label>
                         <div class="agree">
-                            <input type="checkbox" name="agree1" id="agree1" class="checkbox"><label for="agree1">개인정보 처리 방침에 동의합니다.</label>
-                            <div class="agree-content">
+                            <input type="checkbox" name="agree1" id="agree1" class="checkbox"><label for="agree1">개인정보 처리 방침에 동의합니다.</label><a id="more-view1" style="color:blue;">[내용보기]클릭</a>
+                            <div class="agree-content" id="ag1">
                                 <p>개인정보 처리</p>
                                 <p>
                                 풋살데이트 개인정보 수집 및 이용 동의<br><br>
@@ -280,8 +294,8 @@
                             </div>
                         </div>
                         <div class="agree">
-                            <input type="checkbox" name="agree2" id="agree2" class="checkbox"><label for="agree2">서비스 이용약관에 동의합니다.</label>
-                            <div class="agree-content">
+                            <input type="checkbox" name="agree2" id="agree2" class="checkbox"><label for="agree2">서비스 이용약관에 동의합니다.</label><a id="more-view2" style="color:blue;">[내용보기]클릭</a>
+                            <div class="agree-content" id="ag2">
                                 <p>서비스 이용약관</p>
                                 <p>
                                     풋살데이트 서비스 이용약관<br>
@@ -426,14 +440,21 @@
                                     [부칙]<br>
                                     (시행일) 이 약관은 2023년 3월 05일부터 시행합니다.<br>
                                 </p>
+                            
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn bc1 bs4" >회원가입</button>
+                    <button type="submit" class="btn bc1 bs4" id="myform">회원가입</button>
                 </form>
             </div>
         </div>
         <script>
+        $("#more-view1").on("click", function() {
+            $("#ag1").toggle();
+        });
+        $("#more-view2").on("click", function() {
+            $("#ag2").toggle();
+        });
         function loadImg(f){
            if(f.files.length !=0 && f.files[0] !=0){
                 const reader = new FileReader();
@@ -484,18 +505,6 @@
                 $(this).css("border","1px solid red");
             }
         });
-        
-        function loadImg(f){
-            if(f.files.length !=0 && f.files[0] !=0){
-                const reader = new FileReader();
-                reader.readAsDataURL(f.files[0]);
-                reader.onload = function(e){
-                    $("#img-view").attr("src",e.target.result);
-                }
-            }else{
-                $("#img-view").attr("src","img/profile.png");
-            }
-        }
 
         $("#memberId").on("keyup",function(){
             const memberId = $(this).val();
@@ -512,6 +521,30 @@
                         $("#ajaxCheckId").text("사용가능한 아이디입니다.");
                         $("#ajaxCheckId").css("color","green");
                         $("#memberId").css("border","1px solid green");
+                    }
+                }
+            })
+        });
+        $("#mailChk").on("click",function(){
+        	const email1 = $("#memberMail1").val();
+			const email2 = $("#memberMail2").val();
+			const email = email1+"@"+email2;
+			console.log(email);
+            $.ajax({
+                url : "/ajaxCheckEmail.do",
+                type : "get",
+                data : {email, email},
+                success : function(data){
+                    if(data == "1"){
+                        $("#ajaxCheckMail").text("이미 사용중인 이메일입니다.");
+                        $("#ajaxCheckMail").css("color","red");
+                        $("#memberMail1").css("border","1px solid red");
+                        $("#memberMail2").css("border","1px solid red");
+                    }else if(data == "0"){
+                        $("#ajaxCheckMail").text("사용가능한 이메일입니다.");
+                        $("#ajaxCheckMail").css("color","green");
+                        $("#memberMail1").css("border","1px solid green");
+                        $("#memberMail2").css("border","1px solid green");
                     }
                 }
             })
@@ -541,6 +574,7 @@
 					}else{
 						mailCode = data;
 						$("#auth").slideDown();
+						$("#sendBtn").hide();
 						authTime();
 					}
 				},
@@ -603,6 +637,49 @@
 				}
 			}
 		});
+		$(document).ready(function() {
+			  let isAuth = false; // 이메일 인증 여부를 저장하는 변수
+			  let check1 = false;
+			  let check2 = false;
+			  const memberAddr = $("#memberAddr").val();
+			  $('#sendBtn').on('click', function() {
+			    // 이메일 인증을 요청하는 로직
+			    // 인증 성공 시 isAuth를 true로 변경
+			    isAuth = true;
+			  });
+			  $('#authBtn').on('click', function() {
+			    // 이메일 인증을 검증하는 로직
+			    // 검증 성공 시 isAuth를 true로 변경
+			    isAuth = true;
+			  });
+			  if ($("#agree1").is(':checked')) {
+			      // 개인정보 수집 동의 체크박스가 체크되었을 때
+			      check1=true;
+			    } else {
+			      // 개인정보 수집 동의 체크박스가 체크 해제되었을 때
+			    	check1=false;
+			    }
+			  if ($("#agree2").is(':checked')) {
+			      // 개인정보 수집 동의 체크박스가 체크되었을 때
+			      check2=true;
+			    } else {
+			      // 개인정보 수집 동의 체크박스가 체크 해제되었을 때
+			    	check2=false;
+			    }
+			  $('#myform').on('click', function(event) {
+			    // submit 버튼 클릭 시 이메일 인증 여부를 확인
+			    if (!isAuth) {
+			      event.preventDefault(); // 인증이 되지 않았으면 submit 방지
+			      alert('이메일 인증이 완료되어야 회원가입이 가능합니다.');
+			    }else if(!check1 && !check2){
+					event.preventDefault(); // 인증이 되지 않았으면 submit 방지
+				    alert('약관에 동의해주셔야 회원가입이 가능합니다.');
+			    }else if(memberAddr == ""){
+			    	event.preventDefault(); // 인증이 되지 않았으면 submit 방지
+				    alert('지역을 선택해주세요.');
+			    }
+			  });
+			});
         </script>
         <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	   </body>

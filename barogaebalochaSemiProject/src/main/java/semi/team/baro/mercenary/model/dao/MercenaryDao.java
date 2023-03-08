@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import common.JDBCTemplate;
+import semi.team.baro.location.model.vo.Location;
 import semi.team.baro.mercenary.model.vo.Mercenary;
 import semi.team.baro.mercenary.model.vo.MercenaryRequest;
 
@@ -15,19 +16,18 @@ public class MercenaryDao {
 	public int mercenaryInsert(Connection conn, Mercenary mc) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into mercenary values(mercenary_seq.nextval, ?, ?, ?, ?, ?, ?, ?, 0, to_char(sysdate, 'yyyy-mm-dd'), 0, ?, ?)";
+		String query = "insert into mercenary values(mercenary_seq.nextval, ?, ?, 'XXX', ?, ?, ?, ?, 0, to_char(sysdate, 'yyyy-mm-dd'), 0, ?, ?)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, mc.getMemberNo());
 			pstmt.setString(2, mc.getLocation());
-			pstmt.setString(3, mc.getGroundName());
-			pstmt.setString(4, mc.getGameDate());
-			pstmt.setInt(5, mc.getGameTime());
-			pstmt.setString(6, mc.getMercenaryContent());
-			pstmt.setInt(7, mc.getMercenaryPay());
-			pstmt.setInt(8, mc.getLevel());
-			pstmt.setInt(9, mc.getGroundNo());
+			pstmt.setString(3, mc.getGameDate());
+			pstmt.setInt(4, mc.getGameTime());
+			pstmt.setString(5, mc.getMercenaryContent());
+			pstmt.setInt(6, mc.getMercenaryPay());
+			pstmt.setInt(7, mc.getLevel());
+			pstmt.setInt(8, mc.getGroundNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -385,6 +385,32 @@ public class MercenaryDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return result;
+	}
+
+	public ArrayList<Location> searchGround(Connection conn, String location) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Location> list = new ArrayList<Location>();
+		String query = "select * from ground_tbl where ground_location like ?";
+	
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, location+"%");
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Location l = new Location();
+				l.setGroundName(rset.getString("ground_name"));
+				l.setGroundNo(rset.getInt("ground_no"));
+				list.add(l);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rset);
+		}
+		return list;
 	}
 }
 

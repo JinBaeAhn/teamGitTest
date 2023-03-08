@@ -66,7 +66,8 @@
                         <tr>
                             <th>지역</th>
                             <td>
-                                <select class="input-form" name="location">
+                                <select class="input-form" name="location" id="location">
+                                	<option value="no">지역선택</option>
                                     <option value="seoul">서울</option>
                                     <option value="incheon">인천</option>
                                     <option value="Gyeonggi">경기</option>
@@ -76,11 +77,7 @@
                         <tr>
                             <th>경기장</th>
                             <td>
-                                <select class="input-form" name="groundName">
-                                    <option value="1">서울어쩌구경기장</option>
-                                    <option value="2">인천어쩌구경기장</option>
-                                    <option value="3">경기어쩌구경기장</option>
-                                </select>
+                                <select class="input-form" name="groundNo" id="ground"></select>
                             </td>
                         </tr>
                         <tr>
@@ -154,6 +151,39 @@
 	        maxDate: "+6M"
 	      });
 	    });
+	    
+	    $("#location").on("change", function(){
+	    	const location = $("#location option:selected").text();
+			const groundOption = $("#ground");
+			groundOption.empty();
+			$.ajax({
+				url : "/searchGround.do",
+				type : "post",
+				data : {location : location},
+				dataType : "json",
+				success : function(data){
+					if(data.length > 0){
+						for(let i=0; i<data.length; i++){
+							console.log(i);
+							const option = $("<option value=''></option>");
+							option.val(data[i].groundNo);
+							option.append(data[i].groundName);
+							groundOption.append(option);
+						}	
+					}else{
+						const option = $("<option value=''></option>");
+						option.append("해당지역에 구장이 없습니다.");
+						groundOption.append(option);
+					}	
+					
+								
+				},
+				error : function(){
+					console.log("서버 호출 실패");
+				}
+			});
+		});
+	        
     </script>
 
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>

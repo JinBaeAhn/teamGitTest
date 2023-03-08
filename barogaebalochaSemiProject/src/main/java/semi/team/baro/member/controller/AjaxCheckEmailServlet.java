@@ -1,25 +1,28 @@
-package semi.team.baro.mercenary.controller;
+package semi.team.baro.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semi.team.baro.member.model.service.MemberService;
+import semi.team.baro.member.model.vo.Member;
+
 /**
- * Servlet implementation class MercenaryWriteServlet
+ * Servlet implementation class AjaxCheckEmailServlet
  */
-@WebServlet(name = "MercenaryWrite", urlPatterns = { "/mercenaryWrite.do" })
-public class MercenaryWriteServlet extends HttpServlet {
+@WebServlet(name = "ajaxCheckEmail", urlPatterns = { "/ajaxCheckEmail.do" })
+public class AjaxCheckEmailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MercenaryWriteServlet() {
+    public AjaxCheckEmailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,13 +31,19 @@ public class MercenaryWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//1. 인코딩
 		request.setCharacterEncoding("utf-8");
-		//2. 값추출
-		//3. 비즈니스로직	
-		//4. 결과처리
-		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/mercenary/mercenaryWrite.jsp");
-		view.forward(request, response);
+		String memberMail = request.getParameter("email");
+		
+		MemberService service = new MemberService();
+		Member m = service.checkMemberMail(memberMail);
+		
+		response.setCharacterEncoding("utf-8");
+		PrintWriter out = response.getWriter();
+		if(m != null) {
+			out.print(1);
+		}else {
+			out.print(0);
+		}
 	}
 
 	/**
