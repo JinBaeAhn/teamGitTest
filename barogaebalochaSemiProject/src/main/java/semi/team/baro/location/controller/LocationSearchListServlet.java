@@ -39,14 +39,14 @@ public class LocationSearchListServlet extends HttpServlet {
 		//1.인코딩
 		request.setCharacterEncoding("utf-8");
 		//2.값추출
-		String location = request.getParameter("location");
+		String location = request.getParameter("groundLocation");
 		
 		//3.비즈니스로직
-		System.out.println(location);
+		//System.out.println("지역"+location);
 		LocationService service = new LocationService();
 		ArrayList<Location> list = service.locationSearchList(location);
 		
-		//System.out.println(list.size());
+		//System.out.println("리스트사이즈 잘 나오냐"+list.size());
 		JSONArray locationSearchList = new JSONArray();
 		
 		if(!list.isEmpty()) {
