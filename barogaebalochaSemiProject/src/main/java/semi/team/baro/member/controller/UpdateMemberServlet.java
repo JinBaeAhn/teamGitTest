@@ -45,8 +45,6 @@ public class UpdateMemberServlet extends HttpServlet {
 		MultipartRequest mRequest = new MultipartRequest(request, saveDirectory, maxSize, "utf-8", new DefaultFileRenamePolicy());
 		
 		String newMemberPw = mRequest.getParameter("newMemberPw");
-		String newImgFile = mRequest.getFilesystemName("imgFile");
-		String oldImgFile = mRequest.getFilesystemName("oldImgFile");
 		
 		Member m = new Member();
 		
@@ -56,11 +54,15 @@ public class UpdateMemberServlet extends HttpServlet {
 		}else {
 			m.setMemberPw(mRequest.getParameter("newMemberPw"));			
 		}
-		if(newImgFile == oldImgFile) {
-			m.setFilepath(mRequest.getFilesystemName("oldImgFile"));		
-		}else{
-			m.setFilepath(mRequest.getFilesystemName("imgFile"));
+		String status = mRequest.getParameter("status");
+		//새 첨부파일이 있으면 새 첨부파일값, 없으면 null
+		String filepath = mRequest.getFilesystemName("imgFile");
+		//기존 첨부파일이 있었으면 기존 첨부파일값, 없었으면 null
+		String oldFilepath = mRequest.getParameter("oldFilepath");
+		if(oldFilepath != null && status.equals("stay")) {
+			filepath = oldFilepath;
 		}
+		m.setFilepath(filepath);
 		
 		m.setMemberName(mRequest.getParameter("memberName"));
 		m.setMemberMail(mRequest.getParameter("memberMail"));

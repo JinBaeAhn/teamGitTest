@@ -46,11 +46,6 @@
     	width: 200px;
     	margin: 0 auto;
     }
-    .btn-box{
-    	margin-top: 20px;
-    	width: 600px;
-    	text-align : center;
-    }
     .modal-bg {
 	  background-color: rgba(0, 0, 0, 0.3);
 	  position: fixed;
@@ -95,8 +90,84 @@
   		align-items: center;
 	}
 	.bi-box>img{
-		width:200px;
-		
+		width:200px;	
+	}
+	.mypage-wrap{
+		margin: 10px;
+	}
+	.btn-box{
+    	padding-top: 20px;
+    	width: 100%;
+    	text-align : center;
+    	display: flex;
+    	justify-content: space-between;
+    	height : auto;
+    	
+    }
+    .btn-box a{
+    	line-height :center;
+    }
+    
+    .td1{
+    	border-bottom: 1px solid #ccc;
+    	height: 60px;
+    }
+    
+    .mypage-tbl{
+    	width: 100%;
+    	margin-top : 50px; 
+    }
+    /* 전체 테이블 스타일 */
+	table {
+  		border-collapse: collapse;
+  		width: 100%;
+  		
+	}
+
+/* 테이블 셀 스타일 */
+	td, th {
+  		border: 1px solid #ddd;
+  		padding: 8px;
+  		text-align: left;
+	}
+
+/* 짝수 행 배경색 */
+	tr:nth-child(even) {
+  		background-color: #f2f2f2;
+	}
+
+/* 이미지 부분 스타일 */
+	.img-wrap {
+  		position: relative;
+  		width: 200px;
+  		height: 200px;
+  		margin: 0 auto;
+  		border-radius: 50%;
+  		overflow: hidden;
+  		background-color: #ddd;
+	}
+
+	.img-wrap img {
+  		display: block;
+  		width: 100%;
+  		height: 100%;
+  		object-fit: cover;
+	}
+
+/* Introduce 셀 스타일 */
+	.introduce {
+  		position: relative;
+	}
+
+	.introduce textarea {
+  		width: 100%;
+  		height: 120px;
+  		resize: none;
+  		border: none;
+  		background-color: transparent;
+  		font-size: 16px;
+  		font-family: Arial, sans-serif;
+  		line-height: 1.5;
 	}
 </style>
 </head>
@@ -104,100 +175,114 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	 <div class="wrap">
-        <div class="page-content">
-            <div class="page-title"><%=m.getMemberName() %>의 라커룸</div>
-			<div class="input-wrap">
-				<div class="img-wrap">
-					<label for="imgFile">
-                            <%if(m.getFilepath() == null){ %>
-                            <img src="img/profile.png" id="img-view">
-							<%}else{ %>
-							<img src="/upload/photo/<%=m.getFilepath() %>" id="img-view">
+        <div class="mypage-wrap">
+            <div class="user-title"><h2><%=m.getMemberName()%>'s Locker Room</h2></div>
+            <div class="btn-box">
+                <a class="btn bc44 bs1" href="/historyMercenary.do?memberNo=<%=m.getMemberNo() %>&reqPage=1&categoryName='mercenary'">
+                내가 쓴 글 조회</a>
+                <a class="btn bc44 bs1" href="/updateMemberFrm.do">정보수정</a>
+                <a class="btn bc44 bs1" id="charge">충전하기</a>
+                <a class="btn bc44 bs1" id="deleteMember" href="/deleteMember.do">회원탈퇴</a>
+            </div>
+            <div class="mypage-content">
+                <table class="mypage-tbl">
+                    <tr class="td1">
+                        <th>ID</th>
+                        <td><%=m.getMemberId()%></td>
+                        <td rowspan="5" >
+                            <div class="img-wrap">
+                                <label for="imgFile">
+                                <%if(m.getFilepath() == null){ %>
+                                    <img src="img/profile.png" id="img-view">
+                                <%}else{ %>
+                                    <img src="/upload/photo/<%=m.getFilepath() %>" id="img-view">
+                                <%} %>
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="td1">
+                        <th>PlayerName</th>
+                        <td><%=m.getMemberName()%></td>
+                    </tr>
+                    <tr class="td1">
+                        <th>Phone</th>
+                        <td><%=m.getMemberPhone()%></td>
+                    </tr>
+                    <tr class="td1">
+                        <th>Grade</th>
+                        <td>
+                            <%if(m.getMemberLevel() == 1) {%>
+								<span>관리자</span>
+							<%}else if(m.getMemberLevel() == 2){%>
+								<span>정회원</span>
+							<%}else if(m.getMemberLevel() == 3){%>
+								<span>블랙</span>
 							<%} %>
-                    </label>
-				</div>
-			</div>
-			<div class="input-wrap">
-				<label for="memberId">아이디</label>
-				<input type="text" name="memberId" id="memberId" class="input-form" value="<%=m.getMemberId()%>" disabled>
-			</div>
-			<div class="input-wrap">
-				<label for="memberName">회원이름</label>
-				<input type="text" name="memberName" id="memberName" class="input-form" value="<%=m.getMemberName()%>" disabled>
-			</div>
-			<div class="input-wrap">
-				<label for="memberPhone">전화번호</label>
-				<input type="text" name="memberPhone" id="memberPhone" class="input-form" value="<%=m.getMemberPhone()%>"disabled>
-			</div>
-			<div class="input-wrap">
-				<label for="memberAddr">주소</label>
-				<input type="text" name="memberAddr" id="memberAddr" class="input-form" value="<%=m.getMemberAddr()%>"disabled>
-			</div>
-			<div class="input-wrap">
-				<label for="memberCredit">포인트</label>
-				<input type="text" name="memberCredit" id="memberCredit" class="input-form" value="<%=m.getMemberCredit()%>"disabled><span>P</span>
-				<a class="btn bc4 bs5" id="charge">충전하기</a>
-				<div id="pay-modal" class="modal-bg">
-      				<div class="modal-wrap">
-        				<div class="modal-head">
-          					<h2>결제하기</h2>
-          					<span class="material-icons close-icon modal-close">close</span>
-        				</div>
-	        				<div class="modal-content">
-	          					<div class="input-box">
-	          						<span>충전포인트</span>
-	          						<div class="input-box credit-box">
-	          							<input type="radio" name="point" id="point1" value="100">
-	          							<label for="point1">10,000p</label>
-	          							<input type="radio" name="point" id="point2" value="200">
-	          							<label for="point2">20,000p</label>
-	          							<input type="radio" name="point" id="point3" value="500">
-	          							<label for="point3">50,000p</label>
-	          							<input type="radio" name="point" id="point4" value="1000">
-	          							<label for="point4">100,000p</label>
-	          							<input type="radio" name="point" id="point5" value="2000">
-	          							<label for="point5">200,000p</label>
-	          						</div>
-	          						<div class="input-box bi-box">
-	          							<img src="img/FUTSALDATE.png">
-	          						</div>
-	          					</div>
-	        				</div>
-	        				<div class="modal-foot">
-	          					<button type="button" id="payBtn" class="btn bc11">결제하기</button>
-	          					<button type="button" class="btn bc1 modal-close">취소</button>
-	        				</div>
-      				</div>
-    			</div>
-			</div>
+                        </td>
+                    </tr>
+                    <tr class="td1">
+                        <th>Point</th>
+                        <td><%=m.getMemberCredit()%><span>P</span></td>
+                    </tr>
+                    <tr class="td1">
+                        <th>Range</th>
+                        <td colspan="2"><%=m.getMemberAddr()%></td>
+                        <td></td>
+                    </tr>
+                    <tr class="td1">
+                        <th>JoinDate</th>
+                        <td colspan="2"><%=m.getEnrollDate()%></td>
+                        <td></td>
+                    </tr>
+                    <tr class="td1">
+                        <th>Introduce</th>
+                        <td class="introduce" colspan="2">
+                        	<textarea name="memberContent" id="memberContent" class="input-form" readonly><%=m.getMemberContent() %></textarea>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="input-wrap">
+                <div id="pay-modal" class="modal-bg">
+                    <div class="modal-wrap">
+                        <div class="modal-head">
+                            <h2>결제하기</h2>
+                            <span class="material-icons close-icon modal-close">close</span>
+                        </div>
+                            <div class="modal-content">
+                                <div class="input-box">
+                                    <span>충전포인트</span>
+                                    <div class="input-box credit-box">
+                                        <input type="radio" name="point" id="point1" value="10000">
+                                        <label for="point1">10,000p</label>
+                                        <input type="radio" name="point" id="point2" value="20000">
+                                        <label for="point2">20,000p</label>
+                                        <input type="radio" name="point" id="point3" value="50000">
+                                        <label for="point3">50,000p</label>
+                                        <input type="radio" name="point" id="point4" value="100000">
+                                        <label for="point4">100,000p</label>
+                                        <input type="radio" name="point" id="point5" value="200000">
+                                        <label for="point5">200,000p</label>
+                                    </div>
+                                    <div class="input-box bi-box">
+                                        <img src="img/FUTSALDATE.png">
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="modal-foot">
+                            <button type="button" id="payBtn" class="btn bc11">결제하기</button>
+                            <button type="button" class="btn bc1 modal-close">취소</button>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>        
 			<div class="input-wrap">
 				<input type="hidden" name="memberMail" id="memberMail" class="input-form" value="<%=m.getMemberMail()%>" disabled>
 			</div>
-			<div class="input-wrap">
-				<label for="memberLevel">회원등급</label>
-				<%if(m.getMemberLevel() == 1) {%>
-				<input type="text" name="memberLevel" id="memberLevel" class="input-form" value="관리자" disabled>
-				<%}else if(m.getMemberLevel() == 2){%>
-				<input type="text" name="memberLevel" id="memberLevel" class="input-form" value="정회원" disabled>
-				<%}else if(m.getMemberLevel() == 3){%>
-				<input type="text" name="memberLevel" id="memberLevel" class="input-form" value="블랙" disabled>
-				<%} %>
-			</div>
-			<div class="input-wrap">
-				<label for="memberContent">자기소개</label>
-				<textarea name="memberContent" id="memberContent" class="input-form" disabled><%=m.getMemberContent()%></textarea>
-			</div>
-			<div class="input-wrap">
-				<label for="enrollDate">가입일</label>
-				<input type="text" name="enrollDate" id="enrollDate" class="input-form" value="<%=m.getEnrollDate()%>" disabled>
-			</div>
-			<div class="btn-box">
-				<a class="btn1 bc4 bs5" href="/historyMercenary.do?memberNo=<%=m.getMemberNo() %>&reqPage=1&categoryName='mercenary'">내가 쓴 글 조회</a>
-				<a class="btn1 bc4 bs5" href="/updateMemberFrm.do">정보수정</a>
-				<a class="btn1 bc4 bs5" href="/deleteMember.do">회원탈퇴</a>
-			</div>
-        </div>
-    </div>
+   </div>
     <script>
     $(function () {
     	  $(document).on("click", "#charge", function () {
@@ -242,6 +327,13 @@
 			}
 		});
 	});
+    $('#deleteMember').click(function(event) {
+        event.preventDefault(); // 링크 클릭 시, 페이지 이동을 막음
+        const confirmDelete = confirm('정말로 탈퇴하시겠습니까?'); // 한번 더 확인창을 띄움
+        if (confirmDelete) {
+          window.location.href = $(this).attr('href'); // 확인 시, 탈퇴 페이지로 이동
+        }
+      });
     </script>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

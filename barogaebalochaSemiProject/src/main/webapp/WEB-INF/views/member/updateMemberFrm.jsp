@@ -60,6 +60,22 @@
         border: 1px solid #ccc;
         font-size: 12px;
     }
+    .img-input {
+  		position: relative;
+	}
+
+	.img-input #img-view {
+  		display: block;
+  		width: 200px; /* 이미지 크기에 맞게 설정 */
+  		height: 200px;
+  		margin-bottom: 10px; /* 이미지 아래 여백 설정 */
+	}
+    .img-input #delbtn {
+  		position: absolute;
+  		bottom: 0;
+  		left: 57%; /* 가운데 정렬을 위해 */
+  		transform: translateX(-50%); /* 가운데 정렬을 위해 */
+	}
 </style>
 </head>
 <body>
@@ -74,14 +90,15 @@
                 <form action="/updateMember.do" method="post" enctype="multipart/form-data">
                     <div class="input-wrap img-input">
                         <label for="imgFile">
-                            <%if(m.getFilepath() == null){ %>
-                            <img src="img/profile.png" id="img-view">
-							<%}else{ %>
+                            <%if(m.getFilepath() != null){ %>
 							<img src="/upload/photo/<%=m.getFilepath() %>" id="img-view">
-							<%} %>
-							<button type="button" class="btn bc1 delFile">삭제</button>
+							<button type="button" class="btn bc1 delFile" id="delbtn">삭제</button>
+	    					<input type="hidden" name="oldFilepath" value="<%=m.getFilepath()%>">
+							<input type="hidden" name="status" value="stay">
+							<%}else{ %>
+                            <img src="img/profile.png" id="img-view">
                             <input type="file" name="imgFile" id="imgFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this);">
-	    					<input type="hidden" name="oldImgFile" value="<%=m.getFilepath()%>">
+							<%} %>
                         </label>
                     </div>
                     <div class="input-wrap">
@@ -92,11 +109,11 @@
                     </div>
                     <div class="input-wrap">
                     	<div>
-                            <input type="text" name="memberPw" id="memberPw" class="input-form" value="<%=m.getMemberPw()%>" >
+                            <input type="hidden" name="memberPw" id="memberPw" class="input-form" value="<%=m.getMemberPw()%>" >
                         </div>
                         <label for="memberPw">새로운 비밀번호</label>
                         <div>
-                            <input type="text" name="newMemberPw" id="newMemberPw" class="input-form" placeholder="비밀번호를 입력해주세요(8~16글자)" >
+                            <input type="text" name="newMemberPw" id="newMemberPw" class="input-form" placeholder="비밀번호를 입력해주세요(영문+숫자8~16글자)" >
                         </div>
                         <span id="msg1"></span>
                     </div>
@@ -130,7 +147,6 @@
                         <label for="memberAddr">지역</label>
                         <div>
                             <select size="1" name="memberAddr" id="memberAddr" class="input-form-short" value="<%=m.getMemberAddr()%>">
-                                <option value="">지역선택</option>
                                 <option value="서울">서울</option>
                                 <option value="인천">인천</option>
                                 <option value="부산">부산</option>
@@ -178,7 +194,7 @@
         		$(item).prop("selected",true);
         	}
         });
-        console.log(phone1);
+        
         function loadImg(f){
            if(f.files.length !=0 && f.files[0] !=0){
                 const reader = new FileReader();
@@ -205,7 +221,7 @@
     	});
         $("#newMemberPw").on("keyup",function(){
             const pw = $(this).val();
-            const regExp = /^[a-z0-9]{8,16}$/;
+            const regExp = /^(?=.*[a-z])(?=.*\d)[a-z\d]{8,16}$/;
             if(regExp.test(pw)){
                 $("#msg1").text("비밀번호가 적합합니다.");
                 $("#msg1").css("color","green");
@@ -229,9 +245,10 @@
                 $(this).css("border","1px solid red");
             }
         });
-        $("button.delFile").on("click",function(){
+        $("button.delbtn").on("click",function(){
 			
 			$("[name=oldImgFile]").val("");
+			$("[name=status]").val("delete");
 		});
         
         </script>

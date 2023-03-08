@@ -96,7 +96,7 @@
                     <div class="input-wrap">
                         <label for="memberPw">비밀번호</label>
                         <div>
-                            <input type="text" name="memberPw" id="memberPw" class="input-form" placeholder="비밀번호를 입력해주세요(8~16글자)" required>
+                            <input type="text" name="memberPw" id="memberPw" class="input-form" placeholder="비밀번호를 입력해주세요(영문+숫자8~16글자)" required>
                         </div>
                         <span id="msg1"></span>
                     </div>
@@ -131,7 +131,6 @@
                         <label for="memberAddr">지역</label>
                         <div>
                             <select size="1" name="memberAddr" id="memberAddr" class="input-form-short">
-                                <option value="">지역선택</option>
                                 <option value="서울">서울</option>
                                 <option value="인천">인천</option>
                                 <option value="부산">부산</option>
@@ -174,7 +173,7 @@
                             <input type="text" name="mailChk" id="authCode" class="input-form-short" placeholder="인증번호를 입력해주세요.">
                             <button type="button" id="sendBtn" class="btn2 bc2">인증메일발송</button>
                             <div id="auth" style="display : none;">
-                            	<button class="btn bc1" id="authBtn">인증하기</button>
+                            	<button type="button" class="btn bc1" id="authBtn">인증하기</button>
                             	<span id="timeZone"></span>
                             	<span id="authMsg"></span>
                             </div>
@@ -187,7 +186,7 @@
                     <div class="input-wrap">
                         <input type="checkbox" name="all-agree" id="all-agree"><label for="all-agree">전체약관선택</label>
                         <div class="agree">
-                            <input type="checkbox" name="agree1" id="agree1" class="checkbox"><label for="agree1">개인정보 처리 방침에 동의합니다.</label><a id="more-view1" style="color:blue;">[내용보기]클릭</a>
+                            <input type="checkbox" name="agree1" id="check1" class="checkbox" required><label for="agree1">개인정보 처리 방침에 동의합니다.</label><a id="more-view1" style="color:blue;">[내용보기]클릭</a>
                             <div class="agree-content" id="ag1">
                                 <p>개인정보 처리</p>
                                 <p>
@@ -294,7 +293,7 @@
                             </div>
                         </div>
                         <div class="agree">
-                            <input type="checkbox" name="agree2" id="agree2" class="checkbox"><label for="agree2">서비스 이용약관에 동의합니다.</label><a id="more-view2" style="color:blue;">[내용보기]클릭</a>
+                            <input type="checkbox" name="agree2" id="check2" class="checkbox" required><label for="agree2">서비스 이용약관에 동의합니다.</label><a id="more-view2" style="color:blue;">[내용보기]클릭</a>
                             <div class="agree-content" id="ag2">
                                 <p>서비스 이용약관</p>
                                 <p>
@@ -481,7 +480,7 @@
     	});
         $("#memberPw").on("keyup",function(){
             const pw = $(this).val();
-            const regExp = /^[a-z0-9]{8,16}$/;
+            const regExp = /^(?=.*[a-z])(?=.*\d)[a-z\d]{8,16}$/;
             if(regExp.test(pw)){
                 $("#msg1").text("비밀번호가 적합합니다.");
                 $("#msg1").css("color","green");
@@ -508,6 +507,7 @@
 
         $("#memberId").on("keyup",function(){
             const memberId = $(this).val();
+            
             $.ajax({
                 url : "/ajaxCheckId.do",
                 type : "get",
@@ -529,7 +529,7 @@
         	const email1 = $("#memberMail1").val();
 			const email2 = $("#memberMail2").val();
 			const email = email1+"@"+email2;
-			console.log(email);
+			
             $.ajax({
                 url : "/ajaxCheckEmail.do",
                 type : "get",
@@ -639,9 +639,7 @@
 		});
 		$(document).ready(function() {
 			  let isAuth = false; // 이메일 인증 여부를 저장하는 변수
-			  let check1 = false;
-			  let check2 = false;
-			  const memberAddr = $("#memberAddr").val();
+			  const memberAddr = $("#memberAddr option:selected").val();
 			  $('#sendBtn').on('click', function() {
 			    // 이메일 인증을 요청하는 로직
 			    // 인증 성공 시 isAuth를 true로 변경
@@ -652,35 +650,15 @@
 			    // 검증 성공 시 isAuth를 true로 변경
 			    isAuth = true;
 			  });
-			  if ($("#agree1").is(':checked')) {
-			      // 개인정보 수집 동의 체크박스가 체크되었을 때
-			      check1=true;
-			    } else {
-			      // 개인정보 수집 동의 체크박스가 체크 해제되었을 때
-			    	check1=false;
-			    }
-			  if ($("#agree2").is(':checked')) {
-			      // 개인정보 수집 동의 체크박스가 체크되었을 때
-			      check2=true;
-			    } else {
-			      // 개인정보 수집 동의 체크박스가 체크 해제되었을 때
-			    	check2=false;
-			    }
 			  $('#myform').on('click', function(event) {
 			    // submit 버튼 클릭 시 이메일 인증 여부를 확인
 			    if (!isAuth) {
 			      event.preventDefault(); // 인증이 되지 않았으면 submit 방지
 			      alert('이메일 인증이 완료되어야 회원가입이 가능합니다.');
-			    }else if(!check1 && !check2){
-					event.preventDefault(); // 인증이 되지 않았으면 submit 방지
-				    alert('약관에 동의해주셔야 회원가입이 가능합니다.');
-			    }else if(memberAddr == ""){
-			    	event.preventDefault(); // 인증이 되지 않았으면 submit 방지
-				    alert('지역을 선택해주세요.');
 			    }
 			  });
 			});
-        </script>
+		</script>
         <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	   </body>
 </html>
