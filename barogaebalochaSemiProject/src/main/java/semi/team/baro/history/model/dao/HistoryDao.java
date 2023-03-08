@@ -10,6 +10,7 @@ import common.JDBCTemplate;
 import semi.team.baro.blacklist.model.vo.Blacklist;
 import semi.team.baro.board.model.vo.Board;
 import semi.team.baro.history.model.vo.HistoryPageData;
+import semi.team.baro.matching.model.vo.Matching;
 import semi.team.baro.mercenary.model.vo.Mercenary;
 import semi.team.baro.mercenary.model.vo.MercenaryRequest;
 
@@ -225,6 +226,59 @@ public class HistoryDao {
 		ResultSet rset = null;
 		int totalCount = 0;
 		String query = "select count(*) as cnt from photo_board where member_no = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, memberNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalCount = rset.getInt("cnt");				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rset);
+		}
+		return totalCount;
+	}
+
+	public ArrayList<Matching> matchingMyHistory(Connection conn, int memberNo, int start, int end) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Matching> mchList = new ArrayList<Matching>();
+		String query = "select * from (select rownum as rnum, n.* from(select * from matching_board where member_no = ? order by matching_board_no desc)n) where rnum between ? and ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Matching mch = new Matching();
+				mch.setMatchingBoardNo(rset.getInt("matching_board_no"));
+				mch.setMatchingBoardTitle(rset.getString("matching_board_title"));
+				mch.setRegDate(rset.getString("reg_date"));
+				mch.setReadCount(rset.getInt("read_count"));
+				mch.setMatchingStatus(rset.getInt("matching_status"));
+				mchList.add(mch);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return mchList;
+	}
+
+	public int matchingHistoryCount(Connection conn, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int totalCount = 0;
+		String query = "select count(*) as cnt from matching_board where member_no = ?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, memberNo);

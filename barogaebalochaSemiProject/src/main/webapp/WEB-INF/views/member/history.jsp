@@ -1,3 +1,4 @@
+<%@page import="semi.team.baro.matching.model.vo.Matching"%>
 <%@page import="semi.team.baro.board.model.vo.Board"%>
 <%@page import="semi.team.baro.blacklist.model.vo.Blacklist"%>
 <%@page import="semi.team.baro.mercenary.model.vo.MercenaryRequest"%>
@@ -10,6 +11,7 @@
     ArrayList<MercenaryRequest> mcReqList = (ArrayList<MercenaryRequest>)request.getAttribute("mcReqList");
     ArrayList<Blacklist> blaList = (ArrayList<Blacklist>)request.getAttribute("blaList");
     ArrayList<Board> boardList = (ArrayList<Board>)request.getAttribute("boardList");
+    ArrayList<Matching> mchList = (ArrayList<Matching>)request.getAttribute("mchList");
     
     String pageNavi = (String)request.getAttribute("pageNavi");
     String categoryName = (String)request.getAttribute("categoryName");
@@ -67,7 +69,31 @@
 			<li><a href="/historyBoard.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=board">게시판</a></li>
 			<li><a href="/historyBlacklist.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=blacklist">신고내역</a></li>
 		</ul>
-		<%if( categoryName.equals("mercenary") ){ %>			
+		<%if( categoryName.equals("matching")) {%>
+		<table class="history-content table">
+			<tr>
+				<th style="width:5%">no.</th>
+				<th style="width:30%">제목</th>
+				<th style="width:20%">작성일</th>
+				<th style="width:10%">조회수</th>
+				<th style="width:10%">모집상태</th>
+			</tr>   
+			<%for(Matching mch : mchList) {%>
+				<tr>
+					<td><%=mch.getMatchingNo() %></td>
+					<td><%=mch.getMatchingBoardTitle() %></td>
+					<td style="color:#ccc"><%=mch.getRegDate() %></td>
+					<td><%=mch.getReadCount() %>
+					<%if(mch.getMatchingStatus() == 0) {%>
+					<td>매칭중</td>
+					<%}else if(mch.getMatchingStatus() == 1) {%>
+					<td>매칭완료</td>
+					<%} %>
+				</tr>
+			<%} %>
+		</table>
+		<div class="page-navi"><%=pageNavi %></div>
+		<%}else if( categoryName.equals("mercenary") ){ %>			
 		<table class="history-content table">
 			<tr>
 				<th style="width:5%">no.</th>
