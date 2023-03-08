@@ -20,7 +20,7 @@
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
 	 <div class="page-content">
 	        <div class="locationInfo-page-title">
-	            <p>구장상세정보</p>
+	            <p>구장상세정보<%=l.getBall() %></p>
 	        </div>
 	        <div class="locationInfo-img-wrap">
 	            <div class="locationInfo-main-img">
@@ -34,12 +34,24 @@
 				<input type="hidden" id="groundLng" value="<%=l.getGroundLng() %>">
 	            <!-- </div> -->
 	            <div class="locationInfo-icon-wrap">
+	               <%if(l.getShoes() == 1){ %>
 	                <img src="/testImage/soccer-shoe.png" class="locationInfo-icon">
+	               <%} %>
+	               <%if(l.getBall() ==1 ) {%>
 	                <img src="/testImage/soccer-ball.png" class="locationInfo-icon">
+	               <%} %>
+	               <%if(l.getUniform() ==1 ) {%>
 	                <img src="/testImage/football-uniform.png" class="locationInfo-icon">
+	               <%} %>
+	               <%if(l.getShower() ==1 ) {%>
 	                <img src="/testImage/shower.png" class="locationInfo-icon">
+	               <%} %>
+	               <%if(l.getParking() ==1 ) {%>
 	                <img src="/testImage/parking.png" class="locationInfo-icon">
+	               <%} %>
+	               <%if(l.getWater() == 1 ) {%>
 	                <img src="/testImage/water.png" class="locationInfo-icon">
+	               <%} %>
 	            </div>
 	        </div>
 	        <hr>
@@ -54,7 +66,7 @@
 	        <div class="locationInfo-btn-wrap">
 	            <a href="/locationList.do?requestPage=1"><button>목록으로</button></a>
 	            <%if(m.getMemberLevel()==1) {%>
-	            <a href="/deleteLocation.do?groundNo=<%=l.getGroundNo() %>"><button class = "delete-btn" >구장삭제</button></a>
+	            <button class = "delete-btn" onclick="locationDelete(<%=l.getGroundNo()%>);" >구장삭제</button></a>
 	            <%} %>
 	        </div>
 	   </div>

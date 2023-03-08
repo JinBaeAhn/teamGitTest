@@ -9,7 +9,13 @@ public class Location {
 	private String groundContent;
 	private String filePath;
 	private String groundLocation;
-
+	
+	private int parking;
+	private int shower;
+	private int ball;
+	private int uniform;
+	private int shoes;
+	private int water;
 	
 	public Location() {
 		super();
@@ -17,7 +23,8 @@ public class Location {
 	}
 
 	public Location(int groundNo, String groundName, int groundPrice, String groundLat, String groundLng,
-			String groundContent, String filePath, String groundLocation) {
+			String groundContent, String filePath, String groundLocation, int parking, int shower, int ball,
+			int uniform, int shoes, int water) {
 		super();
 		this.groundNo = groundNo;
 		this.groundName = groundName;
@@ -27,7 +34,14 @@ public class Location {
 		this.groundContent = groundContent;
 		this.filePath = filePath;
 		this.groundLocation = groundLocation;
+		this.setParking(parking);
+		this.setShower(shower);
+		this.setBall(ball);
+		this.setUniform(uniform);
+		this.setShoes(shoes);
+		this.setWater(water);
 	}
+
 
 	public int getGroundNo() {
 		return groundNo;
@@ -94,6 +108,54 @@ public class Location {
 
 	public void setGroundLocation(String groundLocation) {
 		this.groundLocation = groundLocation;
+	}
+
+	public int getParking() {
+		return parking;
+	}
+
+	public void setParking(int parking) {
+		this.parking = parking;
+	}
+
+	public int getShower() {
+		return shower;
+	}
+
+	public void setShower(int shower) {
+		this.shower = shower;
+	}
+
+	public int getBall() {
+		return ball;
+	}
+
+	public void setBall(int ball) {
+		this.ball = ball;
+	}
+
+	public int getUniform() {
+		return uniform;
+	}
+
+	public void setUniform(int uniform) {
+		this.uniform = uniform;
+	}
+
+	public int getShoes() {
+		return shoes;
+	}
+
+	public void setShoes(int shoes) {
+		this.shoes = shoes;
+	}
+
+	public int getWater() {
+		return water;
+	}
+
+	public void setWater(int water) {
+		this.water = water;
 	}
 
 	

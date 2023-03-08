@@ -70,7 +70,7 @@ public class LocationDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset =  null;
 		Location l = null;
-		String query = "select * from ground_tbl where ground_no=?";
+		String query = "select * from ground_tbl  left join amenity using(ground_no) where ground_no=?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -78,12 +78,20 @@ public class LocationDao {
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				l = new Location();
+				l.setGroundNo(rset.getInt("ground_no"));
 				l.setGroundName(rset.getString("ground_name"));
 				l.setGroundPrice(rset.getInt("ground_price"));
 				l.setGroundLat(rset.getString("ground_lat"));
 				l.setGroundLng(rset.getString("ground_lng"));
 				l.setGroundContent(rset.getString("ground_content"));
 				l.setFilePath(rset.getString("file_path"));
+				
+				l.setParking(rset.getInt("parking"));
+				l.setShower(rset.getInt("shower"));
+				l.setBall(rset.getInt("ball"));
+				l.setUniform(rset.getInt("uniform"));
+				l.setShoes(rset.getInt("shoes"));
+				l.setWater(rset.getInt("water"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
