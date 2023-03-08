@@ -226,5 +226,137 @@ public class MatchingDao {
 		return result;
 	}
 
+	public int searchApplyMember(Connection conn, int matchingBoardNo, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		int memberCheck = 0;
+		String query = "select count(*) as cnt from matching_request where matching_board_no=? and member_no=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, matchingBoardNo);
+			pstmt.setInt(2, memberNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+				if(result>0) {
+					memberCheck=1;
+				}else {
+					memberCheck=0;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return memberCheck;
+	}
+
+	public ArrayList<Matching> selectMatchingMemberList(Connection conn, int start, int end, int matchingBoardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Matching> list = new ArrayList<Matching>();
+		String query = "select * from (select rownum as rnum, n.* from (select r.matching_board_no, r.member_no, member_name, member_phone, member_mail, matching_request_status from matching_request r left join member_tbl m on(r.member_no=m.member_no) where matching_board_no = ? and r.member_no is not null order by r.member_no desc)n) where rnum between ? and ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, matchingBoardNo);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rset = pstmt.executeQuery();
+			//System.out.println("매칭보드"+matchingBoardNo);
+			//System.out.println("스타트"+start);
+			//System.out.println("엔드"+end);
+			
+			
+			while(rset.next()) {
+				Matching mc = new Matching();
+				mc.setMatchingBoardNo(rset.getInt("matching_board_no"));
+				mc.setMemberNo(rset.getInt("member_no"));
+				mc.setMemberName(rset.getString("member_name"));
+				mc.setMemberPhone(rset.getString("member_phone"));
+				mc.setMemberMail(rset.getString("member_mail"));
+				mc.setMatchingRequestStatus(rset.getInt("matching_request_status"));
+				list.add(mc);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		System.out.println("리스트사이즈 체크"+list.size());
+		return list;
+	}
+
+	public int selectMatchingMemberListCount(Connection conn, int matchingBoardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int totalCount = 0;
+		String query = "select count(*) as cnt from (select r.matching_board_no, r.member_no, member_phone, member_mail, matching_request_status from matching_request r left join member_tbl m on(r.member_no=m.member_no) where matching_board_no = ? and r.member_no is not null order by r.member_no desc)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, matchingBoardNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalCount = rset.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		System.out.println("토탈 카운트 체크"+totalCount);
+		return totalCount;
+		
+	}
+
+	public int applyInsert(Connection conn, int memberNo, int matchingBoardNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query="update matching_request set matching_request_status = 2 where matching_board_no=? and member_no=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, matchingBoardNo);
+			pstmt.setInt(2, memberNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int applyCancel(Connection conn, int memberNo, int matchingBoardNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query="update matching_request set matching_request_status = 1 where matching_board_no=? and member_no=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, matchingBoardNo);
+			pstmt.setInt(2, memberNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	
 	
 }

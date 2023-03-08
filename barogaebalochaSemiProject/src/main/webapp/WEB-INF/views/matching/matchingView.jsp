@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
     <%
     Matching mc = (Matching)request.getAttribute("mc");
+    int memberCheck = (int)request.getAttribute("check");
     %>
 <!DOCTYPE html>
 <html>
@@ -203,12 +204,18 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                            	<%if(mc.getMemberNo() != m.getMemberNo()) {%>
+                            	<%if(mc.getMemberNo() != m.getMemberNo() && memberCheck == 0) {%>
                             	<a href="matchingMemberListInsert.do?matchingBoardNo=<%=mc.getMatchingBoardNo() %>&memberNo=<%=m.getMemberNo() %>&reservationNo=<%=mc.getReservationNo() %>">
                             	<input type="submit" class="btn1 bc1 apply-btn apply-complete" value="신청하기">
                             	</a>
+                            	<%}else if(mc.getMemberNo() != m.getMemberNo() && memberCheck == 1) { %>
+                            	<a href="#">
+                            	<input type="submit" class="btn1 bc1 apply-complete" onclick="alert('이미 신청한 매치입니다')" value="신청완료">
+                            	</a>
                             	<%}else{ %>
+                            	<a href="matchingMemberList.do?matchingBoardNo=<%=mc.getMatchingBoardNo()%>&requestPage=1">
                             	<input type="submit" class="btn1 bc1 apply-btn" value="신청현황">
+                            	</a>
                             	<%} %>
                                 <a href="/matchingList.do?requestPage=1" class="btn1 bc1">목록으로</a>
                             </td>
@@ -224,11 +231,7 @@
       
 	</div>
 	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script>
-   		$(".apply-btn").on("click",function(){
-   		
-   		});
-    </script>
+    
 	
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

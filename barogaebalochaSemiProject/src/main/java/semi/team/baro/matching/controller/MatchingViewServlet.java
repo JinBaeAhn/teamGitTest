@@ -14,6 +14,7 @@ import semi.team.baro.location.model.service.LocationService;
 import semi.team.baro.location.model.vo.LocationViewData;
 import semi.team.baro.matching.model.service.MatchingService;
 import semi.team.baro.matching.model.vo.Matching;
+import semi.team.baro.matching.model.vo.MatchingMemberCheck;
 import semi.team.baro.matching.model.vo.MatchingViewData;
 
 /**
@@ -38,18 +39,22 @@ public class MatchingViewServlet extends HttpServlet {
 		//1.인코딩
 		request.setCharacterEncoding("utf-8");
 		//2.값추출
+		//System.out.println("여까진 돌아감?");
 		int reservationNo = Integer.parseInt(request.getParameter("reservationNo"));
-		//int matchingBoardNo = Integer.parseInt(request.getParameter("matchingBoardNo"));
-		
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+		//System.out.println("멤버넘버 잘 냐오냐?"+memberNo);
+		int matchingBoardNo = Integer.parseInt(request.getParameter("matchingBoardNo"));
 		//System.out.println("test용 레저브"+reservationNo);
 		//3.비즈니스로직
 		MatchingService service = new MatchingService();
 		//Matching mc = service.selectOneMatch(matchingBoardNo);
-		Matching mc = service.selectOneMatch(reservationNo);
-		//System.out.println("멤버넘버 잘 냐오냐?"+mc.getMemberNo());
+		MatchingMemberCheck mmc = service.selectOneMatch(reservationNo, matchingBoardNo, memberNo);
+		//System.out.println("멤버체크 확인"+mmc.getMemberCheck());
+		
 		//4.화면처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/matching/matchingView.jsp");
-		request.setAttribute("mc", mc);
+		request.setAttribute("mc", mmc.getMc());
+		request.setAttribute("check", mmc.getMemberCheck());
 		view.forward(request, response);
 	}
 

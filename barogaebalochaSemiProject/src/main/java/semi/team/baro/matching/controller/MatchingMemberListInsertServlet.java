@@ -37,6 +37,9 @@ public class MatchingMemberListInsertServlet extends HttpServlet {
 		int matchingBoardNo = Integer.parseInt(request.getParameter("matchingBoardNo"));
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 		int reservationNo = Integer.parseInt(request.getParameter("reservationNo"));
+		
+		//System.out.println("매치보드넘버 확인"+matchingBoardNo);
+		//System.out.println("멤버번호 확인"+memberNo);
 		//3.비즈니스로직
 		MatchingService service = new MatchingService();
 		int result = service.matchingMemberInsert(matchingBoardNo, memberNo);
@@ -51,7 +54,8 @@ public class MatchingMemberListInsertServlet extends HttpServlet {
 			request.setAttribute("msg", "매치신청 중 오류가 발생했습니다");
 			request.setAttribute("icon", "error");
 		}
-		request.setAttribute("loc", "/matchingView.do?reservationNo="+reservationNo);
+		request.setAttribute("loc", "/matchingView.do?reservationNo="+reservationNo+"&matchingBoardNo="+matchingBoardNo+"&memberNo="+memberNo);
+		//System.out.println("매칭맴버 서블릿 멤버넘버 확인"+memberNo);
 		view.forward(request, response);
 	}
 

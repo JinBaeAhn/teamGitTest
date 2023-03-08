@@ -21,15 +21,23 @@ public class Matching {
 	private String reservationDate;
 	private int reservationStatus;
 	
+	private String memberName;
+	private String memberPhone;
+	private String memberMail;
+	
 	public Matching() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
+
+
 	public Matching(int matchingBoardNo, int memberNo, String matchingBoardTitle, String matchingBoardContent,
 			String regDate, int readCount, int matchingStatus, int groundNo, String groundLocation, int reservationNo,
 			String groundName, int groundPrice, int matchingNo, int matchingRequestStatus, int reservationTime,
-			String reservationDate, int reservationStatus) {
+			String reservationDate, int reservationStatus, String memberName, String memberPhone, String memberMail) {
 		super();
 		this.matchingBoardNo = matchingBoardNo;
 		this.memberNo = memberNo;
@@ -48,7 +56,14 @@ public class Matching {
 		this.reservationTime = reservationTime;
 		this.reservationDate = reservationDate;
 		this.reservationStatus = reservationStatus;
+		this.setMemberName(memberName);
+		this.memberPhone = memberPhone;
+		this.memberMail = memberMail;
 	}
+
+
+
+
 
 	public int getMatchingBoardNo() {
 		return matchingBoardNo;
@@ -191,6 +206,34 @@ public class Matching {
 
 	public void setReservationStatus(int reservationStatus) {
 		this.reservationStatus = reservationStatus;
+	}
+
+	public String getMemberPhone() {
+		return memberPhone;
+	}
+
+	public void setMemberPhone(String memberPhone) {
+		this.memberPhone = memberPhone;
+	}
+
+	public String getMemberMail() {
+		return memberMail;
+	}
+
+	public void setMemberMail(String memberMail) {
+		this.memberMail = memberMail;
+	}
+
+
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 
 }
