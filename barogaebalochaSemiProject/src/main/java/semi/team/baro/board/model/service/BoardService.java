@@ -98,6 +98,7 @@ public class BoardService {
 			ArrayList<BoardComment> boardCommentList = boardDao.selectBoardComments(connection,photoNo);
 			//대댓글조회
 			ArrayList<BoardComment> boardReCommentList = boardDao.selectBoardReComments(connection,photoNo);
+			
 			//작성자 삽입
 			for(BoardComment comment :boardCommentList) {
 				comment.setMemberId(boardDao.getCommentWriter(connection, comment.getBoardCommentWriter(),comment.getBoardCommentNo()));
@@ -148,5 +149,41 @@ public class BoardService {
 		}
 		JDBCTemplate.close(connection);
 		return board;
+	}
+
+	public int freeBoardCommentWrite(BoardComment boardComment) {
+		Connection connection = JDBCTemplate.getConnection();
+		int result = boardDao.freeBoardCommentWrite(connection, boardComment);
+		if(result > 0) {
+			JDBCTemplate.commit(connection);
+		} else {
+			JDBCTemplate.rollback(connection);
+		}
+		JDBCTemplate.close(connection);
+		return result;
+	}
+
+	public int removeFreeBoardComment(int boardCommentNo) {
+		Connection connection = JDBCTemplate.getConnection();
+		int result = boardDao.removeFreeBoardComment(connection, boardCommentNo);
+		if(result > 0) {
+			JDBCTemplate.commit(connection);
+		} else {
+			JDBCTemplate.rollback(connection);
+		}
+		JDBCTemplate.close(connection);
+		return result;
+	}
+
+	public int freeBoardCommentUpdate(BoardComment boardComment) {
+		Connection connection = JDBCTemplate.getConnection();
+		int result = boardDao.freeBoardCommentUpdate(connection, boardComment);
+		if(result > 0) {
+			JDBCTemplate.commit(connection);
+		} else {
+			JDBCTemplate.rollback(connection);
+		}
+		JDBCTemplate.close(connection);
+		return result;
 	}
 }
