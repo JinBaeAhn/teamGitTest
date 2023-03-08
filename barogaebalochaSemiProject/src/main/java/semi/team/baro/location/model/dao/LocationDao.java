@@ -141,6 +141,7 @@ public class LocationDao {
 		}finally {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
+			//System.out.println("리스트사이즈 잘 나오냐"+list.size());
 		}
 		
 		return list;
