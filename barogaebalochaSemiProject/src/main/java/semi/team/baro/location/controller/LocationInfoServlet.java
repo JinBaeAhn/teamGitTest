@@ -38,6 +38,8 @@ public class LocationInfoServlet extends HttpServlet {
 		//3.비즈니스로직
 		LocationService service = new LocationService();
 		LocationViewData lvd = service.selectOneLocation(groundNo);
+		//System.out.println("그라운드넘버 테스트 아아"+lvd.getL().getGroundNo());
+		//System.out.println("그라운드넘버 테스트 아아"+groundNo);
 		if(lvd == null) { //실패했을 때
 			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 			request.setAttribute("title", "오류가 발생했습니다");
