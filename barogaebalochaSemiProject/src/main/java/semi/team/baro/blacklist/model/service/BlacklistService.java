@@ -2,6 +2,7 @@ package semi.team.baro.blacklist.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import common.JDBCTemplate;
 import semi.team.baro.blacklist.model.dao.BlacklistDao;
@@ -88,10 +89,33 @@ public class BlacklistService {
 		return bpd;
 	}
 
-	public int blacklistInsert(Blacklist bl) {
+	public int changeStatus(int blackNo, int blackStatus) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = dao.blacklistInsert(conn, bl);
-		if(result > 0) {
+		int result = dao.changeStatus(conn,blackNo,blackStatus);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public boolean checkedChangeStatus(String no, String status) {
+		Connection conn = JDBCTemplate.getConnection();
+		StringTokenizer sT1 = new StringTokenizer(no,"/");
+		StringTokenizer sT2 = new StringTokenizer(status,"/");
+		boolean result = true;
+		while(sT1.hasMoreTokens()) {
+			int blackNo = Integer.parseInt(sT1.nextToken());
+			int blackStatus = Integer.parseInt(sT2.nextToken());
+			int changeResult = dao.changeStatus(conn, blackNo, blackStatus);
+			if(changeResult == 0) {
+				result = false;
+				break;
+			}
+		}
+		if(result) {
 			JDBCTemplate.commit(conn);
 		}else {
 			JDBCTemplate.rollback(conn);

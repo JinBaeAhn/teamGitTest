@@ -92,4 +92,22 @@ public class BlacklistDao {
 		return totalCount;
 	}
 
+	public int changeStatus(Connection conn, int blackNo, int blackStatus) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "update admin_black_list set black_status=? where black_no=? ";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, blackStatus);
+			pstmt.setInt(2, blackNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
 }
