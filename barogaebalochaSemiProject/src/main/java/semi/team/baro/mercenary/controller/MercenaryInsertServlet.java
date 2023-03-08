@@ -37,7 +37,7 @@ public class MercenaryInsertServlet extends HttpServlet {
 		Mercenary mc = new Mercenary();	
 		mc.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));
 		mc.setLocation(request.getParameter("location"));
-		mc.setGroundName(request.getParameter("groundName"));
+		mc.setGroundNo(Integer.parseInt(request.getParameter("groundNo")));
 		mc.setGameDate(request.getParameter("gameDate"));
 		mc.setGameTime(Integer.parseInt(request.getParameter("gameTime")));
 		mc.setLevel(Integer.parseInt(request.getParameter("level")));

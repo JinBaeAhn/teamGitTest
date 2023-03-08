@@ -17,7 +17,7 @@ public class BlacklistDao {
 	public int blacklistInsert(Connection conn, Blacklist bl) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into admin_black_list values(admin_black_list_seq.nextval, ?, ?, ?, ?, to_char(sysdate, 'yyyy-mm-dd/hh24:mi:ss'), ?, 0)";
+		String query = "insert into admin_black_list values(admin_black_list_seq.nextval, ?, ?, ?, ?, to_char(sysdate, 'yyyy-mm-dd/hh24:mi:ss'), ?, 1)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
