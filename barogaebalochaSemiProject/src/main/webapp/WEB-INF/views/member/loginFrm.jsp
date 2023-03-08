@@ -7,7 +7,10 @@
 <title>Insert title here</title>
 <style>
     .page-title{
+    	width: 600px;
+    	padding : 20px;
 		font-size: 40px;
+		margin: 0 auto;
 	}
     .input-wrap{
         width: 600px;
@@ -25,15 +28,18 @@
     .input-form-short:focus {
         box-shadow: 0 0 0 0.1rem #eee;
     }
+   
     .btn-wrap>a{
         width: 49%;
         text-align: center;
     }
     .btn-wrap{
-        text-align: center;
+        display: flex;
+        width: 600px;
+        margin: 0 auto;
     }
     #log-img{
-        width: 100%;
+        width: 50%;   
     }
     .modal-bg {
 	  background-color: rgba(0, 0, 0, 0.3);
@@ -73,6 +79,20 @@
 	.close-icon:hover {
 	  cursor: pointer;
 	}
+	#searchId{
+		cursor: pointer;
+	}
+	#checkId{
+		margin-top: 10px;
+		float: right;
+	}
+	#passwordSendBtn{
+		margin-top: 10px;
+		float: right;
+	}
+	.modal-box{
+		margin-top: 10px;
+	}
     </style>
 </head>
 <body>
@@ -94,19 +114,19 @@
                     </div>
                 </div>
                 <div class="input-wrap">
-                    <button type="submit" class="btn1 bc1 bs4">로그인</button>
+                    <button type="submit" class="btn1 bc44 bs4" id="myform">로그인</button>
                 </div>
             </form>
-            <div class="input-wrap btn-wrap">
-                <a id="searchId" class="btn1 bc2 bs3">아이디/비밀번호 찾기</a>
-                <div id="pay-modal" class="modal-bg">
+            <div class="btn-wrap" style="display:flex;">
+                <a id="searchId">아이디/비밀번호 찾기</a><span>|</span>
+                <div id="login-modal" class="modal-bg">
       				<div class="modal-wrap">
         				<div class="modal-head">
-          					<h2>아이디/비밀번호 찾기</h2>
+          					<h3 style="text-align: left;">아이디/비밀번호 찾기</h3>
           					<span class="material-icons close-icon modal-close">close</span>
         				</div>
 	        			<div class="modal-content">
-          					<div class="input-box">
+          					<div class="modal-box">
 	     						<form>
 	          						<label for="memberName">이름</label>
                       				<input type="text" name="memberName" id="memberName" class="input-form-short" placeholder="성함을 입력해주세요" required>
@@ -116,7 +136,7 @@
     	            			</form>
 	                    		<span id="idResult"></span>
                     		</div>
-                			<div class="input-box">
+                			<div class="modal-box">
                     			<form>
                     				<label for="searchId">아이디</label>
  				                	<input type="text" name="searchId" id="searchId" class="input-form-short" placeholder="아이디를 입력해주세요" required>
@@ -134,12 +154,10 @@
 	        			</div>
       				</div>
     			</div>
-                <a href="/joinFrm.do" class="btn1 bc22 bs3">회원가입</a>
+                <a href="/joinFrm.do">회원가입</a>
             </div>
-            <div class="input-wrap">
-                <a href="/">
+            <div class="input-wrap" style="text-align: center;">
                     <img src="/img/FUTSALDATE.png" id="log-img">
-                </a>
             </div>
         </div>
     </div>
@@ -202,6 +220,7 @@
  				});
  			});
  	});
+  
 
      </script>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>

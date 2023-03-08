@@ -224,6 +224,13 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		return list;
 	}
+	
+	public Member checkMemberMail(String memberMail) {
+		Connection conn = JDBCTemplate.getConnection();
+		Member m = dao.checkMemberMail(conn, memberMail);
+		JDBCTemplate.close(conn);
+		return m;
+	}
 
 
 }
