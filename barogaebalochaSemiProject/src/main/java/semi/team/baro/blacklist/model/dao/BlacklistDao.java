@@ -37,7 +37,6 @@ public class BlacklistDao {
 		return result;
 	}
 
-<<<<<<< HEAD
 	public ArrayList<Blacklist> selectAdminBlacklistList(Connection conn, int start, int end) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -82,34 +81,10 @@ public class BlacklistDao {
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				totalCount = rset.getInt("cnt");
-=======
-	public Blacklist blacklistView(Connection conn, int blackNo) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		Blacklist bla = null;
-		String query = "select * from admin_black_list join member_tbl using(member_no) where black_no = ?";
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, blackNo);
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				bla = new Blacklist();
-				bla.setBlackContent(rset.getString("black_content"));
-				bla.setBlackFilepath(rset.getString("black_filepath"));
-				bla.setBlackMember(rset.getString("black_member"));
-				bla.setBlackNo(rset.getInt("black_no"));
-				bla.setBlackStatus(rset.getInt("black_status"));
-				bla.setBlackTitle(rset.getString("black_title"));
-				bla.setMemberId(rset.getString("member_id"));
-				bla.setMemberNo(rset.getInt("member_no"));
-				bla.setRegDate(rset.getString("reg_date"));
->>>>>>> main
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-<<<<<<< HEAD
 		}finally {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
@@ -135,14 +110,4 @@ public class BlacklistDao {
 		return result;
 	}
 
-=======
-		} finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
-		}
-		return bla;
-	}
->>>>>>> main
 }
-
-
