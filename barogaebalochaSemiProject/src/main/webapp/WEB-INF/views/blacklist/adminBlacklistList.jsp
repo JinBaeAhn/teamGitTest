@@ -64,7 +64,7 @@
 			</tr>
 			<%for(int i=0;i<list.size();i++) {%>
 				<%Blacklist b = list.get(i); %>
-			<tr class="tr-1">
+			<tr class="tr-1" onclick="location.href='blacklistView.do?blackNo=<%=b.getBlackNo() %>'">
 				<td><%=i+start %></td>
 				<td>
 					<a href="/blacklistView.do?blackNo=<%=b.getBlackNo() %>">
