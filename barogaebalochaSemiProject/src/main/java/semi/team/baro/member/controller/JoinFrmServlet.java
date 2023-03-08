@@ -28,7 +28,8 @@ public class JoinFrmServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(1);
+		request.setCharacterEncoding("utf-8");
+		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/member/joinFrm.jsp");
 		requestDispatcher.forward(request, response);
 	}
