@@ -57,6 +57,7 @@ textarea.input-form {
 }
 .bc33{
     margin-left: 25px;
+    margin-bottom: 5px;
 }
 .page-title{
     margin-bottom: 20px;
