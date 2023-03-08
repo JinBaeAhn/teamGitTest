@@ -100,12 +100,21 @@ public class LocationService {
 		return lvd;
 	}
 
-	public int insertLocation(Location l) {
+	public int insertLocation(Location l, int[] amenityActiveList) {
 		Connection conn = JDBCTemplate.getConnection();
 //		int result = dao.insertamenity(conn,)
 		int result = dao.insertLocation(conn,l);
 		if(result>0) {
-			JDBCTemplate.commit(conn);
+			int groundNo = dao.getGroundNo(conn,l.getGroundName());
+			int setAmenityResult = dao.setAmenity(conn,groundNo,amenityActiveList);
+			if(setAmenityResult > 0) {
+				l.getGroundNo();
+				System.out.println("부대시설 설정 완료");
+				JDBCTemplate.commit(conn);
+				
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
 		}else {
 			JDBCTemplate.rollback(conn);
 		}

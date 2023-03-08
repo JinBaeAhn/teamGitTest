@@ -146,5 +146,51 @@ public class LocationDao {
 		return list;
 	}
 
+	public int setAmenity(Connection conn, int groundNo, int[] amenityActiveList) {
+		PreparedStatement preparedStatement = null;
+		String query = "insert into AMENITY values(?,?,?,?,?,?,?)";
+		int reuslt = 0;
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, groundNo);
+			System.out.println(groundNo);
+			preparedStatement.setInt(2, amenityActiveList[0]);
+			preparedStatement.setInt(3, amenityActiveList[1]);
+			preparedStatement.setInt(4, amenityActiveList[2]);
+			preparedStatement.setInt(5, amenityActiveList[3]);
+			preparedStatement.setInt(6, amenityActiveList[4]);
+			preparedStatement.setInt(7, amenityActiveList[5]);
+			reuslt = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(preparedStatement);
+		}
+		return reuslt;
+	}
+
+	public int getGroundNo(Connection conn, String groundName) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		String query = "select ground_no from ground_tbl where ground_name = ?";
+		int groundNo = 0;
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, groundName);
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				groundNo = resultSet.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(preparedStatement);
+			JDBCTemplate.close(resultSet);
+		}
+		return groundNo;
+	}
+
 
 }

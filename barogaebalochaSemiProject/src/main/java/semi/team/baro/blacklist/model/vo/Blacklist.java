@@ -29,10 +29,11 @@ public class Blacklist {
 		this.blackStatus = blackStatus;
 		this.memberLevel = memberLevel;
 	}
+	
 	public int getMemberLevel() {
 		return memberLevel;
 	}
-	public void setMemberLevel(int getMemberLevel) {
+	public void setMemberLevel(int memberLevel) {
 		this.memberLevel = memberLevel;
 	}
 	public int getBlackNo() {

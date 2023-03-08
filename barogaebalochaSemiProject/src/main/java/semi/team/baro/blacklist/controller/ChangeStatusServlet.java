@@ -47,8 +47,13 @@ public class ChangeStatusServlet extends HttpServlet {
 		if(result>0) {
 			//주소창을 변경
 			request.setAttribute("title", "상태 변경 성공");
-			request.setAttribute("msg", "상태 변경 왼료");
+			request.setAttribute("msg", "상태 변경 완료");
 			request.setAttribute("icon", "success");
+			request.setAttribute("loc", "/adminBlacklistList.do?reqPage=1");
+		}else {
+			request.setAttribute("title", "등급 변경 실패");
+			request.setAttribute("msg", "등급 변경 중 문제가 발생");
+			request.setAttribute("icon", "warning");
 			request.setAttribute("loc", "/adminBlacklistList.do?reqPage=1");
 		}
 		view.forward(request, response);
