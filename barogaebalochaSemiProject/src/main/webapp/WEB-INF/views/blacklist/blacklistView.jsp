@@ -11,9 +11,10 @@
 <title>Insert title here</title>
 <style>
     .tbl {
-    	width: 90%;
+    	width: 80%;
     	margin: 0 auto;
 	    border-spacing: 0px;
+	    border-collapse: collapse;
     }
     .tbl th,.tbl td {
         padding: 10px;
@@ -27,8 +28,13 @@
         background-color: #ccc;
         color: #fcfcfc;
     }
-    .blacklist-content th{
-    	min-hight: 300px;
+    .black-content{
+    	text-align: left;
+    	height: 400px;
+    	padding: 20px;
+    }
+    .btn1{
+    	padding: 5px;
     }
 </style>
 </head>
@@ -62,15 +68,16 @@
 					<th>첨부파일</th>
 					<td colspan="3"><%=bla.getBlackFilepath() %></td>
 				</tr>
+				<tr style="min-hight:300px;">
+					<th>내용</th>
+					<td colspan="3">
+						<div class="black-content">
+							<%=bla.getBlackContentBr() %>
+						</div>
+					</td>
+				</tr>
 				<tr>
-				<td colspan="4">
-					<div class="mercenary-content">
-						<%=bla.getBlackContentBr() %>
-					</div>
-				</td>
-			</tr>
-				<tr>
-					<td colspan="4"><a href="/" class="btn1 bc2">목록으로</a></td>
+					<td colspan="4"><a href="/historyBlacklist.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=blacklist" class="btn1 bc2">목록으로</a></td>
 				</tr>
 			</table>
 		</div>
