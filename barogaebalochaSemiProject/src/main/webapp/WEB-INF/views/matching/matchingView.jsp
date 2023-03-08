@@ -152,7 +152,7 @@
 		<div class="page-title">
             <h2>매칭폼 작성</h2>
             <div class="matchinglistWriteFrm-input-wrap">
-                <form action="/matchingListInsert.do?memberNo=<%=m.getMemberNo() %>" method="post">
+                
                     <table class="tbl" id="matchinglistWriteFrm">
                     	<tr>
                             <th>매칭 제목</th>
@@ -191,121 +191,43 @@
                             <td>
                                 <div class="input-form playTime">
                                  <p><%=mc.getGroundPrice() %></p>
+                                 <p class="test"><%=mc.getMemberNo() %></p>
+                                  <p class="test2"><%=m.getMemberNo() %></p>
                                  </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <textarea class="input-form content" name="matchingBoardContent" readonly><%=mc.getMatchingBoardContentBr() %></textarea>
+                                <textarea class="input-form content" name="matchingBoardContent" readonly><%=mc.getMatchingBoardContent() %></textarea>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
-                            	<input type="submit" class="btn1 bc1" value="신청하기">
+                            	<%if(mc.getMemberNo() != m.getMemberNo()) {%>
+                            	<a href="matchingMemberListInsert.do?matchingBoardNo=<%=mc.getMatchingBoardNo() %>&memberNo=<%=m.getMemberNo() %>&reservationNo=<%=mc.getReservationNo() %>">
+                            	<input type="submit" class="btn1 bc1 apply-btn apply-complete" value="신청하기">
+                            	</a>
+                            	<%}else{ %>
+                            	<input type="submit" class="btn1 bc1 apply-btn" value="신청현황">
+                            	<%} %>
                                 <a href="/matchingList.do?requestPage=1" class="btn1 bc1">목록으로</a>
                             </td>
                         </tr>
                     </table>          
-                </form>
+                
             </div>
         </div>
-        <div class="modal-wrap">
-	        <div class="login-modal">
-	            <div class="modal-top">
-	                <h2>구장 조회</h2>
-	            </div>
-	            <div class="modal-content">
-	               
-	                    <input type="text" class="modal-location" value="" readonly>
-	                    <select class="modal-select-form" name="location">
-                        </select>
-                    	<div class="modal-btn-frm">
-		                	<input type="submit" class="btn1 bc1 modal-btn" value="구장 선택">
-		                    <input type="reset" class="btn1 bc1 modal-btn" value="취소">
-	                    </div>
-	                
-	            </div>
-	        </div>
-    	</div>
+       	<!-- 매칭리스트 -->
+       <P>	ㄹㅇㄴㅇㄴㄹㄴㅇㄹ</P>
+       
+        
+      
 	</div>
 	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
-   		let locationVal;
-	    $( function() {
-	      $( "#datepicker" ).datepicker({
-	        changeMonth: true,
-	        dayNames: ['월요일','화요일','수요일','목요일','금요일','토요일','일요일'],
-	        dayNamesMin: ['월','화','수','목','금','토','일'],
-	        monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-	        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-	        minDate: 0,
-	        maxDate: "+6M"
-	      });
-	    });
-	    $(".locationSearch").on("click",function(){
-	    	  $(".modal-wrap").css("display","flex");
-	    	  locationVal = $(".location-select-form").val();
-	    	  $(".modal-location").val(locationVal);
-	    	  //console.log(locationVal)
-	    	  const result = $(".modal-select-form");
-	    	  result.empty();
-	    	  //ajax시작
-	    	   $.ajax({
-	    		url : "/locationSearchList.do",
-	    		type : "get",
-	    		data : {groundLocation : locationVal},
-	    		dataType : "JSON",
-	    		success : function(data){
-	    			console.log(data);
-	    			if(data.length == 0){
-	    				const option = $("<option value=''></option>");
-    					option.append("해당 지역에 구장이 없습니다.");
-    					result.append(option);
-						}else{
-	    				/*$(".modal-select-form").append()*/
-	    				for(let i=0;i<data.length;i++){
-	    					//const price = $(".input-price").val(data[i].groundPrice+"원");
-	    					const option = $("<option value=''></option>");
-	    					option.val(data[i].groundName+"<<2시간 "+data[i].groundPrice+"원>>");
-	    					option.append(data[i].groundName+"<<2시간 "+data[i].groundPrice+"원>>");
-	    					result.append(option);
-	    					//console.log(data[i].groundName);
-	    				}
-	    			}
-	    		}
-	    	  });
-	    });
-	    $("input[type=reset]").on("click",function(){
-	        $(".modal-wrap").css("display","none");
-	    })
-	    $(".modal-btn-frm>input:first-child").on("click",function(){
-	    	//console.log($(this).parent().prev().val());
-	    	const choice = $(this).parent().prev().val();
-	    	console.log(choice);
-	    	if(choice == ""){
-	    		var input = $(".input-form[name=groundName]");
-	    		input.val("");
-	    		input.val(input.val() + "해당 지역에 구장이 없습니다." );
-	    	}else{
-	    		$(".input-form[name=groundName]").val(choice);
-	    		var str = choice;
-	    		var pattern = /<<(.*?)>>/;
-	    		var result = str.match(pattern)[1];
-	    		$(".input-price").val(result);
-		    	$(".modal-wrap").css("display","none");
-		    	
-		    	const pattern2 = /[^<<]+/;
-
-		    	const match = str.match(pattern2);
-		    	if (match) {
-		    	 const groundName = match[0].trim();
-	    		$(".input-form[name=groundName]").val(groundName);
-		    	}
-	    	}
-	    });
-	    $(".input-form[name=matchingBoardTitle]").on("click",function(){
-	    	$(this).val("");
-	    })
+   		$(".apply-btn").on("click",function(){
+   		
+   		});
     </script>
 	
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>

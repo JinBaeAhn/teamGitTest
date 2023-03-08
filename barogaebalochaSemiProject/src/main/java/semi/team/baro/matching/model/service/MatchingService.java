@@ -121,6 +121,16 @@ public class MatchingService {
 		return mc;
 	}
 
-	
+	public int matchingMemberInsert(int matchingBoardNo, int memberNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.matchingMemberInsert(conn, matchingBoardNo, memberNo);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
 
 }

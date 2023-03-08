@@ -100,14 +100,14 @@ public class MatchingDao {
 	public int reservationInsert(Connection conn, int groundNo, Matching mc) {
 		PreparedStatement pstmt = null;
 		int result = 0 ;
-		String query = "insert into reservation values(reservation_seq.nextval,?,?,?,?,0,reservation_id_seq.nextval)";
+		String query = "insert into reservation values(reservation_seq.nextval,?,?,?,?,0)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, mc.getMemberNo());
 			pstmt.setInt(2, groundNo);
 			pstmt.setInt(3, mc.getReservationTime());
-			pstmt.setString(4,  mc.getReservationDate());
+			pstmt.setString(4, mc.getReservationDate());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -175,7 +175,7 @@ public class MatchingDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Matching mc = null;
-		String query= "select b.matching_board_no, matching_board_title, matching_board_content, b.matching_status, reg_date, b.reservation_no, ground_name, ground_location, reservation_date, reservation_time, ground_price from matching_board b left join reservation res on (b.reservation_no = res.reservation_no) left join ground_tbl g on(res.ground_no=g.ground_no)  where b.reservation_no = ?";
+		String query= "select b.member_no, b.matching_board_no, matching_board_title, matching_board_content, b.matching_status, reg_date, b.reservation_no, ground_name, ground_location, reservation_date, reservation_time, ground_price from matching_board b left join reservation res on (b.reservation_no = res.reservation_no) left join ground_tbl g on(res.ground_no=g.ground_no)  where b.reservation_no = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -183,6 +183,7 @@ public class MatchingDao {
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				mc = new Matching();
+				mc.setMemberNo(rset.getInt("member_no"));
 				mc.setMatchingBoardNo(rset.getInt("matching_board_no"));
 				mc.setMatchingBoardTitle(rset.getString("matching_board_title"));
 				mc.setMatchingBoardContent(rset.getString("matching_board_content"));
@@ -203,6 +204,26 @@ public class MatchingDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return mc;
+	}
+
+	public int matchingMemberInsert(Connection conn, int matchingBoardNo, int memberNo) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		String query = "insert into matching_request values(matching_request_seq.nextval, 1, ?, ?)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, matchingBoardNo);
+			pstmt.setInt(2, memberNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
 	}
 
 	

@@ -75,7 +75,7 @@
 		        <div class="page-title">
             <h2>매칭리스트</h2>
             <hr>
-        </div>
+        	</div>
         <div class="matchingList-wrap">
         <% for(Matching mc : list) {%>
         
@@ -104,7 +104,7 @@
                 <div class="matchingList-result">
                 	<%if(mc.getMatchingStatus() == 1) {%>
 	                    <%if(m != null) {%>
-	                    <div class="btn1" style="background-color: #AACB73; "><a style="color:#fff;"" href="/matchingView.do?reservationNo=<%=mc.getReservationNo() %>">매치신청</a></div> 
+	                    <div class="btn1" style="background-color: #AACB73;"><a style="color:#fff;" href="/matchingView.do?reservationNo=<%=mc.getReservationNo() %>">매치신청</a></div> 
 	                    <%}else{ %>
 	                    <div class="btn1 need-login" style="background-color: #AACB73; color:#fff;" onclick="alert('로그인이 필요합니다')">매치신청</div> 
 	                    <%} %>          	
@@ -113,7 +113,7 @@
                 	<%} %>
                 </div>
             </div>	
-           </a>	
+          <!--  </a> -->	
         <%} %>                     
         </div>
         <%if(m != null) {%>
