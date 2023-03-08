@@ -187,7 +187,7 @@
 				<td><%=bl.getRegDate() %></td>
 				<td><%=bl.getBlackStatus() %></td>
 				<td></td>
-			</tr>
+			</tr onclick = "func();">
 			<%} %>
 		</table>
 		<div class="page-navi"><%=pageNavi %></div>
@@ -204,7 +204,6 @@
 			    $(".history-menu>li>a").removeClass("active-tab");
 			    $(this).addClass("active-tab");
 			});
-
 	</script>
 
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
