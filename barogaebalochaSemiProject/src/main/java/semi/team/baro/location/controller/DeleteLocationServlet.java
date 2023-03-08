@@ -58,7 +58,7 @@ public class DeleteLocationServlet extends HttpServlet {
 			request.setAttribute("title", "삭제실패");
 			request.setAttribute("msg", "관리자에게 문의하세요");
 			request.setAttribute("icon", "error");
-			request.setAttribute("loc", "/LocationInfo.do?groundNo="+groundNo);
+			request.setAttribute("loc", "/locationInfo.do?groundNo="+groundNo);
 		}
 		view.forward(request, response);
 	}

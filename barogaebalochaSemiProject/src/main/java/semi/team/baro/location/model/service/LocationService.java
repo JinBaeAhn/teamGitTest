@@ -129,4 +129,18 @@ public class LocationService {
 		return list;
 	}
 
+	public Location deleteLocation(int groundNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Location l = dao.selectOneLocation(conn, groundNo);
+		int result = dao.deleteLocation(conn,groundNo);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+			l = null;
+		}
+		JDBCTemplate.close(conn);
+		return l;
+	}
+
 }
