@@ -43,8 +43,10 @@
         text-align: center;
     } 
     #mercenaryView th, #mercenaryView td{
-        border: 1px solid #181818;
+        border: 1px solid #fcfcfc;
         font-size: 13px;
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
     }
     #mercenaryView th{
         background-color: #ccc;
@@ -111,13 +113,18 @@
 		margin: 0;
 	}
 	.posting-info>p:last-child{
-		margin-left: 70px;
+		margin-left: 30px;
 	}
 	.posting-link>.btn2{
 		padding: 5px 10px;
 	}
 	.comment-wrap{
 		border-bottom: 1px solid #ccc;
+	}
+	.posting-comment>img{
+		border-radius: 50%;
+		width: 35px;
+		hight: 35px;
 	}
 </style>
 </head>
@@ -227,6 +234,12 @@
 			<form action="/mercenaryRequestInsert.do" method="post">
 				<ul>
 					<li>
+						<%if( m !=null && m.getFilepath() != null) {%>
+							<%if(mcReq.getMemberFilepath() == null) {%>
+            	<img src="/img/profile.png">
+        	<%} else if(mcReq.getMemberFilepath() != null) { %>
+            	<img src="/upload/photo/<%=mcReq.getMemberFilepath() %>">
+        	<%} %>
 						<span class="material-symbols-outlined">account_circle</span>
 					</li>
 					<li>
@@ -258,7 +271,11 @@
 		<%for(MercenaryRequest mcReq : list) {%>
 		<div class="comment-wrap">
             <div class="posting-comment">
-                <span class="material-icons">account_box</span>
+            <%if(mcReq.getMemberFilepath() == null) {%>
+            	<img src="/img/profile.png">
+        	<%} else if(mcReq.getMemberFilepath() != null) { %>
+            	<img src="/upload/photo/<%=mcReq.getMemberFilepath() %>">
+        	<%} %>
             </div>
             <div class="posting-info">
                 <span style="font-size:17px;"><%=mcReq.getMemberId() %></span>

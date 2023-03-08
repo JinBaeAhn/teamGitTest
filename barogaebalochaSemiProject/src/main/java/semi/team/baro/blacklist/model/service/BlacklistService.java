@@ -88,5 +88,17 @@ public class BlacklistService {
 		return bpd;
 	}
 
+	public int blacklistInsert(Blacklist bl) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.blacklistInsert(conn, bl);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
 	
 }
