@@ -50,7 +50,7 @@ public class CheckedChangeLevelServlet extends HttpServlet {
 				request.setAttribute("msg", "요청 처리중 문제가 발생했습니다.");
 				request.setAttribute("icon", "error");
 			}
-			request.setAttribute("loc", "/adminPage.do");
+			request.setAttribute("loc", "/adminPage.do?reqPage=1");
 			view.forward(request, response);
 		}
 	}

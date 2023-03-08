@@ -17,7 +17,7 @@ public class BlacklistDao {
 	public int blacklistInsert(Connection conn, Blacklist bl) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into admin_black_list values(admin_black_list_seq.nextval, ?, ?, ?, ?, to_char(sysdate, 'yyyy-mm-dd/hh24:mi:ss'), ?, 0)";
+		String query = "insert into admin_black_list values(admin_black_list_seq.nextval, ?, ?, ?, ?, to_char(sysdate, 'yyyy-mm-dd/hh24:mi:ss'), ?, 1)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -41,7 +41,7 @@ public class BlacklistDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Blacklist> list = new ArrayList<Blacklist>();
-		String query = "select member_id,member_level, black_no, member_no, black_member, black_title, black_content, reg_date, black_filepath, black_status  from ADMIN_BLACK_LIST left join member_tbl using(member_no)";
+		String query = "select * from (select rownum as rnum, n.* from(select member_id,member_level, black_no, member_no, black_member, black_title, black_content, reg_date, black_filepath, black_status  from ADMIN_BLACK_LIST left join member_tbl using(member_no) order by black_no)n) where rnum between ? and ?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, start);
@@ -60,6 +60,7 @@ public class BlacklistDao {
 				b.setBlackFilepath(rset.getString("black_filepath"));
 				b.setBlackStatus(rset.getInt("black_status"));
 				list.add(b);
+				System.out.println(b.getBlackNo());
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -75,7 +76,7 @@ public class BlacklistDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int totalCount = 0;
-		String query = "select count(*) as cnt from blacklist";
+		String query = "select count(*) as cnt from admin_black_list";
 		try {
 			pstmt = conn.prepareStatement(query);
 			rset = pstmt.executeQuery();

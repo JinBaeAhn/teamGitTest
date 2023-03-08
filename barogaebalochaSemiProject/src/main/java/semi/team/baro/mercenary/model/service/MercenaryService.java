@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import semi.team.baro.history.model.vo.HistoryPageData;
+import semi.team.baro.location.model.vo.Location;
 import semi.team.baro.mercenary.model.dao.MercenaryDao;
 import semi.team.baro.mercenary.model.vo.Mercenary;
 import semi.team.baro.mercenary.model.vo.MercenaryPageData;
@@ -221,6 +222,13 @@ public class MercenaryService {
 		}	
 		JDBCTemplate.close(conn);
 		return result;
+	}
+
+	public ArrayList<Location> searchGround(String location) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Location> list = dao.searchGround(conn, location);
+		JDBCTemplate.close(conn);
+		return list;
 	}
 }
 

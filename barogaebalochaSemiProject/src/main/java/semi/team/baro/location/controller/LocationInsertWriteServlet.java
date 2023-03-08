@@ -1,7 +1,6 @@
 package semi.team.baro.location.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,18 +48,18 @@ public class LocationInsertWriteServlet extends HttpServlet {
 		String filepath = mRequest.getFilesystemName("upfile");
 		String groundLocation = mRequest.getParameter("address");
 		int groundPrice = Integer.parseInt(mRequest.getParameter("groundPrice"));
-		/*
+		
 		String[] amenityList = mRequest.getParameterValues("f");
 		int[] amenityActiveList = {0,0,0,0,0,0};
+		int count = 0;
 		for(int i=0;i<amenityActiveList.length;i++) {
-			if(amenityList[i].equals(i)) {
-				amenityActiveList[i] = 1;	
+			for(int j=0;j<amenityList.length;j++) {
+				if(count == (Integer.parseInt(amenityList[j]))) {
+					amenityActiveList[count]++;
+				}
 			}
+			count++;
 		}
-		for(int i=0;i<amenityActiveList.length;i++) {
-			System.out.println(amenityActiveList[i]);
-		}
-		*/
 		Location l = new Location();
 		l.setGroundName(groundName);
 		l.setGroundLat(groundLat);
@@ -71,7 +70,7 @@ public class LocationInsertWriteServlet extends HttpServlet {
 		l.setGroundPrice(groundPrice);
 		//3. 비즈니스로직
 		LocationService service = new LocationService();
-		int result = service.insertLocation(l);
+		int result = service.insertLocation(l,amenityActiveList);
 		//4. 결과처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		if(result>0) {

@@ -50,7 +50,7 @@ public class CheckedChangeStatusServlet extends HttpServlet {
 				request.setAttribute("msg", "요청 처리중 문제가 발생했습니다.");
 				request.setAttribute("icon", "error");
 			}
-			request.setAttribute("loc", "adminBlacklistList.do");
+			request.setAttribute("loc", "adminBlacklistList.do?reqPge=1");
 			view.forward(request, response);
 		}
 	}
