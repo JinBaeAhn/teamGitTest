@@ -262,6 +262,7 @@ public class HistoryDao {
 				mch.setRegDate(rset.getString("reg_date"));
 				mch.setReadCount(rset.getInt("read_count"));
 				mch.setMatchingStatus(rset.getInt("matching_status"));
+				mch.setReservationNo(rset.getInt("reservation_no"));
 				mchList.add(mch);
 			}
 		} catch (SQLException e) {

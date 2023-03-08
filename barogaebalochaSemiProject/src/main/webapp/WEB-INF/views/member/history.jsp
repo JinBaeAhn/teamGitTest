@@ -79,7 +79,7 @@
 				<th style="width:10%">모집상태</th>
 			</tr>   
 			<%for(Matching mch : mchList) {%>
-				<tr>
+				<tr onclick="location.href='/matchingView.do?reservationNo=<%=mch.getReservationNo() %>&memberNo=<%=m.getMemberNo() %>&matchingBoardNo=<%=mch.getMatchingBoardNo()%>'">
 					<td><%=mch.getMatchingNo() %></td>
 					<td><%=mch.getMatchingBoardTitle() %></td>
 					<td style="color:#ccc"><%=mch.getRegDate() %></td>
@@ -174,7 +174,7 @@
 				<th></th>
 			</tr>
 			<%for(Board b : boardList) {%>
-			<tr>
+			<tr onclick="location.href='freeBoardVeiw.do?photoNo=<%=b.getPhotoNo()%>'">
 				<td><%=b.getPhotoNo() %></td>
 				<td><%=b.getPhotoTitle() %></td>
 				<%if(b.getFilepath() == null) {%>

@@ -178,7 +178,7 @@
         <div class="mypage-wrap">
             <div class="user-title"><h2><%=m.getMemberName()%>'s Locker Room</h2></div>
             <div class="btn-box">
-                <a class="btn bc44 bs1" href="/historyMercenary.do?memberNo=<%=m.getMemberNo() %>&reqPage=1&categoryName='mercenary'">
+                <a class="btn bc44 bs1" href="/historyMatching.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=matching">
                 내가 쓴 글 조회</a>
                 <a class="btn bc44 bs1" href="/updateMemberFrm.do">정보수정</a>
                 <a class="btn bc44 bs1" id="charge">충전하기</a>
