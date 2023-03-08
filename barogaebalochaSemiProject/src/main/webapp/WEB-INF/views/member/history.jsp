@@ -175,7 +175,7 @@
 				<th></th>
 			</tr>
 			<%for(Blacklist bl : blaList) {%>
-			<tr>
+			<tr onclick="location.href='/blacklistVIew.do?blackNo=<%=bl.getBlackNo()%>'">
 				<td><%=bl.getBlackNo() %></td>
 				<td><%=bl.getBlackMember() %></td>
 				<td><%=bl.getBlackTitle() %></td>

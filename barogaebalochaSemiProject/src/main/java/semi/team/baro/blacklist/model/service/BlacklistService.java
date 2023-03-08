@@ -124,5 +124,10 @@ public class BlacklistService {
 		return result;
 	}
 
-	
+	public Blacklist blacklistView(int blackNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Blacklist bla = dao.blacklistView(conn, blackNo);
+		JDBCTemplate.close(conn);
+		return bla;
+	}	
 }

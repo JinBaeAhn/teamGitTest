@@ -68,6 +68,9 @@ public class Blacklist {
 	public String getBlackContent() {
 		return blackContent;
 	}
+	public String getBlackContentBr() {
+		return blackContent.replaceAll("\r\n", "<br>");
+	}
 	public void setBlackContent(String blackContent) {
 		this.blackContent = blackContent;
 	}
