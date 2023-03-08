@@ -94,8 +94,8 @@
 	    min-width: 300px;
 	    max-width: 500px;
 	    height: 40vh;
-	    min-height: 350px;
-	    max-height: 450px;
+	    min-height: 450px;
+	    max-height: 550px;
 	
 	}
 	.modal-top>h2{
@@ -263,11 +263,13 @@
 	    });
 	    $(".locationSearch").on("click",function(){
 	    	  $(".modal-wrap").css("display","flex");
+	    	  
 	    	  locationVal = $(".location-select-form").val();
 	    	  $(".modal-location").val(locationVal);
-	    	  //console.log(locationVal)
+	    	  
 	    	  const result = $(".modal-select-form");
 	    	  result.empty();
+	    	  //console.log("지역명"+locationVal)
 	    	  //ajax시작
 	    	   $.ajax({
 	    		url : "/locationSearchList.do",

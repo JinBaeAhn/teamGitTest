@@ -39,7 +39,7 @@
 .locationInfo-map{
     float: left;
 }
-.locationInfo-map>img{
+.locationInfo-map{
     width: 300px;
     height: 300px;
 }
