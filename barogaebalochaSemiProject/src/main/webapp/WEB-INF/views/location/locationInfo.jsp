@@ -20,7 +20,7 @@
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
 	 <div class="page-content">
 	        <div class="locationInfo-page-title">
-	            <p>구장상세정보<%=l.getBall() %></p>
+	            <p>구장상세정보</p>
 	        </div>
 	        <div class="locationInfo-img-wrap">
 	            <div class="locationInfo-main-img">
@@ -28,7 +28,7 @@
 	            </div>
 	        </div>
 	        <div class="locationInfo-map-icon-wrap">
-	            <div class="locationInfo-map"></div>
+	            <div class="locationInfo-map" id="map" style="width:300px; height: 300px; margin: 0 auto;"></div>
 				<!-- <div id="map" style="width:100%; height: 400px; margin: 0 auto;"></div> -->
 				<input type="hidden" id="groundLat" value="<%=l.getGroundLat()%>">
 				<input type="hidden" id="groundLng" value="<%=l.getGroundLng() %>">
@@ -84,6 +84,11 @@
 	        draggable: false,
 	        pinchZoom: false,
 	        scrollWheel: false,
+	        zoomControl : true,
+			zoomControlOptions : {
+				position : naver.maps.Position.TOP_RIGHT,
+				style : naver.maps.ZoomControlStyle.SMALL
+			}
 	});
 	//지도(지정위치)위에 마커
 	const marker = new naver.maps.Marker({
