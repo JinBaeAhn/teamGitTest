@@ -1,3 +1,4 @@
+<%@page import="semi.team.baro.board.model.vo.Board"%>
 <%@page import="semi.team.baro.blacklist.model.vo.Blacklist"%>
 <%@page import="semi.team.baro.mercenary.model.vo.MercenaryRequest"%>
 <%@page import="java.util.ArrayList"%>
@@ -8,6 +9,7 @@
     ArrayList<Mercenary> mcList = ( ArrayList<Mercenary>)request.getAttribute("mcList");
     ArrayList<MercenaryRequest> mcReqList = (ArrayList<MercenaryRequest>)request.getAttribute("mcReqList");
     ArrayList<Blacklist> blaList = (ArrayList<Blacklist>)request.getAttribute("blaList");
+    ArrayList<Board> boardList = (ArrayList<Board>)request.getAttribute("boardList");
     
     String pageNavi = (String)request.getAttribute("pageNavi");
     String categoryName = (String)request.getAttribute("categoryName");
@@ -62,7 +64,7 @@
 			<li><a href="/historyMatching.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=matching">MATCHING</a></li>
 			<li><a href="/historyMercenary.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=mercenary">용병모집</a></li>
 			<li><a href="/historyMercenaryRequest.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=mercenaryRequest">용병신청</a></li>
-			<li><a href="#">게시판</a></li>
+			<li><a href="/historyBoard.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=board">게시판</a></li>
 			<li><a href="/historyBlacklist.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=blacklist">신고내역</a></li>
 		</ul>
 		<%if( categoryName.equals("mercenary") ){ %>			
@@ -135,6 +137,32 @@
 			<%} %>
 		</table>
 		<div class="page-navi"><%=pageNavi %></div>
+		<%} else if( categoryName.equals("board")) {%>
+			<table class="history-content table">
+			<tr>
+				<th style="width:5%">no.</th>
+				<th style="width:30%">제목</th>
+				<th style="width:25%">첨부파일</th>
+				<th style="width:20%">작성일</th>
+				<th style="width:10%">조회수</th>
+				<th></th>
+			</tr>
+			<%for(Board b : boardList) {%>
+			<tr>
+				<td><%=b.getPhotoNo() %></td>
+				<td><%=b.getPhotoTitle() %></td>
+				<%if(b.getFilepath() == null) {%>
+				<td> - </td>
+				<%} else{%>
+				<td><span class="material-symbols-outlined" style="color:#ccc;">article</span></td>
+				<%} %>
+				<td><%=b.getRegDate() %></td>
+				<td><%=b.getReadCount() %></td>
+				<td></td>
+			</tr>
+			<%} %>
+			</table>
+			<div class="page-navi"><%=pageNavi %></div>
 		<%} else if( categoryName.equals("blacklist")){%>
 			<table class="history-content table">
 			<tr>
@@ -147,19 +175,19 @@
 				<th></th>
 			</tr>
 			<%for(Blacklist bl : blaList) {%>
-			<tr>
+			<tr onclick="location.href='/blacklistVIew.do?blackNo=<%=bl.getBlackNo()%>'">
 				<td><%=bl.getBlackNo() %></td>
 				<td><%=bl.getBlackMember() %></td>
 				<td><%=bl.getBlackTitle() %></td>
 				<%if(bl.getBlackFilepath() == null) {%>
 				<td> - </td>
 				<%} else{%>
-				<td><span class="material-symbols-outlined">article</span></td>
+				<td><span class="material-symbols-outlined" style="color:#ccc;">article</span></td>
 				<%} %>
 				<td><%=bl.getRegDate() %></td>
 				<td><%=bl.getBlackStatus() %></td>
 				<td></td>
-			</tr>
+			</tr onclick = "func();">
 			<%} %>
 		</table>
 		<div class="page-navi"><%=pageNavi %></div>
@@ -176,7 +204,6 @@
 			    $(".history-menu>li>a").removeClass("active-tab");
 			    $(this).addClass("active-tab");
 			});
-
 	</script>
 
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>

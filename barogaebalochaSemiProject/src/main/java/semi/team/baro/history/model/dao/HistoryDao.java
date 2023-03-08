@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import semi.team.baro.blacklist.model.vo.Blacklist;
+import semi.team.baro.board.model.vo.Board;
 import semi.team.baro.history.model.vo.HistoryPageData;
 import semi.team.baro.mercenary.model.vo.Mercenary;
 import semi.team.baro.mercenary.model.vo.MercenaryRequest;
@@ -187,12 +188,57 @@ public class HistoryDao {
 		return totalCount;
 	}
 
+	public ArrayList<Board> boardMyHistory(Connection conn, int memberNo, int start, int end) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> boardList = new ArrayList<Board>();
+		String query = "select * from (select rownum as rnum, n.* from(select * from photo_board join member_tbl using(member_no) where member_no = ? order by photo_no desc)n) where rnum between ? and ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setFilename(rset.getString("filename"));
+				b.setMemberId(rset.getString("member_id"));
+				b.setPhotoTitle(rset.getString("photo_title"));
+				b.setPhotoNo(rset.getInt("photo_no"));
+				b.setRegDate(rset.getString("reg_date"));
+				b.setReadCount(rset.getInt("read_count"));
+				boardList.add(b);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return boardList;
+	}
+
+	public int boardHistoryCount(Connection conn, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int totalCount = 0;
+		String query = "select count(*) as cnt from photo_board where member_no = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, memberNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalCount = rset.getInt("cnt");				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rset);
+		}
+		return totalCount;
+	}
 }
-
-
-
-
-
-
-
-

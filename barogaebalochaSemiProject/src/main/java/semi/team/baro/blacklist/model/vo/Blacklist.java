@@ -10,12 +10,13 @@ public class Blacklist {
 	private String regDate;
 	private String blackFilepath;
 	private int blackStatus;
+	private int memberLevel;
 	public Blacklist() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Blacklist(int blackNo, int memberNo, String memberId, String blackMember, String blackTitle,
-			String blackContent, String regDate, String blackFilepath, int blackStatus) {
+			String blackContent, String regDate, String blackFilepath, int blackStatus, int memberLevel) {
 		super();
 		this.blackNo = blackNo;
 		this.memberNo = memberNo;
@@ -26,6 +27,13 @@ public class Blacklist {
 		this.regDate = regDate;
 		this.blackFilepath = blackFilepath;
 		this.blackStatus = blackStatus;
+		this.memberLevel = memberLevel;
+	}
+	public int getMemberLevel() {
+		return memberLevel;
+	}
+	public void setMemberLevel(int getMemberLevel) {
+		this.memberLevel = memberLevel;
 	}
 	public int getBlackNo() {
 		return blackNo;
@@ -59,6 +67,9 @@ public class Blacklist {
 	}
 	public String getBlackContent() {
 		return blackContent;
+	}
+	public String getBlackContentBr() {
+		return blackContent.replaceAll("\r\n", "<br>");
 	}
 	public void setBlackContent(String blackContent) {
 		this.blackContent = blackContent;

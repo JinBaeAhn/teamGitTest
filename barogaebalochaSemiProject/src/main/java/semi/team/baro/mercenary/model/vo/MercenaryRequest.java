@@ -15,7 +15,7 @@ public class MercenaryRequest {
 	private String gameDate;
 	private int gameTime;
 	private int mercenaryWhether;
-	
+	private String memberFilepath;
 	
 	public MercenaryRequest() {
 		super();
@@ -117,4 +117,11 @@ public class MercenaryRequest {
 	public void setMercenaryWhether(int mercenaryWhether) {
 		this.mercenaryWhether = mercenaryWhether;
 	}
+	public String getMemberFilepath() {
+		return memberFilepath;
+	}
+	public void setMemberFilepath(String memberFilepath) {
+		this.memberFilepath = memberFilepath;
+	}
+	
 }

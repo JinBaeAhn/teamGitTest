@@ -223,7 +223,7 @@ public class MercenaryDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<MercenaryRequest> list = new ArrayList<MercenaryRequest>();
-		String query = "select mercenary_request_no, mercenary_no, member_no, mercenary_request_content, skill, mercenary_request_date, mercenary_request_result, member_id from mercenary_request join member_tbl using(member_no) where mercenary_no = ?";
+		String query = "select mercenary_request_no, mercenary_no, member_no, mercenary_request_content, skill, mercenary_request_date, mercenary_request_result, member_id, filepath  from mercenary_request join member_tbl using(member_no) where mercenary_no = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -239,6 +239,7 @@ public class MercenaryDao {
 				mcReq.setMercenaryRequestDate(rset.getString("mercenary_request_date"));
 				mcReq.setMercenaryRequestResult(rset.getString("mercenary_request_result"));
 				mcReq.setMercenaryRequestNo(rset.getInt("mercenary_request_no"));
+				mcReq.setMemberFilepath(rset.getString("filepath"));
 				list.add(mcReq);
 			}
 		} catch (SQLException e) {
