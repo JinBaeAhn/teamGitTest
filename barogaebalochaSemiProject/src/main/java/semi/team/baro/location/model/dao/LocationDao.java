@@ -192,5 +192,21 @@ public class LocationDao {
 		return groundNo;
 	}
 
+	public int deleteLocation(Connection conn, int groundNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "delete from ground_tbl where ground_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, groundNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 
 }
