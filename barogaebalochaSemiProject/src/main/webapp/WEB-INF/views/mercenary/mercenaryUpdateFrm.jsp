@@ -71,6 +71,7 @@
                         <tr>
                             <th>지역</th>
                             <td>
+                            	<input type="hidden" id="locationCode" value="<%=mc.getLocation()%>">
                                 <select class="input-form" name="location" id="location">
                                 	<option value="no">지역선택</option>
                                     <option value="seoul">서울</option>
@@ -82,6 +83,7 @@
                         <tr>
                            <th>경기장</th>
                             <td>
+                            	<input type="hidden" id="groundNoCode" value="<%=mc.getGroundNo()%>">
                                 <select class="input-form" name="groundNo" id="ground"></select>
                             </td>
                         </tr>
@@ -94,6 +96,7 @@
                         <tr>
                             <th>경기시간</th>
                             <td>
+                            	<input type="hidden" id="gameTimeCode" value="<%=mc.getGameTime() %>">
                                 <select class="input-form" name="gameTime">
                                     <option value="10">10 : 00 ~ 12 : 00</option>
                                     <option value="12">12 : 00 ~ 14 : 00</option>
@@ -109,6 +112,7 @@
                         <tr>
                             <th>실력</th>
                             <td>
+                            	<input type="hidden" id="levelCode" value="<%=mc.getLevel()%>">
                                 <input type="radio" name="level" class="btn1" id="1" value="1" checked>
                                 <label for="1">최상</label>
                                 <input type="radio" name="level" class="btn1" id="2" value="2">
@@ -175,6 +179,7 @@
 							option.append(data[i].groundName);
 							groundOption.append(option);
 						}	
+						//groundNoCode
 					}else{
 						const option = $("<option value=''></option>");
 						option.append("해당지역에 구장이 없습니다.");
@@ -186,6 +191,67 @@
 				}
 			});
 		});
+	    
+	    //지역
+	    $(function(){
+	       const code = $("#locationCode").val();
+	       const options = $("[name=location]>option");
+	       options.each(function(index,item){
+	          if($(item).val() == code){
+	             $(item).prop("selected",true);
+	             const selLocation = $(options).
+	             $.ajax({
+	 				url : "/searchGround.do",
+	 				type : "post",
+	 				data : {location : },
+	 				dataType : "json",
+	 				success : function(data){
+	 					if(data.length > 0){
+	 						for(let i=0; i<data.length; i++){
+	 							console.log(i);
+	 							const option = $("<option value=''></option>");
+	 							option.val(data[i].groundNo);
+	 							option.append(data[i].groundName);
+	 							groundOption.append(option);
+	 						}	
+	 						//groundNoCode
+	 					}else{
+	 						const option = $("<option value=''></option>");
+	 						option.append("해당지역에 구장이 없습니다.");
+	 						groundOption.append(option);
+	 					}													
+	 				},
+	 				error : function(){
+	 					console.log("서버 호출 실패");
+	 				}
+	 			}); 
+	          }
+	       });
+	    });
+	    
+	    
+	    //시간
+	     $(function(){
+	       const code = $("#gameTimeCode").val();
+	       const options = $("[name=gameTime]>option");
+	       options.each(function(index,item){
+	          if($(item).val() == code){
+	             $(item).prop("selected",true);
+	          }
+	       });
+	    });
+	    
+	    //레벨
+	    $(function(){
+		       const code = $("#levelCode").val();
+		       const radios = $("[name=level]");
+		       radios.each(function(index,item){
+		          if($(item).val() == code){
+		             $(item).prop("checked",true);
+		          }
+		       });
+		    });
+	    
     </script>
 
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
