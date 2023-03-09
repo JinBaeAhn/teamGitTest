@@ -59,7 +59,7 @@ public class UpdateMemberServlet extends HttpServlet {
 		String filepath = mRequest.getFilesystemName("imgFile");
 		//기존 첨부파일이 있었으면 기존 첨부파일값, 없었으면 null
 		String oldFilepath = mRequest.getParameter("oldFilepath");
-		if(oldFilepath != null && status.equals("stay")) {
+		if(filepath == null && status.equals("stay")) {
 			filepath = oldFilepath;
 		}
 		m.setFilepath(filepath);
