@@ -149,9 +149,10 @@
 
 	.img-wrap img {
   		display: block;
-  		width: 100%;
-  		height: 100%;
-  		object-fit: cover;
+  		width: 250px;
+  		height: 200px;
+  		max-width: 100%;
+  		max-height: 100%;
 	}
 
 /* Introduce 셀 스타일 */
