@@ -71,6 +71,7 @@
                         <tr>
                             <th>지역</th>
                             <td>
+                            <input type="hidden" id="locationCode" value="<%=mc.getLocation()%>">
                                 <select class="input-form" name="location" id="location">
                                 	<option value="no">지역선택</option>
                                     <option value="seoul">서울</option>
@@ -156,8 +157,21 @@
 	        maxDate: "+6M"
 	      });
 	    });
-	    
-	    $("#location").on("change", function(){
+		 $(function(){
+			const code = $("#locationCode").val();
+			const options = $("[name=location]>option");
+			options.each(function(index,item){
+			   if($(item).val() == code){
+				  console.log("함수실행")
+			      $(item).prop("selected",true);
+			      console.log(test11())
+			   }
+			  
+			});
+		});
+	    $("#location").on("change" , test11);
+	    function test11(){
+	    	console.log("test 11 실행")
 	    	const location = $("#location option:selected").text();
 			const groundOption = $("#ground");
 			groundOption.empty();
@@ -179,13 +193,15 @@
 						const option = $("<option value=''></option>");
 						option.append("해당지역에 구장이 없습니다.");
 						groundOption.append(option);
-					}													
+					}
 				},
 				error : function(){
 					console.log("서버 호출 실패");
 				}
 			});
-		});
+		}
+	    
+	    
     </script>
 
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
