@@ -170,21 +170,22 @@
 				<th style="width:30%">제목</th>
 				<th style="width:25%">첨부파일</th>
 				<th style="width:20%">작성일</th>
+				<th style="width:12%"></th>
 				<th style="width:10%">조회수</th>
 				<th></th>
 			</tr>
 			<%for(Board b : boardList) {%>
-			<tr onclick="location.href='freeBoardVeiw.do?photoNo=<%=b.getPhotoNo()%>'">
+			<tr onclick="location.href='/freeBoardView.do?photoNo=<%=b.getPhotoNo()%>'">
 				<td><%=b.getPhotoNo() %></td>
 				<td><%=b.getPhotoTitle() %></td>
-				<%if(b.getFilepath() == null) {%>
+				<%if(b.getFilename() == null) {%>
 				<td> - </td>
 				<%} else{%>
-				<td><span class="material-symbols-outlined" style="color:#ccc;">article</span></td>
+				<td><span class="material-symbols-outlined" style="color:#AACB73">article</span></td>
 				<%} %>
 				<td><%=b.getRegDate() %></td>
-				<td><%=b.getReadCount() %></td>
 				<td></td>
+				<td><%=b.getReadCount() %></td>
 			</tr>
 			<%} %>
 			</table>
@@ -208,12 +209,12 @@
 				<%if(bl.getBlackFilepath() == null) {%>
 				<td> - </td>
 				<%} else{%>
-				<td><span class="material-symbols-outlined" style="color:#ccc;">article</span></td>
+				<td><span class="material-symbols-outlined" style="color:#AACB73">article</span></td>
 				<%} %>
 				<td><%=bl.getRegDate() %></td>
 				<td><%=bl.getBlackStatus() %></td>
 				<td></td>
-			</tr onclick = "func();">
+			</tr>
 			<%} %>
 		</table>
 		<div class="page-navi"><%=pageNavi %></div>

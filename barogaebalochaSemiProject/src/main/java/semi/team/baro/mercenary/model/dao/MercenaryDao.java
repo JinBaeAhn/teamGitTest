@@ -177,12 +177,12 @@ public class MercenaryDao {
 	public int mercenaryUpdate(Connection conn, Mercenary mc) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "update mercenary set game_location = ?, game_ground_name = ?, game_date = ?, game_time = ?, mercenary_content = ?, mercenary_pay = ?, skill = ? where mercenary_no = ?";
+		String query = "update mercenary set game_location = ?, ground_no = ?, game_date = ?, game_time = ?, mercenary_content = ?, mercenary_pay = ?, skill = ? where mercenary_no = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, mc.getLocation());
-			pstmt.setString(2, mc.getGroundName());
+			pstmt.setInt(2, mc.getGroundNo());
 			pstmt.setString(3, mc.getGameDate());
 			pstmt.setInt(4, mc.getGameTime());
 			pstmt.setString(5, mc.getMercenaryContent());

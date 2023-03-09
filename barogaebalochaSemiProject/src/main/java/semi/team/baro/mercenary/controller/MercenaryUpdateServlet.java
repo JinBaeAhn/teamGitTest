@@ -37,7 +37,7 @@ public class MercenaryUpdateServlet extends HttpServlet {
 		//지역, 경기장, 경기날짜, 경기시간, 실력, 참가비, 내용 , 게시글번호
 		Mercenary mc = new Mercenary();
 		mc.setLocation(request.getParameter("location"));
-		mc.setGroundName(request.getParameter("groundName"));
+		mc.setGroundNo(Integer.parseInt(request.getParameter("groundNo")));
 		mc.setGameDate(request.getParameter("gameDate"));
 		mc.setGameTime(Integer.parseInt(request.getParameter("gameTime")));
 		mc.setLevel(Integer.parseInt(request.getParameter("level")));
