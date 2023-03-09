@@ -82,6 +82,14 @@
             <hr>
         	</div>
         <div class="matchingList-wrap">
+        <%
+        int flag = 0;
+        for(Matching mc : list){
+        	if(mc.getMatchingRequestStatus() == 2){
+        		flag = 2;
+        	}
+        }
+        %>
         <% for(Matching mc : list) {%>
         
         <!-- <a href="/matchingView.do?matchingNo=<%=mc.getMemberNo() %>"> -->
@@ -100,21 +108,22 @@
 								<li style="font-size: 15px;">이메일: <%=mc.getMemberMail() %></li>
 								<%}else{ %>
 								<li style="font-size: 15px;">전화번호 : 신청수락한 회원 정보만 볼 수 있습니다 </li>
-								<li style="font-size: 15px;">이메일: 신청수락한 회원 정보만 볼 수 있습니다 </li>
+								<li style="font-size: 15px;">메일주소 : 신청수락한 회원 정보만 볼 수 있습니다 </li>
 								<%} %>
                         </ul>
                     </div>
                     
                 </div>
                 <div class="matchingList-result">
-                	<%if(mc.getMatchingRequestStatus() == 1) {%>
-	                    <div class="btn1 okay-btn" style="background-color: #AACB73; margin-right: 8px;"><a style="color:#fff;" href="/applyInsert.do?memberNo=<%=mc.getMemberNo()%>&matchingBoardNo=<%=mc.getMatchingBoardNo()%>">신청수락</a></div>
-	                    <%}else if(mc.getMatchingRequestStatus() == 2) { %>
+                	<%if(mc.getMatchingRequestStatus() == 1 && flag != 2) {%>
+	                    <div class="btn1 okay-btn" style="background-color: #AACB73; margin-right: 8px;"><a class="btn-accept" style="color:#fff;" href="/applyInsert.do?memberNo=<%=mc.getMemberNo()%>&matchingBoardNo=<%=mc.getMatchingBoardNo()%>">신청수락</a></div>
+	                    <%}else if(mc.getMatchingRequestStatus() == 2) {%>
 	                    <div class="apply-cancel-wrap">
-	                    <div class="btn1" style="background-color: #ff4040;"><a style="color:#fff; font-family: ns-light; " href="/applyCancel.do?memberNo=<%=mc.getMemberNo()%>&matchingBoardNo=<%=mc.getMatchingBoardNo()%>">수락취소</a></div>
+	                    <div class="btn1 cancel-btn" style="background-color: #ff4040;"><a class="btn-cancel" style="color:#fff; font-family: ns-light; " href="/applyCancel.do?memberNo=<%=mc.getMemberNo()%>&matchingBoardNo=<%=mc.getMatchingBoardNo()%>">수락취소</a></div>
 	                    <div class="btn1 need-login" style="background-color: #AACB73; color:#fff;" onclick="alert('이미 수락하셨습니다')">수락완료</div> 
 	                    </div>
                 	<%} %>
+                	
                 </div>
             </div>	
           <!--  </a> -->	
@@ -128,9 +137,6 @@
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 <script>
-	$(".okay-btn").on("click",function(){
-		$(".okay-btn").children().$("a").removeAttr("href");
-		alert("신청 수락은 한명만 가능합니다.")
-	})
+	
 </script>
 </html>
