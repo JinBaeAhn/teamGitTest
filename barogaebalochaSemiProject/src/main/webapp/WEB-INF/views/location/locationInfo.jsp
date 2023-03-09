@@ -54,7 +54,7 @@
 	        <div class="locationInfo-btn-wrap">
 	            <a href="/locationList.do?requestPage=1"><button>목록으로</button></a>
 	            <%if(m.getMemberLevel()==1) {%>
-	            <button class = "delete-btn" onclick="locationDelete(<%=l.getGroundNo()%>);" >구장삭제</button></a>
+	            <a href="/deleteLocation.do?groundNo=<%=l.getGroundNo() %>"><button class = "delete-btn" >구장삭제</button></a>
 	            <%} %>
 	        </div>
 	   </div>
