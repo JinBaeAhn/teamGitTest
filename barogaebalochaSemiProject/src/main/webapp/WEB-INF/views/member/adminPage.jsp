@@ -100,7 +100,7 @@
 				<th>선택</th>
 				<th>번호</th>
 				<th>아이디</th>
-				<th>비밀번호</th>
+				<th></th>
 				<th>이름</th>
 				<th>메일주소</th>
 				<th>전화번호</th>
@@ -115,7 +115,7 @@
 				<td><input type="checkbox" class="chk"></td>
 				<td><%=member.getMemberNo() %></td>
 				<td><%=member.getMemberId() %></td>
-				<td><%=member.getMemberPw() %></td>
+				<td></td>
 				<td><%=member.getMemberName() %></td>
 				<td><%=member.getMemberMail() %></td>
 				<td><%=member.getMemberPhone() %></td>
