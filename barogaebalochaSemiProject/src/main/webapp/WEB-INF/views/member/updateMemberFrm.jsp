@@ -92,13 +92,13 @@
                         <label for="imgFile">
                             <%if(m.getFilepath() != null){ %>
 							<img src="/upload/photo/<%=m.getFilepath() %>" id="img-view">
-							<button type="button" class="btn bc1 delFile" id="delbtn">삭제</button>
+							<button type="button" class="btn bc1 delFile delbtn" id="delbtn">삭제</button>
 	    					<input type="hidden" name="oldFilepath" value="<%=m.getFilepath()%>">
 							<input type="hidden" name="status" value="stay">
 							<%}else{ %>
                             <img src="img/profile.png" id="img-view">
-                            <input type="file" name="imgFile" id="imgFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this);">
 							<%} %>
+                            <input type="file" name="imgFile" id="imgFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this);">
                         </label>
                     </div>
                     <div class="input-wrap">
@@ -245,11 +245,19 @@
                 $(this).css("border","1px solid red");
             }
         });
-        $("button.delbtn").on("click",function(){
-			
-			$("[name=oldImgFile]").val("");
-			$("[name=status]").val("delete");
-		});
+        $("button.delbtn").on("click", function() {
+            const oldFilepath = $("[name=oldFilepath]");
+            if (oldFilepath.length > 0) {
+              oldFilepath.val("");
+            }
+            $("[name=status]").val("delete");
+
+            // 파일 삭제 로직 추가
+            const imgView = $("#img-view");
+            if (imgView.length > 0) {
+              imgView.attr("src", "img/profile.png");
+            }
+          });
         
         </script>
         <%@ include file="/WEB-INF/views/common/footer.jsp" %>
