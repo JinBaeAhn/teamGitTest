@@ -244,7 +244,7 @@
 	function modifyComplete(obj, boardCommentNo) {
 		const modifyCommentContent = $(obj).parent().prev().children("textarea").val();
 		const updateBoardCommentReference = <%=board.getPhotoNo()%>;
-		const updateBoardCommentWriter = <%=m.getMemberNo()%>;
+		const updateBoardCommentWriter = $(obj).parents().prevAll("[name=updateBoardCommentWriter]").val();
 		const updateBoardCommentSelfReference = $(obj).parents().prevAll("[name=updateBoardCommentSelfReference]").val();
 		const modifyMyNo = $(obj).parents().prevAll("[name=modifyMyNo]").val();
 		
