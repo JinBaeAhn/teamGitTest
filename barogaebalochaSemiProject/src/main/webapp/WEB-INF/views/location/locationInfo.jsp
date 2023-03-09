@@ -28,18 +28,30 @@
 	            </div>
 	        </div>
 	        <div class="locationInfo-map-icon-wrap">
-	            <div class="locationInfo-map"></div>
+	            <div class="locationInfo-map" id="map" style="width:300px; height: 300px; margin: 0 auto;"></div>
 				<!-- <div id="map" style="width:100%; height: 400px; margin: 0 auto;"></div> -->
 				<input type="hidden" id="groundLat" value="<%=l.getGroundLat()%>">
 				<input type="hidden" id="groundLng" value="<%=l.getGroundLng() %>">
 	            <!-- </div> -->
 	            <div class="locationInfo-icon-wrap">
+	               <%if(l.getShoes() == 1){ %>
 	                <img src="/testImage/soccer-shoe.png" class="locationInfo-icon">
+	               <%} %>
+	               <%if(l.getBall() ==1 ) {%>
 	                <img src="/testImage/soccer-ball.png" class="locationInfo-icon">
+	               <%} %>
+	               <%if(l.getUniform() ==1 ) {%>
 	                <img src="/testImage/football-uniform.png" class="locationInfo-icon">
+	               <%} %>
+	               <%if(l.getShower() ==1 ) {%>
 	                <img src="/testImage/shower.png" class="locationInfo-icon">
+	               <%} %>
+	               <%if(l.getParking() ==1 ) {%>
 	                <img src="/testImage/parking.png" class="locationInfo-icon">
+	               <%} %>
+	               <%if(l.getWater() == 1 ) {%>
 	                <img src="/testImage/water.png" class="locationInfo-icon">
+	               <%} %>
 	            </div>
 	        </div>
 	        <hr>
@@ -72,6 +84,11 @@
 	        draggable: false,
 	        pinchZoom: false,
 	        scrollWheel: false,
+	        zoomControl : true,
+			zoomControlOptions : {
+				position : naver.maps.Position.TOP_RIGHT,
+				style : naver.maps.ZoomControlStyle.SMALL
+			}
 	});
 	//지도(지정위치)위에 마커
 	const marker = new naver.maps.Marker({

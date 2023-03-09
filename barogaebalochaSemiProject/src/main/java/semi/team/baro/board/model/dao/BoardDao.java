@@ -172,7 +172,7 @@ public class BoardDao {
 				int boardCommentNo =  resultSet.getInt(1);
 				int boardCommentReference =  resultSet.getInt(2);
 				int boardCommentWriter = resultSet.getInt(3);
-				String boardCommentContent = resultSet.getString(5);
+				String boardCommentContent = resultSet.getString(4);
 				String boardCommentDate = resultSet.getString(5);
 				int boardCommentSelfReference =  resultSet.getInt(6);
 				BoardComment boardComment = new BoardComment(boardCommentNo, boardCommentReference, boardCommentWriter, boardCommentContent, boardCommentDate, boardCommentSelfReference);
@@ -272,4 +272,59 @@ public class BoardDao {
 		return memberId;
 	}
 
-}
+	public int freeBoardCommentWrite(Connection connection, BoardComment boardComment) {
+		String query = "insert into BOARD_COMMENT values(testseq.nextval,?,?,?,(TO_CHAR(SYSDATE,'yyyy-mm-dd / HH24:MI:SS')),?)";
+		PreparedStatement preparedStatement = null;
+		int result = 0;
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, boardComment.getBoardCommentReference());
+			preparedStatement.setInt(2, boardComment.getBoardCommentWriter());
+			preparedStatement.setString(3, boardComment.getBoardCommentContent());
+			preparedStatement.setString(4, boardComment.getBoardCommentSelfReference() == 0 ? null : String.valueOf(boardComment.getBoardCommentSelfReference()));
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(preparedStatement);
+		}
+		return result;
+	}
+
+	public int removeFreeBoardComment(Connection connection, int boardCommentNo) {
+		PreparedStatement preparedStatement = null;
+		String query = "delete from BOARD_COMMENT where comment_no = ?";
+		int result = 0;
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, boardCommentNo);
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public int freeBoardCommentUpdate(Connection connection, BoardComment boardComment) {
+		String query = "update BOARD_COMMENT set photo_no = ?, member_no = ?, comment_content = ?, re_comment = ? where comment_no = ?";
+		PreparedStatement preparedStatement = null;
+		int result = 0;
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, boardComment.getBoardCommentReference());
+			preparedStatement.setInt(2, boardComment.getBoardCommentWriter());
+			preparedStatement.setString(3, boardComment.getBoardCommentContent());
+			preparedStatement.setString(4, boardComment.getBoardCommentSelfReference() == 0 ? null : String.valueOf(boardComment.getBoardCommentSelfReference()));
+			preparedStatement.setInt(5, boardComment.getBoardCommentNo());
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(preparedStatement);
+		}
+		return result;
+	}
+}	
