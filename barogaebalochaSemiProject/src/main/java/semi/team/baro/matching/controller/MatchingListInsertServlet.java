@@ -8,9 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import semi.team.baro.matching.model.service.MatchingService;
 import semi.team.baro.matching.model.vo.Matching;
+import semi.team.baro.member.model.service.MemberService;
+import semi.team.baro.member.model.vo.Member;
 
 /**
  * Servlet implementation class MatchingListInsertServlet
@@ -51,6 +54,9 @@ public class MatchingListInsertServlet extends HttpServlet {
 		//4.결과처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		if(result > 0) {
+			HttpSession session = request.getSession();
+			Member member = (Member)session.getAttribute("m");
+			member.setMemberCredit(member.getMemberCredit()-mc.getGroundPrice());
 			request.setAttribute("icon", "success");
 			request.setAttribute("title", "작성완료");
 			request.setAttribute("msg", "매칭글이 작성되었습니다.");
