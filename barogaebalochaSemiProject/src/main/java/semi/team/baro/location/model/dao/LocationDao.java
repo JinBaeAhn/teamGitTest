@@ -85,7 +85,7 @@ public class LocationDao {
 				l.setGroundLng(rset.getString("ground_lng"));
 				l.setGroundContent(rset.getString("ground_content"));
 				l.setFilePath(rset.getString("file_path"));
-				
+				l.setGroundNo(rset.getInt("ground_no"));
 				l.setParking(rset.getInt("parking"));
 				l.setShower(rset.getInt("shower"));
 				l.setBall(rset.getInt("ball"));

@@ -45,10 +45,10 @@ public class LocationInfoServlet extends HttpServlet {
 			request.setAttribute("title", "오류가 발생했습니다");
 			request.setAttribute("msg", "다시 시도해주세요. 계속 문제가 발생한다면 관리자에게 문의해주세요.");
 			request.setAttribute("icon", "info");
-			request.setAttribute("loc", "/locationList.do?requestPage=1");
+			request.setAttribute("loc","/locationList.do?requestPage=1");
 			view.forward(request, response);
 		}else {//성공했을 때 상세페이지
-			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/location/locationInfo.jsp");
+			RequestDispatcher view = request.getRequestDispatcher( "/WEB-INF/views/location/locationInfo.jsp" );
 			request.setAttribute("l", lvd.getL());
 			view.forward(request, response);
 		}

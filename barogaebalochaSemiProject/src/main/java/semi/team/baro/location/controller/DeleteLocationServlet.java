@@ -36,6 +36,7 @@ public class DeleteLocationServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		//2. 값추출
 		int groundNo = Integer.parseInt(request.getParameter("groundNo"));
+		System.out.println(groundNo);
 		//3. 비즈니스로직
 		LocationService service = new LocationService();
 		Location l = service.deleteLocation(groundNo);
@@ -53,7 +54,7 @@ public class DeleteLocationServlet extends HttpServlet {
 			request.setAttribute("title", "삭제성공");
 			request.setAttribute("msg", "게시글이 삭제되었습니다");
 			request.setAttribute("icon", "success");
-			request.setAttribute("loc", "/LocationList.do?reqPage=1");
+			request.setAttribute("loc", "/locationList.do?requestPage=1");
 		}else {
 			request.setAttribute("title", "삭제실패");
 			request.setAttribute("msg", "관리자에게 문의하세요");
