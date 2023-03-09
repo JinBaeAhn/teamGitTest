@@ -190,7 +190,6 @@
 				success : function(data){
 					if(data.length > 0){
 						for(let i=0; i<data.length; i++){
-							console.log(i);
 							const option = $("<option value=''></option>");
 							option.val(data[i].groundNo);
 							option.append(data[i].groundName);
@@ -218,25 +217,25 @@
 	    $(function(){
 	       const code = $("#locationCode").val();
 	       const options = $("[name=location]>option");
+	       const groundOption = $("#ground");
 	       options.each(function(index,item){
 	          if($(item).val() == code){
 	             $(item).prop("selected",true);
-	             const selLocation = $(options).
 	             $.ajax({
 	 				url : "/searchGround.do",
 	 				type : "post",
-	 				data : {location : },
+	 				data : {location : code},
 	 				dataType : "json",
 	 				success : function(data){
 	 					if(data.length > 0){
+	 						console.log(data.length);
 	 						for(let i=0; i<data.length; i++){
-	 							console.log(i);
 	 							const option = $("<option value=''></option>");
 	 							option.val(data[i].groundNo);
 	 							option.append(data[i].groundName);
 	 							groundOption.append(option);
 	 						}	
-	 						//groundNoCode
+	 						
 	 					}else{
 	 						const option = $("<option value=''></option>");
 	 						option.append("해당지역에 구장이 없습니다.");
