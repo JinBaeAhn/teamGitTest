@@ -42,11 +42,11 @@
         padding-top: 20px;
     }
     .matchingList-info>ul{
-    	margin-bottom: 5px;
+    	margin-bottom: 15px;
     	margin-left: 120px;
     }
     .matchingList-info>ul>li{
-    	width: 200px;
+    	width: 350px;
     }
     .matchingList-date>ul{
     	width: 150px;
@@ -94,9 +94,14 @@
                     </div>
                     <div class="matchingList-info">
                         <ul>
-                            <li style="font-size: 20px;">회원이름 : <%=mc.getMemberName()%></li>
+                            <li style="font-size: 20px; margin-bottom: 10px;">회원이름 : <%=mc.getMemberName()%></li>
+                            	<%if(mc.getMatchingRequestStatus() == 2) {%>
 								<li style="font-size: 15px;">전화번호 : <%=mc.getMemberPhone() %> </li>
 								<li style="font-size: 15px;">이메일: <%=mc.getMemberMail() %></li>
+								<%}else{ %>
+								<li style="font-size: 15px;">전화번호 : 신청수락한 회원 정보만 볼 수 있습니다 </li>
+								<li style="font-size: 15px;">이메일: 신청수락한 회원 정보만 볼 수 있습니다 </li>
+								<%} %>
                         </ul>
                     </div>
                     
