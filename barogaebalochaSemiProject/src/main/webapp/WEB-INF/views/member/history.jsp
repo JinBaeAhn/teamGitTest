@@ -84,9 +84,9 @@
 					<td><%=mch.getMatchingBoardTitle() %></td>
 					<td style="color:#ccc"><%=mch.getRegDate() %></td>
 					<td><%=mch.getReadCount() %>
-					<%if(mch.getMatchingStatus() == 0) {%>
+					<%if(mch.getMatchingStatus() == 1) {%>
 					<td>매칭중</td>
-					<%}else if(mch.getMatchingStatus() == 1) {%>
+					<%}else if(mch.getMatchingStatus() == 2) {%>
 					<td>매칭완료</td>
 					<%} %>
 				</tr>
@@ -117,9 +117,9 @@
 					<td><%=mc.getGroundName() %></td>
 					<td><%=mc.getGameDate() %> [<%=mc.getGameShowTime() %>] </td>
 					<td><%=mc.getRegDate() %></td>
-					<%if(mc.getMercenaryWhether() == 0) {%>
+					<%if(mc.getMercenaryWhether() == 1) {%>
 					<td>모집중</td>
-					<%}else if(mc.getMercenaryWhether() == 1) {%>
+					<%}else if(mc.getMercenaryWhether() == 2) {%>
 					<td>모집완료</td>
 					<%} %>
 					<td></td>
