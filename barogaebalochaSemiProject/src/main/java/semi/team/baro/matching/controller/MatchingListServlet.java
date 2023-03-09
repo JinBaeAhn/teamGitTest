@@ -43,10 +43,12 @@ public class MatchingListServlet extends HttpServlet {
 		//3.비즈니스로직
 		MatchingService service = new MatchingService();
 		MatchingPageData mpd = service.selectMatchingList(reqPage);
-		System.out.println(mpd.getList().size());
+		//System.out.println("매칭리스트 리스트사이즈"+mpd.getList().size());
 		//4.화면처리
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/matching/matchingList.jsp");
 		request.setAttribute("list", mpd.getList());
+		//System.out.println("매칭리스트 그라운드넘버"+mpd.getList().get(4).getGroundName());
+		//System.out.println("매칭리스트 그라운드지역"+mpd.getList().get(0).getGroundLocation());
 		/*
 		for(Matching m : mpd.getList()) {
 			System.out.println(m.getMatchingBoardTitle());

@@ -217,7 +217,12 @@ public class MatchingService {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = dao.applyInsert(conn, memberNo, matchingBoardNo);
 		if(result>0) {
-			JDBCTemplate.commit(conn);
+			int result2 = dao.applyInsert2(conn, matchingBoardNo);
+				if(result2>0) {
+					JDBCTemplate.commit(conn);
+				}else {
+					JDBCTemplate.rollback(conn);
+				}
 		}else {
 			JDBCTemplate.rollback(conn);
 		}
@@ -230,13 +235,16 @@ public class MatchingService {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = dao.applyCancel(conn, memberNo, matchingBoardNo);
 		if(result>0) {
-			JDBCTemplate.commit(conn);
+			int result2 = dao.applyCancel2(conn, matchingBoardNo);
+				if(result2>0) {
+					JDBCTemplate.commit(conn);
+				}else {
+					JDBCTemplate.rollback(conn);
+				}
 		}else {
 			JDBCTemplate.rollback(conn);
 		}
 		JDBCTemplate.close(conn);
-		
 		return result;
-	
 	}
 }

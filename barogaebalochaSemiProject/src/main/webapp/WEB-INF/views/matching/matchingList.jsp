@@ -102,14 +102,18 @@
                     </div>
                 </div>
                 <div class="matchingList-result">
-                	<%if(mc.getMatchingStatus() == 1) {%>
-	                    <%if(m != null) {%>
-	                    <div class="btn1" style="background-color: #AACB73;"><a style="color:#fff;" href="/matchingView.do?reservationNo=<%=mc.getReservationNo() %>&memberNo=<%=m.getMemberNo() %>&matchingBoardNo=<%=mc.getMatchingBoardNo()%>">매치신청</a></div>
-	                    <%}else{ %>
-	                    <div class="btn1 need-login" style="background-color: #AACB73; color:#fff;" onclick="alert('로그인이 필요합니다')">매치신청</div> 
-	                    <%} %>          	
-                	<%}else if(mc.getMatchingStatus() == 2) {%>
-                		<div class="btn1" style="background-color: #ccc; color:#fff">신청마감</div> 
+                	<%if(m != null) {%>
+                		<%if(mc.getMatchingStatus() == 1){%>
+	                    <div class="btn1" style="background-color: #AACB73;"><a style="color:#fff;" href="/matchingView.do?reservationNo=<%=mc.getReservationNo() %>&memberNo=<%=m.getMemberNo() %>&matchingBoardNo=<%=mc.getMatchingBoardNo()%>">상세보기</a></div>
+	                    <%}else if(mc.getMatchingStatus() == 2){ %>
+	                    	<%if(mc.getMemberNo() == m.getMemberNo()) {%>
+	                    		<div class="btn1" style="background-color: #AACB73;"><a style="color:#fff;" href="/matchingView.do?reservationNo=<%=mc.getReservationNo() %>&memberNo=<%=m.getMemberNo() %>&matchingBoardNo=<%=mc.getMatchingBoardNo()%>">상세보기</a></div>
+	                    	<%}else{ %>
+	                    		<div class="btn1" style="background-color: #ccc; color:#fff" >신청마감</div> 
+	                    	<%} %>
+	                    <%} %> 
+                	<%}else{%>
+                		<div class="btn1 need-login" style="background-color: #AACB73; color:#fff;" onclick="alert('로그인이 필요합니다')">상세보기</div>
                 	<%} %>
                 </div>
             </div>	

@@ -40,7 +40,7 @@ margin-bottom: 0;
  				<%Location l = list.get(i); %>
                 <div class="loactionList-content">
                     <div class="loactionList-main-img">
-                        <img class="loactionList-pic" src="/testImage/79e7330368d49cceeaabdcf7ef7513eb (1).jpg">
+                        <img class="loactionList-pic" src="/upload/location/<%=l.getFilePath() %>">
                     </div>
                     <div class="loactionList-text-wrap">
                         <p class="locationList-location-name">
@@ -55,13 +55,25 @@ margin-bottom: 0;
                         	<button class="locationList-Info-btn">상세보기</button>
                         </a>
                         <div class="loactionList-sub-img">
-                            <img src="/testImage/soccer-shoe.png">
-                            <img src="/testImage/football-uniform.png">
-                            <img src="/testImage/shower.png">
-                            <img src="/testImage/soccer-shoe.png">
-                            <img src="/testImage/football-uniform.png">
-                            <img src="/testImage/shower.png">
-                        </div>
+                             <%if(l.getShoes() == 1){ %>
+			                <img src="/testImage/soccer-shoe.png" class="locationInfo-icon">
+			               	<%} %>
+			               	<%if(l.getBall() ==1 ) {%>
+			                <img src="/testImage/soccer-ball.png" class="locationInfo-icon">
+			               	<%} %>
+			               	<%if(l.getUniform() ==1 ) {%>
+			                <img src="/testImage/football-uniform.png" class="locationInfo-icon">
+			               	<%} %>
+			               	<%if(l.getShower() ==1 ) {%>
+			                <img src="/testImage/shower.png" class="locationInfo-icon">
+			               	<%} %>
+			               	<%if(l.getParking() ==1 ) {%>
+			                <img src="/testImage/parking.png" class="locationInfo-icon">
+			               	<%} %>
+			               	<%if(l.getWater() == 1 ) {%>
+			                <img src="/testImage/water.png" class="locationInfo-icon">
+			               	<%} %>
+		                 </div>
                      </div>
                 </div>
                 <%} %>
