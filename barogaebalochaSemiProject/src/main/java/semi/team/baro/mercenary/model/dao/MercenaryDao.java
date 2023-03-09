@@ -105,6 +105,7 @@ public class MercenaryDao {
 				mc.setGroundLocation(rset.getString("ground_location"));
 				mc.setGroundLat(rset.getString("ground_lat"));
 				mc.setGroundLng(rset.getString("ground_lng"));
+				mc.setGroundNo(rset.getInt("ground_no"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

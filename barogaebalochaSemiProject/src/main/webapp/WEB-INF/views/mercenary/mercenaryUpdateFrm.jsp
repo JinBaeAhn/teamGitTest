@@ -72,6 +72,13 @@
                             <th>지역</th>
                             <td>
                             	<input type="hidden" id="locationCode" value="<%=mc.getLocation()%>">
+                            	<%if(mc.getLocation().equals("seoul")) {%>	
+                            		<input type="hidden" id="locationName" value="서울">
+                            	<%} else if(mc.getLocation().equals("incheon")){%>
+                            		<input type="hidden" id="locationName" value="인천">
+                            	<%} else if(mc.getLocation().equals("Gyeonggi")){%>
+                            		<input type="hidden" id="locationName" value="경기">
+                            	<%} %>
                                 <select class="input-form" name="location" id="location">
                                 	<option value="no">지역선택</option>
                                     <option value="seoul">서울</option>
@@ -148,7 +155,7 @@
         </div> 
 	</div>
 	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script>
+<script>
 	    $( function() {
 	      $( "#datepicker" ).datepicker({
 	        changeMonth: true,
@@ -160,7 +167,7 @@
 	        maxDate: "+6M"
 	      });
 	    });
-	    
+	  
 	    $("#location").on("change", function(){
 	    	const location = $("#location option:selected").text();
 			const groundOption = $("#ground");
@@ -190,14 +197,16 @@
 				}
 			});
 		});
-	    
+	  
 	    //지역
 	    $(function(){
-	       const code = $("#locationCode").val();
+	       const code = $("#locationName").val();
 	       const options = $("[name=location]>option");
 	       const groundOption = $("#ground");
+	       const groundNoCode = $("#groundNoCode").val();
+	       let selectedOption;
 	       options.each(function(index,item){
-	          if($(item).val() == code){
+	          if($(item).text() == code){
 	             $(item).prop("selected",true);
 	             $.ajax({
 	 				url : "/searchGround.do",
@@ -206,14 +215,20 @@
 	 				dataType : "json",
 	 				success : function(data){
 	 					if(data.length > 0){
-	 						console.log(data.length);
 	 						for(let i=0; i<data.length; i++){
-	 							const option = $("<option value=''></option>");
-	 							option.val(data[i].groundNo);
-	 							option.append(data[i].groundName);
-	 							groundOption.append(option);
-	 						}	
-	 						
+	 							console.log(groundNoCode + ": no : " + data[i].groundNo)
+	 				            if(groundNoCode == data[i].groundNo) {
+		 							const option = $("<option value='' selected></option>");
+		 							option.val(data[i].groundNo);
+		 							option.append(data[i].groundName);
+		 							groundOption.append(option);
+	 				            } else {
+		 							const option = $("<option value=''></option>");
+		 							option.val(data[i].groundNo);
+		 							option.append(data[i].groundName);
+		 							groundOption.append(option);
+	 				            }
+	 						}		 						
 	 					}else{
 	 						const option = $("<option value=''></option>");
 	 						option.append("해당지역에 구장이 없습니다.");
@@ -223,12 +238,12 @@
 	 				error : function(){
 	 					console.log("서버 호출 실패");
 	 				}
-	 			}); 
+	 			});
 	          }
 	       });
 	    });
-	    
-	    
+	  
+	  
 	    //시간
 	     $(function(){
 	       const code = $("#gameTimeCode").val();
@@ -239,7 +254,7 @@
 	          }
 	       });
 	    });
-	    
+	  
 	    //레벨
 	    $(function(){
 		       const code = $("#levelCode").val();
@@ -250,7 +265,7 @@
 		          }
 		       });
 		    });
-	    
+	  
     </script>
 
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
