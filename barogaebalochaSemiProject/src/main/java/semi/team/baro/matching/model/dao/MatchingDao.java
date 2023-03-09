@@ -19,7 +19,7 @@ public class MatchingDao {
 		ResultSet rset = null;
 		ArrayList<Matching> list = new ArrayList<Matching>();
 		//String query = "select * from (select rownum as rnum, n.* from (select matching_no, b.matching_board_no, matching_board_title, read_count, b.matching_status, reg_date, b.reservation_no, ground_name, ground_location, reservation_date, reservation_time from matching_board b left join matching_request r on (b.matching_board_no = r.matching_board_no) left join reservation res on (b.ground_no = res.ground_no) left join ground_tbl g on(b.ground_no=g.ground_no))n) where rnum between ? and ? ";
-		String query = "select * from (select rownum as rnum, n.* from (select b.matching_board_no, matching_board_title, read_count, b.matching_status, reg_date, b.reservation_no, ground_name, ground_location, reservation_date, reservation_time from matching_board b left join reservation res on (b.reservation_no = res.reservation_no) left join ground_tbl g on(res.ground_no=g.ground_no)order by matching_board_no desc)n) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, n.* from (select b.matching_board_no, b.member_no, matching_board_title, read_count, b.matching_status, reg_date, b.reservation_no, ground_name, ground_location, reservation_date, reservation_time from matching_board b left join reservation res on (b.reservation_no = res.reservation_no) left join ground_tbl g on(res.ground_no=g.ground_no)order by matching_board_no desc)n) where rnum between ? and ? and ground_location is not null";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -30,6 +30,7 @@ public class MatchingDao {
 				Matching m  = new Matching();
 				//m.setMatchingNo(rset.getInt("matching_no"));
 				m.setMatchingBoardNo(rset.getInt("matching_board_no"));
+				m.setMemberNo(rset.getInt("member_no"));
 				m.setMatchingBoardTitle(rset.getString("matching_board_title"));
 				m.setReadCount(rset.getInt("read_count"));
 				m.setRegDate(rset.getString("reg_date"));
@@ -56,7 +57,7 @@ public class MatchingDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int totalCount = 0;
-		String query = "select count(*) as cnt from matching_board";
+		String query = "select count(*) as cnt from (select rownum as rnum, n.* from (select b.matching_board_no, matching_board_title, read_count, b.matching_status, reg_date, b.reservation_no, ground_name, ground_location, reservation_date, reservation_time from matching_board b left join reservation res on (b.reservation_no = res.reservation_no) left join ground_tbl g on(res.ground_no=g.ground_no)order by matching_board_no desc)n) where rnum between 1 and 10 and ground_location is not null";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -355,6 +356,36 @@ public class MatchingDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return result;
+	}
+
+	public int applyInsert2(Connection conn, int matchingBoardNo) {
+		PreparedStatement pstmt = null;
+		int result2 = 0;
+		String query="update matching_board set matching_status = 2 where matching_board_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, matchingBoardNo);
+			result2 = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result2;
+	}
+
+	public int applyCancel2(Connection conn, int matchingBoardNo) {
+		PreparedStatement pstmt = null;
+		int result2 = 0;
+		String query="update matching_board set matching_status = 1 where matching_board_no=?";
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, matchingBoardNo);
+			result2 = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result2;
 	}
 
 	

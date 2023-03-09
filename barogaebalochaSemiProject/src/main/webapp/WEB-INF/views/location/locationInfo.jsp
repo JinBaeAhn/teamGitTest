@@ -65,8 +65,12 @@
 	        </div>
 	        <div class="locationInfo-btn-wrap">
 	            <a href="/locationList.do?requestPage=1"><button>목록으로</button></a>
+
 	            <%if(m.getMemberLevel()==1) {%>
 	            <a href="/deleteLocation.do?groundNo=<%=l.getGroundNo() %>"><button class = "delete-btn" >구장삭제</button></a>
+				<%} %>
+	            <%if(m != null && m.getMemberLevel()==1) {%>
+	            <button class = "delete-btn" onclick="locationDelete(<%=l.getGroundNo()%>);" >구장삭제</button></a>
 	            <%} %>
 	        </div>
 	   </div>
@@ -75,8 +79,8 @@
 <script>
 	const groundLat = $("#groundLat").val(); //위도
 	const groundLng = $("#groundLng").val(); //경도
-	console.log(groundLat);
-	console.log(groundLng);
+	//console.log(groundLat);
+	//console.log(groundLng);
 	
 	const map = new naver.maps.Map("map",{
 		center : new naver.maps.LatLng(groundLat, groundLng),//지도의 중심지정
