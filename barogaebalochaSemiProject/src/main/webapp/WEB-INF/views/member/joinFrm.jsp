@@ -480,7 +480,7 @@
     	});
         $("#memberPw").on("keyup",function(){
             const pw = $(this).val();
-            const regExp = /^(?=.*[a-z])(?=.*\d)[a-z\d]{8,16}$/;
+            const regExp = /^(?=.*[a-z])(?=.*\d)[a-zA-Z\dㄱ-ㅎㅏ-ㅣ가-힣!@#$%^&*()_+={}\[\]:";'<>?,./\\|-]{8,16}$/;
             if(regExp.test(pw)){
                 $("#msg1").text("비밀번호가 적합합니다.");
                 $("#msg1").css("color","green");

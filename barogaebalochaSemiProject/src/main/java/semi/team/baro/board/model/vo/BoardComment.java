@@ -29,6 +29,15 @@ public class BoardComment {
 		this.boardCommentSelfReference = boardCommentSelfReference;
 	}
 
+	public BoardComment(int boardCommentNo, int boardCommentReference, int boardCommentWriter,
+			String boardCommentContent, int boardCommentSelfReference) {
+		super();
+		this.boardCommentNo = boardCommentNo;
+		this.boardCommentReference = boardCommentReference;
+		this.boardCommentWriter = boardCommentWriter;
+		this.boardCommentContent = boardCommentContent;
+		this.boardCommentSelfReference = boardCommentSelfReference;
+	}
 	public BoardComment(int boardCommentReference, int boardCommentWriter, String boardCommentContent,
 			int boardCommentSelfReference) {
 		super();
@@ -40,6 +49,13 @@ public class BoardComment {
 	public BoardComment(int boardCommentNo, String boardCommentContent) {
 		super();
 		this.boardCommentNo = boardCommentNo;
+		this.boardCommentContent = boardCommentContent;
+	}
+	
+	public BoardComment(int boardCommentReference, int boardCommentWriter, String boardCommentContent) {
+		super();
+		this.boardCommentReference = boardCommentReference;
+		this.boardCommentWriter = boardCommentWriter;
 		this.boardCommentContent = boardCommentContent;
 	}
 	public int getBoardCommentNo() {

@@ -21,8 +21,8 @@
 </style>
 <div class="page-content">
 	<form action="/freeBoardUpdate.do" method="post" enctype="multipart/form-data">
-			<input type="text" name="photoNo" value="<%=board.getPhotoNo()%>">
-			<input type="text" name="status" value="stay">
+			<input type="hidden" name="photoNo" value="<%=board.getPhotoNo()%>">
+			<input type="hidden" name="status" value="stay">
 			<table class="table" id="free-board">
 				<tr class="l1">
 					<th>Title</th>
