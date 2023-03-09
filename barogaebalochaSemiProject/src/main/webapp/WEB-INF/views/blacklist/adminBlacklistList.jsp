@@ -131,7 +131,7 @@
 			<input type="hidden" id="blackStatus" value="<%=b.getBlackStatus() %>">
 			<td><%=i+start %></td>
 			<td>
-				<a href="/blacklistView.do?blackNo=<%=b.getBlackNo() %>">
+				<a href="/blacklistVIew.do?blackNo=<%=b.getBlackNo() %>">
 					<%=b.getBlackTitle() %>
 				</a>
 			</td>
