@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34&submodules=geocoder"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tnds8i7hti&submodules=geocoder"></script>
 <title>Insert title here</title>
 <style>
 	.delete-btn{
