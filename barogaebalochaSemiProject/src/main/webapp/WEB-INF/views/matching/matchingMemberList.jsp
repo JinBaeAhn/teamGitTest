@@ -121,7 +121,7 @@
 	                    <div class="apply-cancel-wrap">
 	                    <div class="btn1 cancel-btn" style="background-color: #ff4040;"><a class="btn-cancel" style="color:#fff; font-family: ns-light; " disabled>수락취소</a></div>
 	                    <div class="btn1 need-login" style="background-color: #AACB73; color:#fff;" disabled>수락완료</div> 
-                <%}else{ %>
+                <%}else if(m.getMemberLevel() == 2){ %>
                 	<%if(mc.getMatchingRequestStatus() == 1 && flag != 2) {%>
 	                    <div class="btn1 okay-btn" style="background-color: #AACB73; margin-right: 8px;"><a class="btn-accept" style="color:#fff;" href="/applyInsert.do?memberNo=<%=mc.getMemberNo()%>&matchingBoardNo=<%=mc.getMatchingBoardNo()%>">신청수락</a></div>
 	                    <%}else if(mc.getMatchingRequestStatus() == 2) {%>
