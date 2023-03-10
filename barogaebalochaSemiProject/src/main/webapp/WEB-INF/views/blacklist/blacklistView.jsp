@@ -85,9 +85,9 @@
 						</div>
 					</td>
 				</tr>
-				<tr>
-					<td colspan="4"><a href="/historyBlacklist.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=blacklist" class="btn1 bc2">목록으로</a></td>
-				</tr>
+				<!--<tr>
+					<td colspan="4"><a href="/historyBlacklist.do?memberNo=<%=m.getMemberNo()%>&reqPage=1&categoryName=blacklist" class="btn1 bc2">목록으로</a></td>  
+				</tr>-->
 			</table>
 		</div>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>

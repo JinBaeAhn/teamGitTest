@@ -214,7 +214,13 @@
 				<td><span class="material-symbols-outlined" style="color:#AACB73">article</span></td>
 				<%} %>
 				<td><%=bl.getRegDate() %></td>
-				<td><%=bl.getBlackStatus() %></td>
+				<%if(bl.getBlackStatus() == 1){ %>
+				<td>처리중</td>
+				<%}else if(bl.getBlackStatus() == 2) {%>
+				<td>처리완료</td>
+				<%}else if(bl.getBlackStatus() == 3){ %>
+				<td>처리취소</td>
+				<%} %>
 				<td></td>
 			</tr>
 			<%} %>
