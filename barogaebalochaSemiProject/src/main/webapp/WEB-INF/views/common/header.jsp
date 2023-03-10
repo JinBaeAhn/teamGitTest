@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- 기본css -->
     <link rel="stylesheet" href="/css/default.css">
+    <link rel="stylesheet" href="/css/design.css">
     <link rel="stylesheet" href="/css/locationInfo.css">
     <link rel="stylesheet" href="/css/locationList.css">
     <link rel="stylesheet" href="/css/matchInfo.css">
