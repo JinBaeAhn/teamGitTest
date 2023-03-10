@@ -43,14 +43,15 @@
         text-align: center;
     } 
     #mercenaryView th, #mercenaryView td{
-        border: 1px solid #fcfcfc;
+        border: 1px solid #ccc;
         font-size: 13px;
         border-left: 1px solid #ccc;
         border-right: 1px solid #ccc;
     }
     #mercenaryView th{
-        background-color: #ccc;
-        color: #fcfcfc;
+        background-color: #AACB73;
+        opacity: 30%;
+        color: #000;
     }
     .mercenary-content{
     	text-align: left;
@@ -136,7 +137,7 @@
 		</div>
 		<div class="read-count">
 			<div><%=mc.getReadCount() %></div>	
-			<div class="material-symbols-outlined">spoof</div>  
+			<div class="material-symbols-outlined">visibility</div>  
 		</div>
 		<table class="tbl" id="mercenaryView">
 			<tr>

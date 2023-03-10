@@ -8,6 +8,7 @@ import common.JDBCTemplate;
 import semi.team.baro.blacklist.model.dao.BlacklistDao;
 import semi.team.baro.blacklist.model.vo.Blacklist;
 import semi.team.baro.blacklist.model.vo.BlacklistPageData;
+import semi.team.baro.board.model.vo.Board;
 
 public class BlacklistService {
 	private BlacklistDao dao;
@@ -141,5 +142,5 @@ public class BlacklistService {
 		Blacklist bla = dao.blacklistView(conn, blackNo);
 		JDBCTemplate.close(conn);
 		return bla;
-	}	
+	}
 }

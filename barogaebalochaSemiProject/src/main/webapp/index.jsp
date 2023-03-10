@@ -1,70 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-	.main-img{
-		margin-top: 50px;
-		margin-bottom: 30px;
-	}
-	.sub-img{
-		width: 1200px;
-		margin: 20px auto;
-		text-align: center;
-		margin-bottom: 20px;		
-	}
-	.sub-img>img{
-		width: 200px;
-		height: 130px;
-		margin-left: 20px;
-		margin-right: 20px;
-		border-radius: 5px;
-		transition-duration: 0.2s;
-		opacity: 85%;
-	}
-	.sub-img>img:hover{
-		transform: scale(1.02, 1.02);
-		opacity: 100%;
-	}
-</style>
-</head>
-<body>
-	<%@include file="/WEB-INF/views/common/header.jsp" %>
-	<div class="page-content">
-			<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval=3000>
-	  			<div class="carousel-inner main-img">
-	    			<div class="carousel-item active">
-	      				<img src="/img/mainPageImage.jfif" class="d-block w-100" alt="...">
-	    			</div>
-	    			<div class="carousel-item">
-	      				<img src="/img/mainPageImage1.jfif" class="d-block w-100" alt="...">
-	    			</div>
-	    			<div class="carousel-item">
-	      				<img src="/img/mainPageImage2.jfif" class="d-block w-100" alt="...">
-	    			</div>
-	  			</div>
-	  			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-	    		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	    		<span class="visually-hidden">Previous</span>
-	  			</button>
-	  			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-	    		<span class="carousel-control-next-icon" aria-hidden="true"></span>
-	    		<span class="visually-hidden">Next</span>
-	  			</button>
-			</div>
-			<div class="sub-img">
-				<img src="/img/subImage1.png">
-				<img src="/img/subImage2.png">
-				<img src="/img/subImage3.png">
-				<img src="/img/subImage4.jpg">
-			</div>
-		<div class="content-list">		
-		</div>
-	</div>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	<%@include file="/WEB-INF/views/common/footer.jsp" %>
-</body>
-</html>
+<%@include file="/WEB-INF/views/common/header.jsp" %>
+<!-- Slick 불러오기 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+<div class="page-content">
+    <div class="main-silde-img">
+        <div id="slider-div">
+		<div class="main-silde-img"><div class="img1"></div></div>
+        <div class="main-silde-img"><div class="img2"></div></div>
+	  	</div>
+    </div>
+
+    <div class="img-link-box">
+        <div class="link-div1"><a href="/matchingList.do?requestPage=1"></a></div>
+        <div class="link-div2"><a href="/locationList.do?requestPage=1"></a></div>
+    </div>
+
+
+</div>
+<script>
+$(function(){
+  $('#slider-div').slick({
+      slide: 'div',        //슬라이드 되어야 할 태그 ex) div, li 
+      infinite : true,     //무한 반복 옵션     
+      slidesToShow : 1,        // 한 화면에 보여질 컨텐츠 개수
+      slidesToScroll : 1,        //스크롤 한번에 움직일 컨텐츠 개수
+      speed : 100,     // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+      arrows : true,         // 옆으로 이동하는 화살표 표시 여부
+      dots : true,         // 스크롤바 아래 점으로 페이지네이션 여부
+      autoplay : true,            // 자동 스크롤 사용 여부
+      autoplaySpeed : 3000,         // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
+      pauseOnHover : true,        // 슬라이드 이동    시 마우스 호버하면 슬라이더 멈추게 설정
+      vertical : false,        // 세로 방향 슬라이드 옵션
+      prevArrow : "<button type='button' class='slick-prev'>Previous</button>",        // 이전 화살표 모양 설정
+      nextArrow : "<button type='button' class='slick-next'>Next</button>",        // 다음 화살표 모양 설정
+      dotsClass : "slick-dots",     //아래 나오는 페이지네이션(점) css class 지정
+      draggable : true,     //드래그 가능 여부 
+      
+      responsive: [ // 반응형 웹 구현 옵션
+          {  
+              breakpoint: 960, //화면 사이즈 960px
+              settings: {
+                  //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                  slidesToShow:3
+              } 
+          },
+          { 
+              breakpoint: 768, //화면 사이즈 768px
+              settings: {    
+                  //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                  slidesToShow:2 
+              } 
+          }
+      ]
+
+  });
+})
+    </script>
+<%@include file="/WEB-INF/views/common/footer.jsp" %>

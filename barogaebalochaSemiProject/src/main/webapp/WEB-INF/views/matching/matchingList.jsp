@@ -106,10 +106,16 @@
                 		<%if(mc.getMatchingStatus() == 1){%>
 	                    <div class="btn1" style="background-color: #AACB73;"><a style="color:#fff;" href="/matchingView.do?reservationNo=<%=mc.getReservationNo() %>&memberNo=<%=m.getMemberNo() %>&matchingBoardNo=<%=mc.getMatchingBoardNo()%>">상세보기</a></div>
 	                    <%}else if(mc.getMatchingStatus() == 2){ %>
-	                    	<%if(mc.getMemberNo() == m.getMemberNo()) {%>
+	                    	<%if(mc.getMemberNo() == m.getMemberNo() || m.getMemberLevel() == 1) {%>
 	                    		<div class="btn1" style="background-color: #AACB73;"><a style="color:#fff;" href="/matchingView.do?reservationNo=<%=mc.getReservationNo() %>&memberNo=<%=m.getMemberNo() %>&matchingBoardNo=<%=mc.getMatchingBoardNo()%>">상세보기</a></div>
 	                    	<%}else{ %>
 	                    		<div class="btn1" style="background-color: #ccc; color:#fff" >신청마감</div> 
+	                    	<%} %>
+	                    <%}else if(mc.getMatchingStatus() == 3){ %>
+	                    	<%if(m.getMemberLevel() == 1){ %>
+	                    		<div class="btn1" style="background-color: #AACB73;"><a style="color:#fff;" href="/matchingView.do?reservationNo=<%=mc.getReservationNo() %>&memberNo=<%=m.getMemberNo() %>&matchingBoardNo=<%=mc.getMatchingBoardNo()%>">상세보기</a></div>
+	                    	<%}else{ %>
+	                    		<div class="btn1" style="background-color: #ff4040; color:#fff" >취소매치</div>
 	                    	<%} %>
 	                    <%} %> 
                 	<%}else{%>

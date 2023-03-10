@@ -76,7 +76,7 @@ public class MatchingDao {
 		return totalCount;
 	}
 
-	public int matchingListInsert(Connection conn, int reservationNo, int groundNo, Matching mc) {
+	public int matchingListInsert(Connection conn, int reservationNo, Matching mc) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String query ="insert into matching_board values(matching_board_seq.nextval,?,?,?,to_char(sysdate,'yyyy-mm-dd/hh24:mi:ss'),0,1,?,?)";
@@ -86,7 +86,7 @@ public class MatchingDao {
 			pstmt.setInt(1, mc.getMemberNo());
 			pstmt.setString(2, mc.getMatchingBoardTitle());
 			pstmt.setString(3, mc.getMatchingBoardContent());
-			pstmt.setInt(4,groundNo);
+			pstmt.setInt(4,mc.getGroundNo());
 			pstmt.setInt(5, reservationNo);
 			System.out.println("test reservationNo" + reservationNo);
 			result = pstmt.executeUpdate();
@@ -98,7 +98,7 @@ public class MatchingDao {
 		}
 		return result;
 	}
-	public int reservationInsert(Connection conn, int groundNo, Matching mc) {
+	public int reservationInsert(Connection conn, Matching mc) {
 		PreparedStatement pstmt = null;
 		int result = 0 ;
 		String query = "insert into reservation values(reservation_seq.nextval,?,?,?,?,0)";
@@ -106,7 +106,7 @@ public class MatchingDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, mc.getMemberNo());
-			pstmt.setInt(2, groundNo);
+			pstmt.setInt(2, mc.getGroundNo());
 			pstmt.setInt(3, mc.getReservationTime());
 			pstmt.setString(4, mc.getReservationDate());
 			result = pstmt.executeUpdate();
@@ -119,19 +119,20 @@ public class MatchingDao {
 		return result;
 	}
 
-	public int groundSearch(Connection conn, Matching mc) {
+	public Matching groundSearch(Connection conn, Matching mc) {
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
 		int groundNo = 0;
 		//System.out.println(mc.getGroundName()+"구장이름");
-		String query = "select ground_no from ground_tbl where ground_name like ?";
+		String query = "select ground_no,ground_price from ground_tbl where ground_name like ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, mc.getGroundName());
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-			groundNo = rset.getInt("ground_no");
+				mc.setGroundNo(rset.getInt("ground_no"));
+				mc.setGroundPrice(rset.getInt("ground_price"));
 			};
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -140,10 +141,10 @@ public class MatchingDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
-		return groundNo;
+		return mc;
 	}
 
-	public int getReservationNo(Connection conn, int groundNo, Matching mc) {
+	public int getReservationNo(Connection conn, Matching mc) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int reservationNo = 0;
@@ -152,7 +153,7 @@ public class MatchingDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, mc.getMemberNo());
-			pstmt.setInt(2, groundNo);
+			pstmt.setInt(2, mc.getGroundNo());
 			pstmt.setInt(3, mc.getReservationTime());
 			pstmt.setString(4, mc.getReservationDate());
 			rset = pstmt.executeQuery();
@@ -369,6 +370,8 @@ public class MatchingDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
 		}
 		return result2;
 	}
@@ -384,10 +387,64 @@ public class MatchingDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
 		}
 		return result2;
 	}
 
-	
-	
+	public int payCredit(Connection conn, Matching mc) {
+		PreparedStatement pstmt = null;
+		int payResult = 0;
+		String query="update member_tbl set member_credit=member_credit-? where member_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mc.getGroundPrice());
+			pstmt.setInt(2, mc.getMemberNo());
+			payResult = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return payResult;
+	}
+
+	public int MatchingCancel(Connection conn, int memberNo, int sum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query="update member_tbl set member_credit=? where member_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, sum);
+			pstmt.setInt(2, memberNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		System.out.println("멤버 돈 환불"+result);
+		return result;
+	}
+
+	public int MatchingCancelStatus(Connection conn, int matchingBoardNo) {
+		PreparedStatement pstmt = null;
+		int statusResult = 0;
+		String query = "update matching_board set matching_status=3 where matching_board_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, matchingBoardNo);
+			statusResult = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		System.out.println("매칭보드 상태변경"+statusResult);
+		return statusResult;
+	}
 }

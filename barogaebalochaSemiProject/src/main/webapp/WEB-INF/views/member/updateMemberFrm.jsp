@@ -90,11 +90,11 @@
                 <form action="/updateMember.do" method="post" enctype="multipart/form-data">
                     <div class="input-wrap img-input">
                         <label for="imgFile">
+							<input type="hidden" name="status" value="stay">
                             <%if(m.getFilepath() != null){ %>
 							<img src="/upload/photo/<%=m.getFilepath() %>" id="img-view">
 							<button type="button" class="btn bc1 delFile delbtn" id="delbtn">삭제</button>
 	    					<input type="hidden" name="oldFilepath" value="<%=m.getFilepath()%>">
-							<input type="hidden" name="status" value="stay">
 							<%}else{ %>
                             <img src="img/profile.png" id="img-view">
 							<%} %>

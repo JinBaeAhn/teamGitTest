@@ -220,7 +220,8 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input type="submit" class="btn1 bc1" value="작성">
+                            	<a class="btn1 bc1" id="McInsertBtn">작성</a>
+                                <button type="submit" class="btn1 bc1" style="display: none">작성하기</button>
                                 <a href="/matchingList.do?reqPage=1" class="btn1 bc1">취소</a>
                             </td>
                         </tr>
@@ -250,6 +251,18 @@
 	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
    		let locationVal;
+   		let needCredit;
+   		let myCredit = <%=m.getMemberCredit()%>
+   		$("#McInsertBtn").on("click", function() {
+   			if(myCredit >= needCredit){
+   				if(confirm("게시글 작성시 크래딧이 차감됩니다")) {
+   					$("[type=submit]").click();
+   				}
+   	   		}else {
+   	   			alert("게시글 작성에 필요한 크레딧이 부족합니다 ");
+   	   		}
+   		})
+   		
 	    $( function() {
 	      $( "#datepicker" ).datepicker({
 	        changeMonth: true,
@@ -290,7 +303,7 @@
 	    					option.val(data[i].groundName+"<<2시간 "+data[i].groundPrice+"원>>");
 	    					option.append(data[i].groundName+"<<2시간 "+data[i].groundPrice+"원>>");
 	    					result.append(option);
-	    					//console.log(data[i].groundName);
+	    					//console.log(data[i].groundPrice);
 	    				}
 	    			}
 	    		}
@@ -302,7 +315,7 @@
 	    $(".modal-btn-frm>input:first-child").on("click",function(){
 	    	//console.log($(this).parent().prev().val());
 	    	const choice = $(this).parent().prev().val();
-	    	console.log(choice);
+	    	//console.log(choice);
 	    	if(choice == ""){
 	    		var input = $(".input-form[name=groundName]");
 	    		input.val("");
@@ -316,13 +329,16 @@
 		    	$(".modal-wrap").css("display","none");
 		    	
 		    	const pattern2 = /[^<<]+/;
-
+				
 		    	const match = str.match(pattern2);
 		    	if (match) {
 		    	 const groundName = match[0].trim();
 	    		$(".input-form[name=groundName]").val(groundName);
 		    	}
 	    	}
+	    	const creditSelect = /\d+0/;
+	    	const value = $(this).parent().prev().val();
+			needCredit = value.match(creditSelect);
 	    });
 	    $(".input-form[name=matchingBoardTitle]").on("click",function(){
 	    	$(this).val("");

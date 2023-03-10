@@ -97,13 +97,17 @@ public class MatchingService {
 
 	public int matchingListInsert(Matching mc) {
 		Connection conn = JDBCTemplate.getConnection();
-		int groundNo = dao.groundSearch(conn,mc);
+		mc = dao.groundSearch(conn,mc);
 		//System.out.println("groundNo test"+groundNo);
-		int result = dao.reservationInsert(conn, groundNo, mc);
+		int result = dao.reservationInsert(conn, mc);
 		if(result>0) {
-			int reservationNo = dao.getReservationNo(conn, groundNo, mc);
-			result = dao.matchingListInsert(conn, reservationNo, groundNo, mc);
-			if(result>0) {
+			int reservationNo = dao.getReservationNo(conn, mc);
+			result = dao.matchingListInsert(conn, reservationNo, mc);
+			int payResult = dao.payCredit(conn, mc);
+			System.out.println(payResult);
+			System.out.println(mc.getGroundPrice());
+			System.out.println(mc.getMemberNo());
+			if(result>0 && payResult > 0) {
 				JDBCTemplate.commit(conn);
 			} else {
 				JDBCTemplate.rollback(conn);
@@ -246,5 +250,22 @@ public class MatchingService {
 		}
 		JDBCTemplate.close(conn);
 		return result;
+	}
+
+	public int MatchingCancel(int memberNo, int sum, int matchingBoardNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int statusResult = dao.MatchingCancelStatus(conn, matchingBoardNo);
+		if(statusResult>0) {
+			int result = dao.MatchingCancel(conn, memberNo, sum);
+				if(result>0) {
+					JDBCTemplate.commit(conn);
+				}else {
+					JDBCTemplate.rollback(conn);
+				}
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return statusResult;
 	}
 }

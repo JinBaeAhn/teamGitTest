@@ -306,7 +306,7 @@
 		const memberCredit = $("#memberCredit").val();
 		
 		const date = d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate()+""+d.getHours()+""+d.getMinutes()+""+d.getSeconds();
-		console.log(price);
+		
 		IMP.init("imp35435215");
 		IMP.request_pay({
 			pg : "html5_inicis",
