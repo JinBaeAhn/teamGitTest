@@ -251,4 +251,21 @@ public class MatchingService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+
+	public int MatchingCancel(int memberNo, int sum, int matchingBoardNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int statusResult = dao.MatchingCancelStatus(conn, matchingBoardNo);
+		if(statusResult>0) {
+			int result = dao.MatchingCancel(conn, memberNo, sum);
+				if(result>0) {
+					JDBCTemplate.commit(conn);
+				}else {
+					JDBCTemplate.rollback(conn);
+				}
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return statusResult;
+	}
 }
