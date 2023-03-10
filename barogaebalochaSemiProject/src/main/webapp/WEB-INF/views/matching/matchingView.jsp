@@ -192,8 +192,6 @@
                             <td>
                                 <div class="input-form playTime">
                                  <p><%=mc.getGroundPrice() %></p>
-                                 <p class="test"><%=mc.getMemberNo() %></p>
-                                  <p class="test2"><%=m.getMemberNo() %></p>
                                  </div>
                             </td>
                         </tr>
@@ -204,7 +202,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                            	<%if(mc.getMemberNo() != m.getMemberNo() && memberCheck == 0) {%>
+                            	<%if(mc.getMemberNo() != m.getMemberNo() && memberCheck == 0 && m.getMemberLevel() != 1) {%>
                             	<a href="matchingMemberListInsert.do?matchingBoardNo=<%=mc.getMatchingBoardNo() %>&memberNo=<%=m.getMemberNo() %>&reservationNo=<%=mc.getReservationNo() %>">
                             	<input type="submit" class="btn1 bc1 apply-btn apply-complete" value="신청하기">
                             	</a>
@@ -212,12 +210,20 @@
                             	<a href="#">
                             	<input type="submit" class="btn1 bc1 apply-complete" onclick="alert('이미 신청한 매치입니다')" value="신청완료">
                             	</a>
+                            	<%}else if(m.getMemberLevel() == 1) {%>
+                            		<a href="matchingMemberList.do?matchingBoardNo=<%=mc.getMatchingBoardNo()%>&requestPage=1">
+                            		<input type="submit" class="btn1 bc1 apply-btn" value="신청현황">
+                            		</a>
                             	<%}else{ %>
                             	<a href="matchingMemberList.do?matchingBoardNo=<%=mc.getMatchingBoardNo()%>&requestPage=1">
                             	<input type="submit" class="btn1 bc1 apply-btn" value="신청현황">
                             	</a>
+                            	<a id="cancelMatch" href="matchingCancel.do?reservationNo=<%=mc.getReservationNo() %>&matchingBoardNo=<%=mc.getMatchingBoardNo() %>&memberNo=<%=m.getMemberNo()%>&groundPrice=<%=mc.getGroundPrice() %>&memberCredit=<%=m.getMemberCredit()%>">
+                            	<input type="submit" class="btn1 bc1 apply-btn" value="매치취소">
+                            	</a>
                             	<%} %>
                                 <a href="/matchingList.do?requestPage=1" class="btn1 bc1">목록으로</a>
+                               
                             </td>
                         </tr>
                     </table>          
@@ -231,7 +237,15 @@
       
 	</div>
 	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    
+    <script>
+    $('#cancelMatch').click(function(event) {
+        event.preventDefault(); // 링크 클릭 시, 페이지 이동을 막음
+        const confirmDelete = confirm('매치를 취소하시면 다시 조회할 수 없습니다 정말로 매치를 취소하시겠습니까?'); // 한번 더 확인창을 띄움
+        if (confirmDelete) {
+          window.location.href = $(this).attr('href'); // 확인 시, 탈퇴 페이지로 이동
+        }
+      });
+    </script>
 	
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

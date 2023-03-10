@@ -370,6 +370,8 @@ public class MatchingDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
 		}
 		return result2;
 	}
@@ -385,6 +387,8 @@ public class MatchingDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
 		}
 		return result2;
 	}
@@ -401,7 +405,46 @@ public class MatchingDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
 		}
 		return payResult;
+	}
+
+	public int MatchingCancel(Connection conn, int memberNo, int sum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query="update member_tbl set member_credit=? where member_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, sum);
+			pstmt.setInt(2, memberNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		System.out.println("멤버 돈 환불"+result);
+		return result;
+	}
+
+	public int MatchingCancelStatus(Connection conn, int matchingBoardNo) {
+		PreparedStatement pstmt = null;
+		int statusResult = 0;
+		String query = "update matching_board set matching_status=3 where matching_board_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, matchingBoardNo);
+			statusResult = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		System.out.println("매칭보드 상태변경"+statusResult);
+		return statusResult;
 	}
 }
