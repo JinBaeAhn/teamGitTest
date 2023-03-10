@@ -15,6 +15,7 @@
     	margin: 0 auto;
 	    border-spacing: 0px;
 	    border-collapse: collapse;
+	 	
     }
     .tbl th,.tbl td {
         padding: 10px;
@@ -26,11 +27,13 @@
     }
     #blacklistView th{
         background-color: #ccc;
-        color: #fcfcfc;
+        color: #000;
+        opacity: 40%;
     }
     .black-content{
     	text-align: left;
-    	height: 400px;
+    	height: 800px;
+    	overflow: scroll;
     	padding: 20px;
     }
     .btn1{
@@ -58,7 +61,13 @@
 					<th>신고대상</th>
 					<td><%=bla.getBlackMember() %>
 					<th>처리상태</th>
-					<td><%=bla.getBlackStatus() %></td>
+					<%if(bla.getBlackStatus() == 1) {%>
+						<td>처리중</td>
+					<%}else if(bla.getBlackStatus() == 2) {%>
+						<td>처리완료</td>
+					<%}else if(bla.getBlackStatus() == 3) {%>
+						<td>처리취소</td>
+					<%} %>
 				</tr>
 				<tr>
 					<th>제목</th>

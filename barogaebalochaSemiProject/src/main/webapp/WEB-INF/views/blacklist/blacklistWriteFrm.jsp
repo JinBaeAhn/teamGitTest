@@ -81,7 +81,7 @@
 		</div>
 		<script type="text/javascript">
 		$("#blackContent").summernote({
-			height : 400,
+			height : 500,
 			lang : "ko-KR",
 			callbacks : {
 				onImageUpload : function(files) {
@@ -89,6 +89,26 @@
 				}
 			}
 		});
+		function uploadImage(file, editor) {
+			//ajax를 통해서 서버에 이미지를 업로드
+			//업로드 된 이미지의 경로를 받아오는 역할
+			//받아온 이후 -> editor에 이미지 경로를 전달해서 화면에 표현
+		
+			//form태그 역할
+			const form = new FormData();
+			form.append("file", file);
+			$.ajax({
+				url : "/uploadImage.do",
+				type : "POST",
+				data : form,
+				processData : false, // processData : false     데이터가 문자열로 전송하는게 ajax 기본값, 기본값을 제거하는 속성
+				contentType : false, // contentType : false     파일 전송을 위해 enctype 기본값을 제거하는 속성
+				success : function(data) {
+					console.log(data);
+					$(editor).summernote("insertImage",data);
+				}
+			});
+		}
 		</script>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
