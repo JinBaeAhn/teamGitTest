@@ -15,7 +15,7 @@ public class LocationDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Location> list = new ArrayList<Location>();
-		String query = "SELECT*FROM (SELECT ROWNUM AS RNUM, N. * FROM(SELECT GROUND_NO, GROUND_NAME, GROUND_PRICE, GROUND_LAT, GROUND_LNG, GROUND_CONTENT, FILE_PATH FROM GROUND_TBL ORDER BY 1 DESC)N)WHERE RNUM BETWEEN ? AND ?";
+		String query = "SELECT*FROM (SELECT ROWNUM AS RNUM, N. * FROM(SELECT * FROM GROUND_TBL left join amenity using(ground_no) where parking is not null ORDER BY 1 DESC)N)WHERE RNUM BETWEEN ? AND ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -31,6 +31,14 @@ public class LocationDao {
 				l.setGroundLng(rset.getString("ground_lng"));
 				l.setGroundContent(rset.getString("ground_content"));
 				l.setFilePath(rset.getString("file_path"));
+				
+				l.setGroundNo(rset.getInt("ground_no"));
+				l.setParking(rset.getInt("parking"));
+				l.setShower(rset.getInt("shower"));
+				l.setBall(rset.getInt("ball"));
+				l.setUniform(rset.getInt("uniform"));
+				l.setShoes(rset.getInt("shoes"));
+				l.setWater(rset.getInt("water"));
 				list.add(l);
 			}
 		} catch (SQLException e) {
@@ -47,7 +55,7 @@ public class LocationDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int totalCount = 0;
-		String query = "select count(*) as cnt from ground_tbl";
+		String query = "select count(*) as cnt from ground_tbl left join amenity using(ground_no) where parking is not null";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
