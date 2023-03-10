@@ -151,7 +151,7 @@
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
 	<div class="page-content">
 		<div class="page-title">
-            <h2>매칭폼 작성</h2>
+            <h2>매칭폼</h2>
             <div class="matchinglistWriteFrm-input-wrap">
                 
                     <table class="tbl" id="matchinglistWriteFrm">
