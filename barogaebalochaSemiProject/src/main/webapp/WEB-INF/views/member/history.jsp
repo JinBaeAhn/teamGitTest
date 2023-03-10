@@ -88,6 +88,8 @@
 					<td>매칭중</td>
 					<%}else if(mch.getMatchingStatus() == 2) {%>
 					<td>매칭완료</td>
+					<%}else{ %>
+					<td>취소매치</td>
 					<%} %>
 				</tr>
 			<%} %>
