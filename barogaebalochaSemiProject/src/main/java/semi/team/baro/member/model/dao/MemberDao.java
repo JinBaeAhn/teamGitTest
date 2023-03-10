@@ -91,7 +91,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
-		String query = "insert into member_tbl values(member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, 2, to_char(sysdate,'yyyy-mm-dd'), ?, 0)";
+		String query = "insert into member_tbl values(member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, 2, to_char(sysdate,'yyyy-mm-dd'), ?, 20000)";
 
 		try {
 			pstmt = conn.prepareStatement(query);
