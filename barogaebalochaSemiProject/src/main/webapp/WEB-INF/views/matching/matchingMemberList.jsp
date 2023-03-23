@@ -116,11 +116,12 @@
                 </div>
                 <div class="matchingList-result">
                 <%if(m.getMemberLevel() == 1) {%>
+                	<%if(mc.getMatchingRequestStatus() == 1 && flag != 2) {%>
                 	<div class="btn1 okay-btn" style="background-color: #AACB73; margin-right: 8px;"><a class="btn-accept" style="color:#fff;" disabled>신청수락</a></div>
 	                    <%}else if(mc.getMatchingRequestStatus() == 2) {%>
 	                    <div class="apply-cancel-wrap">
 	                    <div class="btn1 cancel-btn" style="background-color: #ff4040;"><a class="btn-cancel" style="color:#fff; font-family: ns-light; " disabled>수락취소</a></div>
-	                    <div class="btn1 need-login" style="background-color: #AACB73; color:#fff;" disabled>수락완료</div> 
+	                    <div class="btn1 need-login" style="background-color: #AACB73; color:#fff;" disabled>수락완료</div> <%} %>
                 <%}else if(m.getMemberLevel() == 2){ %>
                 	<%if(mc.getMatchingRequestStatus() == 1 && flag != 2) {%>
 	                    <div class="btn1 okay-btn" style="background-color: #AACB73; margin-right: 8px;"><a class="btn-accept" style="color:#fff;" href="/applyInsert.do?memberNo=<%=mc.getMemberNo()%>&matchingBoardNo=<%=mc.getMatchingBoardNo()%>">신청수락</a></div>
@@ -134,7 +135,7 @@
                 </div>
             </div>	
           <!--  </a> -->	
-        <%} %>                     
+        <%} %>   <!-- for문 끝 -->                  
         </div>
         <%if(m != null) {%>
         	<div class="button"><a href="/matchingList.do?requestPage=1" class="btn1 bc2 bs2 frm-btn">목록으로</a></div>
