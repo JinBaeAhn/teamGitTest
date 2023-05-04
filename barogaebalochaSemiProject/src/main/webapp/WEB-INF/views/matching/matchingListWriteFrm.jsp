@@ -222,7 +222,7 @@
                             <td colspan="2">
                             	<a class="btn1 bc1" id="McInsertBtn">작성</a>
                                 <button type="submit" class="btn1 bc1" style="display: none">작성하기</button>
-                                <a href="/matchingList.do?reqPage=1" class="btn1 bc1">취소</a>
+                                <a href="/matchingList.do?requestPage=1" class="btn1 bc1">취소</a>
                             </td>
                         </tr>
                     </table>          
